@@ -1,0 +1,46 @@
+PODS:
+  - AFNetworking (4.0.1):
+    - AFNetworking/NSURLSession (= 4.0.1)
+    - AFNetworking/Reachability (= 4.0.1)
+    - AFNetworking/Security (= 4.0.1)
+    - AFNetworking/Serialization (= 4.0.1)
+    - AFNetworking/UIKit (= 4.0.1)
+  - AFNetworking/NSURLSession (4.0.1):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (4.0.1)
+  - AFNetworking/Security (4.0.1)
+  - AFNetworking/Serialization (4.0.1)
+  - AFNetworking/UIKit (4.0.1):
+    - AFNetworking/NSURLSession
+  - Masonry (1.1.0)
+  - MJRefresh (3.4.3)
+  - SocketRocket (0.5.1)
+  - Toast (4.0.0)
+
+DEPENDENCIES:
+  - AFNetworking
+  - Masonry
+  - MJRefresh
+  - SocketRocket
+  - Toast
+
+SPEC REPOS:
+  trunk:
+    - AFNetworking
+    - Masonry
+    - MJRefresh
+    - SocketRocket
+    - Toast
+
+SPEC CHECKSUMS:
+  AFNetworking: 7864c38297c79aaca1500c33288e429c3451fdce
+  Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
+  MJRefresh: 53e3e3219f204425ee6d3e62e8733d3295944cd6
+  SocketRocket: d57c7159b83c3c6655745cd15302aa24b6bae531
+  Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
+
+PODFILE CHECKSUM: 766eed25e6bc8d60c30ba7722d0210e766a91cb8
+
+COCOAPODS: 1.9.3
