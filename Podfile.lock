@@ -16,6 +16,9 @@ PODS:
     - AFNetworking/NSURLSession
   - Masonry (1.1.0)
   - MJRefresh (3.4.3)
+  - SDWebImage (5.8.2):
+    - SDWebImage/Core (= 5.8.2)
+  - SDWebImage/Core (5.8.2)
   - SocketRocket (0.5.1)
   - Toast (4.0.0)
 
@@ -23,6 +26,7 @@ DEPENDENCIES:
   - AFNetworking
   - Masonry
   - MJRefresh
+  - SDWebImage
   - SocketRocket
   - Toast
 
@@ -31,6 +35,7 @@ SPEC REPOS:
     - AFNetworking
     - Masonry
     - MJRefresh
+    - SDWebImage
     - SocketRocket
     - Toast
 
@@ -38,9 +43,10 @@ SPEC CHECKSUMS:
   AFNetworking: 7864c38297c79aaca1500c33288e429c3451fdce
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MJRefresh: 53e3e3219f204425ee6d3e62e8733d3295944cd6
+  SDWebImage: f923a89d7344af399ba77b87a523ae747408207a
   SocketRocket: d57c7159b83c3c6655745cd15302aa24b6bae531
   Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
 
-PODFILE CHECKSUM: 766eed25e6bc8d60c30ba7722d0210e766a91cb8
+PODFILE CHECKSUM: 1558d60952fbef07efd7d34959f62904c8730586
 
 COCOAPODS: 1.9.3

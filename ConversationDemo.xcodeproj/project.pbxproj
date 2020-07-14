@@ -297,8 +297,8 @@
 				1A64DADA24BD9DEA009AFB82 /* PhotoAlbumGroup */,
 				1A64DAD424BD9CA2009AFB82 /* GlobalTools.h */,
 				1A64DAD524BD9CA2009AFB82 /* GlobalTools.m */,
-				1A64DACE24BD94BD009AFB82 /* WebSocketClient.m */,
 				1A64DACF24BD94BD009AFB82 /* WebSocketClient.h */,
+				1A64DACE24BD94BD009AFB82 /* WebSocketClient.m */,
 			);
 			path = Tools;
 			sourceTree = "<group>";

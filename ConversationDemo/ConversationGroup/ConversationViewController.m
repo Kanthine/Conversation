@@ -18,6 +18,8 @@
 #import "WebSocketClient.h"
 #import "UIBarButtonItem+LeftBarItem.h"
 #import "GlobalTools.h"
+#import "UserManager.h"
+
 
 @interface ConversationViewController ()
 <UITableViewDelegate,UITableViewDataSource>
@@ -226,7 +228,7 @@
 
 - (WebSocketClient *)socketClient{
     if (_socketClient == nil) {
-        NSString *url = [NSString stringWithFormat:@"http://route.51mypc.cn/chat/chat.html"];
+        NSString *url = [NSString stringWithFormat:@"%@%@",kChatAddress,UserManager.shareUser.nickName];
         _socketClient = [[WebSocketClient alloc] init];
         [_socketClient openSocketWithURL:url heartBeat:@{}];
         __weak typeof(self) weakSelf = self;

@@ -7,7 +7,7 @@
 //
 
 #import "ConversationTableSeatsCell.h"
-//#import <UIImageView+WebCache.h>
+#import <UIImageView+WebCache.h>
 #import <Masonry.h>
 
 

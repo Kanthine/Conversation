@@ -11,8 +11,8 @@ static int const kHeartBeatInterval = 5;
 #import "WebSocketClient.h"
 #import <SocketRocket.h>
 #import <AFNetworkReachabilityManager.h>
-
-NSString *const kChatAddress = @"http://route.51mypc.cn/chat/chat.html";//心跳频率
+#import "UserManager.h"
+NSString *const kChatAddress = @"ws://route.51mypc.cn/wss/im/";//心跳频率
 
 @interface WebSocketClient ()
 <SRWebSocketDelegate>
@@ -35,7 +35,7 @@ NSString *const kChatAddress = @"http://route.51mypc.cn/chat/chat.html";//心跳
     self = [super init];
     if (self) {
         _reconnectionCount = 0;
-        _networkManager = [AFNetworkReachabilityManager managerForDomain:kChatAddress];
+        _networkManager = [AFNetworkReachabilityManager managerForDomain:[NSString stringWithFormat:@"%@%@",kChatAddress,UserManager.shareUser.nickName]];
         [_networkManager startMonitoring];
     }
     return self;

@@ -7,7 +7,7 @@
 //
 
 #import "ConversationTableTextCell.h"
-//#import <UIImageView+WebCache.h>
+#import <UIImageView+WebCache.h>
 #import <Masonry.h>
 #import "ConversationContentLabel.h"
 #import "ConversationContentParserTool.h"
