@@ -10,6 +10,8 @@
 #import "ViewController.h"
 #import "ConversationViewController.h"
 #import "UserManager.h"
+#import "LoginViewController.h"
+#import "UINavigationController+TransitionAnimation.h"
 
 @interface AppDelegate ()
 
@@ -25,8 +27,12 @@
         ConversationViewController *vc = [[[ConversationViewController alloc]init]initWithID:UserManager.shareUser.nickName];
         self.window.rootViewController = [[UINavigationController alloc]initWithRootViewController:vc];
     }else{
-        ViewController *vc = [[ViewController alloc]init];
-        self.window.rootViewController = [[UINavigationController alloc]initWithRootViewController:vc];
+        LoginViewController *loginVC = [[LoginViewController alloc]init];
+        UINavigationController *loginNav = [[UINavigationController alloc] initWithRootViewController:loginVC];
+        loginNav.delegate = loginNav;
+        loginNav.transitionType = TransitionAnimationTypeFlip;
+        loginNav.navigationBarHidden = YES;
+        self.window.rootViewController = loginNav;
     }
     
     return YES;

@@ -18,6 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic ,copy) NSString *urlString;
 @property (nonatomic ,copy) void(^receivedMessage)(NSDictionary *dict);
 - (void)openSocketWithURL:(NSString *)urlString heartBeat:(NSDictionary *)dict;
+
+- (void)sendString:(NSString *)string;
 - (void)sendData:(NSDictionary *)dict;
 - (void)closeSocket;
 

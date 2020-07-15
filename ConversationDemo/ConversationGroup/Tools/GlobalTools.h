@@ -30,3 +30,38 @@ FOUNDATION_EXPORT NSString *transformTimeToMMSS(NSTimeInterval duration);
 FOUNDATION_EXPORT NSString *transformTimeToHHMMSS(NSTimeInterval duration);
 
 
+
+
+#pragma mark - 正则验证
+
+// 新版手机号
+FOUNDATION_EXPORT BOOL isMobileNumber(NSString *mobileNum);
+
+/** 验证银行卡号
+ */
+FOUNDATION_EXPORT BOOL isBankCard(NSString *cardNumber);
+
+/** 验证邮箱
+ */
+FOUNDATION_EXPORT BOOL isEmail(NSString *email);
+
+/** 验证密码是否为6-12位，由数字与字母组成
+ */
+FOUNDATION_EXPORT BOOL judgePassWordLegal(NSString *password);
+
+/** 验证身份证号
+ */
+FOUNDATION_EXPORT BOOL isIdentityCard(NSString *IDCardNumber);
+
+/** 验证是否是有效数组
+ * 非空 数组 count 大于0
+ */
+FOUNDATION_EXPORT BOOL isValidArray(id object);
+
+/** 验证是否是有效字典
+ */
+FOUNDATION_EXPORT BOOL isValidDictionary(id object);
+
+#pragma mark - 其它
+
+FOUNDATION_EXPORT UIColor *colorByValue(NSInteger value,int alpha);

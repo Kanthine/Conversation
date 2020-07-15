@@ -7,6 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1A63BDDB24BE8FF4009070FD /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A63BDD024BE8FF4009070FD /* LoginViewController.m */; };
+		1A63BDDC24BE8FF4009070FD /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A63BDD124BE8FF4009070FD /* RegisterViewController.m */; };
+		1A63BDDD24BE8FF4009070FD /* LoginTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A63BDD624BE8FF4009070FD /* LoginTextView.m */; };
+		1A63BDDE24BE8FF4009070FD /* GravityImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A63BDD824BE8FF4009070FD /* GravityImageView.m */; };
+		1A63BDDF24BE8FF4009070FD /* GravityInduction.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A63BDDA24BE8FF4009070FD /* GravityInduction.m */; };
+		1A63BDE424BE91F1009070FD /* MBProgressHUD+CustomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A63BDE124BE91F1009070FD /* MBProgressHUD+CustomView.m */; };
+		1A63BDE524BE91F1009070FD /* ProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1A63BDE324BE91F1009070FD /* ProgressHUD.bundle */; };
+		1A63BDF324BE9668009070FD /* HttpManager+UploadFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A63BDED24BE9668009070FD /* HttpManager+UploadFile.m */; };
+		1A63BDF424BE9668009070FD /* HttpManager+LoginOrRegister.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A63BDEE24BE9668009070FD /* HttpManager+LoginOrRegister.m */; };
+		1A63BDF524BE9668009070FD /* HttpManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A63BDF024BE9668009070FD /* HttpManager.m */; };
+		1A63BDF624BE9668009070FD /* AFNetAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A63BDF124BE9668009070FD /* AFNetAPIClient.m */; };
+		1A63BDF724BE9668009070FD /* AFNetTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A63BDF224BE9668009070FD /* AFNetTools.m */; };
+		1A63BDFA24BEA019009070FD /* UINavigationController+TransitionAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A63BDF924BEA019009070FD /* UINavigationController+TransitionAnimation.m */; };
 		1A64DA7024BD9198009AFB82 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A64DA6F24BD9198009AFB82 /* AppDelegate.m */; };
 		1A64DA7624BD9198009AFB82 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A64DA7524BD9198009AFB82 /* ViewController.m */; };
 		1A64DA7B24BD919A009AFB82 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1A64DA7A24BD919A009AFB82 /* Assets.xcassets */; };
@@ -53,6 +66,32 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1A63BDD024BE8FF4009070FD /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		1A63BDD124BE8FF4009070FD /* RegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterViewController.m; sourceTree = "<group>"; };
+		1A63BDD224BE8FF4009070FD /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		1A63BDD324BE8FF4009070FD /* RegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterViewController.h; sourceTree = "<group>"; };
+		1A63BDD524BE8FF4009070FD /* GravityImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GravityImageView.h; sourceTree = "<group>"; };
+		1A63BDD624BE8FF4009070FD /* LoginTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginTextView.m; sourceTree = "<group>"; };
+		1A63BDD724BE8FF4009070FD /* GravityInduction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GravityInduction.h; sourceTree = "<group>"; };
+		1A63BDD824BE8FF4009070FD /* GravityImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GravityImageView.m; sourceTree = "<group>"; };
+		1A63BDD924BE8FF4009070FD /* LoginTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginTextView.h; sourceTree = "<group>"; };
+		1A63BDDA24BE8FF4009070FD /* GravityInduction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GravityInduction.m; sourceTree = "<group>"; };
+		1A63BDE124BE91F1009070FD /* MBProgressHUD+CustomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+CustomView.m"; sourceTree = "<group>"; };
+		1A63BDE224BE91F1009070FD /* MBProgressHUD+CustomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+CustomView.h"; sourceTree = "<group>"; };
+		1A63BDE324BE91F1009070FD /* ProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ProgressHUD.bundle; sourceTree = "<group>"; };
+		1A63BDE724BE9668009070FD /* HttpManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HttpManager.h; sourceTree = "<group>"; };
+		1A63BDE824BE9668009070FD /* RequestURL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestURL.h; sourceTree = "<group>"; };
+		1A63BDE924BE9668009070FD /* AFNetTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetTools.h; sourceTree = "<group>"; };
+		1A63BDEA24BE9668009070FD /* AFNetAPIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetAPIClient.h; sourceTree = "<group>"; };
+		1A63BDEC24BE9668009070FD /* HttpManager+LoginOrRegister.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HttpManager+LoginOrRegister.h"; sourceTree = "<group>"; };
+		1A63BDED24BE9668009070FD /* HttpManager+UploadFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "HttpManager+UploadFile.m"; sourceTree = "<group>"; };
+		1A63BDEE24BE9668009070FD /* HttpManager+LoginOrRegister.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "HttpManager+LoginOrRegister.m"; sourceTree = "<group>"; };
+		1A63BDEF24BE9668009070FD /* HttpManager+UploadFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HttpManager+UploadFile.h"; sourceTree = "<group>"; };
+		1A63BDF024BE9668009070FD /* HttpManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HttpManager.m; sourceTree = "<group>"; };
+		1A63BDF124BE9668009070FD /* AFNetAPIClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFNetAPIClient.m; sourceTree = "<group>"; };
+		1A63BDF224BE9668009070FD /* AFNetTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFNetTools.m; sourceTree = "<group>"; };
+		1A63BDF824BEA019009070FD /* UINavigationController+TransitionAnimation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+TransitionAnimation.h"; sourceTree = "<group>"; };
+		1A63BDF924BEA019009070FD /* UINavigationController+TransitionAnimation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+TransitionAnimation.m"; sourceTree = "<group>"; };
 		1A64DA6B24BD9198009AFB82 /* ConversationDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ConversationDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1A64DA6E24BD9198009AFB82 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		1A64DA6F24BD9198009AFB82 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -153,6 +192,69 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1A63BDCF24BE8FF4009070FD /* LoginGroup */ = {
+			isa = PBXGroup;
+			children = (
+				1A63BDE024BE91F1009070FD /* MBProgressHUD */,
+				1A63BDE624BE9668009070FD /* HttpManagerGroup */,
+				1A63BDD424BE8FF4009070FD /* LoginView */,
+				1A63BDD224BE8FF4009070FD /* LoginViewController.h */,
+				1A63BDD024BE8FF4009070FD /* LoginViewController.m */,
+				1A63BDD324BE8FF4009070FD /* RegisterViewController.h */,
+				1A63BDD124BE8FF4009070FD /* RegisterViewController.m */,
+			);
+			path = LoginGroup;
+			sourceTree = "<group>";
+		};
+		1A63BDD424BE8FF4009070FD /* LoginView */ = {
+			isa = PBXGroup;
+			children = (
+				1A63BDD524BE8FF4009070FD /* GravityImageView.h */,
+				1A63BDD824BE8FF4009070FD /* GravityImageView.m */,
+				1A63BDD724BE8FF4009070FD /* GravityInduction.h */,
+				1A63BDDA24BE8FF4009070FD /* GravityInduction.m */,
+				1A63BDD924BE8FF4009070FD /* LoginTextView.h */,
+				1A63BDD624BE8FF4009070FD /* LoginTextView.m */,
+			);
+			path = LoginView;
+			sourceTree = "<group>";
+		};
+		1A63BDE024BE91F1009070FD /* MBProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				1A63BDE224BE91F1009070FD /* MBProgressHUD+CustomView.h */,
+				1A63BDE124BE91F1009070FD /* MBProgressHUD+CustomView.m */,
+				1A63BDE324BE91F1009070FD /* ProgressHUD.bundle */,
+			);
+			path = MBProgressHUD;
+			sourceTree = "<group>";
+		};
+		1A63BDE624BE9668009070FD /* HttpManagerGroup */ = {
+			isa = PBXGroup;
+			children = (
+				1A63BDEA24BE9668009070FD /* AFNetAPIClient.h */,
+				1A63BDF124BE9668009070FD /* AFNetAPIClient.m */,
+				1A63BDE924BE9668009070FD /* AFNetTools.h */,
+				1A63BDF224BE9668009070FD /* AFNetTools.m */,
+				1A63BDEB24BE9668009070FD /* HttpCategory */,
+				1A63BDE724BE9668009070FD /* HttpManager.h */,
+				1A63BDF024BE9668009070FD /* HttpManager.m */,
+				1A63BDE824BE9668009070FD /* RequestURL.h */,
+			);
+			path = HttpManagerGroup;
+			sourceTree = "<group>";
+		};
+		1A63BDEB24BE9668009070FD /* HttpCategory */ = {
+			isa = PBXGroup;
+			children = (
+				1A63BDEC24BE9668009070FD /* HttpManager+LoginOrRegister.h */,
+				1A63BDEE24BE9668009070FD /* HttpManager+LoginOrRegister.m */,
+				1A63BDEF24BE9668009070FD /* HttpManager+UploadFile.h */,
+				1A63BDED24BE9668009070FD /* HttpManager+UploadFile.m */,
+			);
+			path = HttpCategory;
+			sourceTree = "<group>";
+		};
 		1A64DA6224BD9198009AFB82 = {
 			isa = PBXGroup;
 			children = (
@@ -180,6 +282,7 @@
 				1A64DA7524BD9198009AFB82 /* ViewController.m */,
 				1A64DB0024BDA102009AFB82 /* UserManager.h */,
 				1A64DB0124BDA102009AFB82 /* UserManager.m */,
+				1A63BDCF24BE8FF4009070FD /* LoginGroup */,
 				1A64DA8724BD9249009AFB82 /* ConversationGroup */,
 				1A64DA7A24BD919A009AFB82 /* Assets.xcassets */,
 				1A64DA7C24BD919A009AFB82 /* LaunchScreen.storyboard */,
@@ -279,6 +382,8 @@
 			children = (
 				1A64DAD724BD9DB1009AFB82 /* NSObject+GetTheController.h */,
 				1A64DAD824BD9DB1009AFB82 /* NSObject+GetTheController.m */,
+				1A63BDF824BEA019009070FD /* UINavigationController+TransitionAnimation.h */,
+				1A63BDF924BEA019009070FD /* UINavigationController+TransitionAnimation.m */,
 				1A64DAD124BD9BF9009AFB82 /* UIBarButtonItem+LeftBarItem.h */,
 				1A64DAD224BD9BF9009AFB82 /* UIBarButtonItem+LeftBarItem.m */,
 				1A64DAC724BD940F009AFB82 /* NSObject+Swizzling.h */,
@@ -434,6 +539,7 @@
 			files = (
 				1A64DA7E24BD919A009AFB82 /* LaunchScreen.storyboard in Resources */,
 				1A64DAF624BD9DEA009AFB82 /* PhotoAlbumLocalized.strings in Resources */,
+				1A63BDE524BE91F1009070FD /* ProgressHUD.bundle in Resources */,
 				1A64DA7B24BD919A009AFB82 /* Assets.xcassets in Resources */,
 				1A64DAFE24BD9DEA009AFB82 /* MediaStreamsResource.bundle in Resources */,
 				1A64DAB724BD924A009AFB82 /* ConversatioEmojiResource.bundle in Resources */,
@@ -492,8 +598,10 @@
 				1A64DAC224BD924A009AFB82 /* ConversationInputBarImageView.m in Sources */,
 				1A64DAB424BD924A009AFB82 /* ConversationContentParserTool.m in Sources */,
 				1A64DAD024BD94BD009AFB82 /* WebSocketClient.m in Sources */,
+				1A63BDF424BE9668009070FD /* HttpManager+LoginOrRegister.m in Sources */,
 				1A64DAF924BD9DEA009AFB82 /* AlbumPhotoCollectionCell.m in Sources */,
 				1A64DA7624BD9198009AFB82 /* ViewController.m in Sources */,
+				1A63BDDE24BE8FF4009070FD /* GravityImageView.m in Sources */,
 				1A64DAD924BD9DB1009AFB82 /* NSObject+GetTheController.m in Sources */,
 				1A64DAF524BD9DEA009AFB82 /* AlbumMainViewController.m in Sources */,
 				1A64DAFF24BD9DEA009AFB82 /* EditPhotoViewController.m in Sources */,
@@ -502,27 +610,37 @@
 				1A64DB0224BDA102009AFB82 /* UserManager.m in Sources */,
 				1A64DAFC24BD9DEA009AFB82 /* UIBarButtonItem+PhotoBarLeftItem.m in Sources */,
 				1A64DAD624BD9CA2009AFB82 /* GlobalTools.m in Sources */,
+				1A63BDF324BE9668009070FD /* HttpManager+UploadFile.m in Sources */,
 				1A64DAC924BD940F009AFB82 /* NSObject+Swizzling.m in Sources */,
 				1A64DABB24BD924A009AFB82 /* ConversationTableSeatsCell.m in Sources */,
+				1A63BDFA24BEA019009070FD /* UINavigationController+TransitionAnimation.m in Sources */,
 				1A64DABC24BD924A009AFB82 /* ConversationTableBaseCell.m in Sources */,
+				1A63BDE424BE91F1009070FD /* MBProgressHUD+CustomView.m in Sources */,
 				1A64DAF824BD9DEA009AFB82 /* PhotosManager.m in Sources */,
 				1A64DAF724BD9DEA009AFB82 /* AlbumGroupViewController.m in Sources */,
+				1A63BDF724BE9668009070FD /* AFNetTools.m in Sources */,
 				1A64DABA24BD924A009AFB82 /* ConversationContentLabel.m in Sources */,
+				1A63BDDF24BE8FF4009070FD /* GravityInduction.m in Sources */,
 				1A64DAB124BD924A009AFB82 /* ConversationViewController.m in Sources */,
 				1A64DAFB24BD9DEA009AFB82 /* AlbumPhotoViewController.m in Sources */,
 				1A64DABF24BD924A009AFB82 /* ConversationTableTextCell.m in Sources */,
+				1A63BDDC24BE8FF4009070FD /* RegisterViewController.m in Sources */,
 				1A64DAB924BD924A009AFB82 /* UIImage+ConversationEmoji.m in Sources */,
 				1A64DAD324BD9BF9009AFB82 /* UIBarButtonItem+LeftBarItem.m in Sources */,
 				1A64DAFD24BD9DEA009AFB82 /* PHAsset+MediaStreams.m in Sources */,
 				1A64DAC024BD924A009AFB82 /* ConversationInputBar.m in Sources */,
 				1A64DABD24BD924A009AFB82 /* ConversationTableOrderCell.m in Sources */,
 				1A64DAFA24BD9DEA009AFB82 /* AlbumGroupTableCell.m in Sources */,
+				1A63BDF624BE9668009070FD /* AFNetAPIClient.m in Sources */,
 				1A64DA7024BD9198009AFB82 /* AppDelegate.m in Sources */,
 				1A64DA8124BD919A009AFB82 /* main.m in Sources */,
 				1A64DAC124BD924A009AFB82 /* ConversationTextView.m in Sources */,
 				1A64DAB524BD924A009AFB82 /* ConversationEmojiContentView.m in Sources */,
 				1A64DAB324BD924A009AFB82 /* ConversationObjectModel.m in Sources */,
+				1A63BDF524BE9668009070FD /* HttpManager.m in Sources */,
 				1A64DABE24BD924A009AFB82 /* ConversationTableImageCell.m in Sources */,
+				1A63BDDD24BE8FF4009070FD /* LoginTextView.m in Sources */,
+				1A63BDDB24BE8FF4009070FD /* LoginViewController.m in Sources */,
 				1A64DAB824BD924A009AFB82 /* ConversationEmojiKeyboard.m in Sources */,
 				1A64DACC24BD943A009AFB82 /* NSString+CharacterLength.m in Sources */,
 				1A64DAB624BD924A009AFB82 /* ConversationEmojiTools.m in Sources */,

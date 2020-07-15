@@ -6,4 +6,7 @@ pod 'AFNetworking'
 pod 'MJRefresh'
 pod 'Masonry'
 pod 'SocketRocket'
+pod 'pop'
+pod 'MBProgressHUD'
+
 end

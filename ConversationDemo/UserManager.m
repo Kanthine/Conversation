@@ -40,6 +40,7 @@ NSString *const kUserManagerUserId = @"userId";
     }
 }
 
+
 + (instancetype)modelObjectWithDictionary:(NSDictionary *)dict{
     return [[self alloc] initWithDictionary:dict];
 }

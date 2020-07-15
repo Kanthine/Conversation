@@ -19,6 +19,7 @@
 #import "UIBarButtonItem+LeftBarItem.h"
 #import "GlobalTools.h"
 #import "UserManager.h"
+#import <UIImageView+WebCache.h>
 
 
 @interface ConversationViewController ()
@@ -90,9 +91,9 @@
     if (model.type == ConversationType_TEXT) {
         ConversationTableTextCell *cell = [tableView dequeueReusableCellWithIdentifier:Cell_Text_Identifer forIndexPath:indexPath];
         if (model.direction == ConversationDirection_SEND) {
-//            [cell.portraitImageView sd_setImageWithURL:[NSURL URLWithString:LoginTool.shareLogin.headPath] placeholderImage:[UIImage imageNamed:@"login_default_header"]];
+            [cell.portraitImageView sd_setImageWithURL:[NSURL URLWithString:UserManager.shareUser.headPath] placeholderImage:[UIImage imageNamed:@"login_default_header"]];
         }else{
-//            [cell.portraitImageView sd_setImageWithURL:[NSURL URLWithString:self.shopModel.shopUserImage] placeholderImage:[UIImage imageNamed:@"login_default_header"]];
+            [cell.portraitImageView sd_setImageWithURL:[NSURL URLWithString:UserManager.shareUser.headPath] placeholderImage:[UIImage imageNamed:@"login_default_header"]];
         }
         cell.model = model;
         return cell;
@@ -194,9 +195,7 @@
     if (self.dataArray.count < 1) {
         return;
     }
-    
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:(self.dataArray.count - 1) inSection:0];
-
     if (duration == 0.0) {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
@@ -233,7 +232,7 @@
         [_socketClient openSocketWithURL:url heartBeat:@{}];
         __weak typeof(self) weakSelf = self;
         _socketClient.receivedMessage = ^(NSDictionary * _Nonnull dict) {
-            [weakSelf insertConversationMessage:dict];
+//            [weakSelf insertConversationMessage:dict];
         };
     }
     return _socketClient;
@@ -272,11 +271,17 @@
             weakSelf.tableView.frame = CGRectMake(0, 0, CGRectGetWidth(UIScreen.mainScreen.bounds),frame.origin.y);
             [weakSelf tableViewScrollToBottom:duration];
         };
+        
         _inputBar.sendCommentHandle = ^(NSString * _Nonnull text) {
             NSString *timeSp = [NSString stringWithFormat:@"%ld", (long)[NSDate.date timeIntervalSince1970]*1000];//时间戳
-//            NSDictionary *dict = @{@"from":LoginTool.shareLogin.userId,@"to":weakSelf.shopModel.shopUserId,@"text":text,@"sendDate":timeSp};
+            NSDictionary *dict = @{@"from":UserManager.shareUser.nickName,@"to":@"",@"text":text,@"sendDate":timeSp};
+            
+            dict = @{@"content":text,@"from":UserManager.shareUser.nickName,@"to":@"Alan"};
 //            [weakSelf.socketClient sendData:dict];
-//            [weakSelf insertConversationMessage:dict];
+            [weakSelf.socketClient sendString:text];
+
+            
+            [weakSelf insertConversationMessage:@{@"content":text,@"from":UserManager.shareUser.nickName}];
         };
     }
     return _inputBar;

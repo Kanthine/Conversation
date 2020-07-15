@@ -17,6 +17,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *headPath;//用户头像
 @property (nonatomic, strong) NSString *userId;//用户ID
 
+@property (nonatomic, strong) NSString *account;//用户ID
+@property (nonatomic, strong) NSString *password;//密码
+
 + (instancetype)modelObjectWithDictionary:(NSDictionary *)dict;
 - (instancetype)initWithDictionary:(NSDictionary *)dict;
 - (NSDictionary *)dictionaryRepresentation;

@@ -12,7 +12,7 @@ static int const kHeartBeatInterval = 5;
 #import <SocketRocket.h>
 #import <AFNetworkReachabilityManager.h>
 #import "UserManager.h"
-NSString *const kChatAddress = @"ws://route.51mypc.cn/wss/im/";//心跳频率
+NSString *const kChatAddress = @"http://route.51mypc.cn/wss/im/";//心跳频率
 
 @interface WebSocketClient ()
 <SRWebSocketDelegate>
@@ -58,6 +58,10 @@ NSString *const kChatAddress = @"ws://route.51mypc.cn/wss/im/";//心跳频率
     
     [_heartBeatTimer invalidate];//停止心跳
     _heartBeatTimer = nil;
+}
+
+- (void)sendString:(NSString *)string{
+    [_socket send:string];
 }
 
 - (void)sendData:(NSDictionary *)dict{
