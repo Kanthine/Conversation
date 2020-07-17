@@ -15,7 +15,6 @@
 		1A63BDE424BE91F1009070FD /* MBProgressHUD+CustomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A63BDE124BE91F1009070FD /* MBProgressHUD+CustomView.m */; };
 		1A63BDE524BE91F1009070FD /* ProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1A63BDE324BE91F1009070FD /* ProgressHUD.bundle */; };
 		1A63BDF324BE9668009070FD /* HttpManager+UploadFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A63BDED24BE9668009070FD /* HttpManager+UploadFile.m */; };
-		1A63BDF424BE9668009070FD /* HttpManager+LoginOrRegister.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A63BDEE24BE9668009070FD /* HttpManager+LoginOrRegister.m */; };
 		1A63BDF524BE9668009070FD /* HttpManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A63BDF024BE9668009070FD /* HttpManager.m */; };
 		1A63BDF624BE9668009070FD /* AFNetAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A63BDF124BE9668009070FD /* AFNetAPIClient.m */; };
 		1A63BDF724BE9668009070FD /* AFNetTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A63BDF224BE9668009070FD /* AFNetTools.m */; };
@@ -83,9 +82,7 @@
 		1A63BDE824BE9668009070FD /* RequestURL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestURL.h; sourceTree = "<group>"; };
 		1A63BDE924BE9668009070FD /* AFNetTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetTools.h; sourceTree = "<group>"; };
 		1A63BDEA24BE9668009070FD /* AFNetAPIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetAPIClient.h; sourceTree = "<group>"; };
-		1A63BDEC24BE9668009070FD /* HttpManager+LoginOrRegister.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HttpManager+LoginOrRegister.h"; sourceTree = "<group>"; };
 		1A63BDED24BE9668009070FD /* HttpManager+UploadFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "HttpManager+UploadFile.m"; sourceTree = "<group>"; };
-		1A63BDEE24BE9668009070FD /* HttpManager+LoginOrRegister.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "HttpManager+LoginOrRegister.m"; sourceTree = "<group>"; };
 		1A63BDEF24BE9668009070FD /* HttpManager+UploadFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HttpManager+UploadFile.h"; sourceTree = "<group>"; };
 		1A63BDF024BE9668009070FD /* HttpManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HttpManager.m; sourceTree = "<group>"; };
 		1A63BDF124BE9668009070FD /* AFNetAPIClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFNetAPIClient.m; sourceTree = "<group>"; };
@@ -247,8 +244,6 @@
 		1A63BDEB24BE9668009070FD /* HttpCategory */ = {
 			isa = PBXGroup;
 			children = (
-				1A63BDEC24BE9668009070FD /* HttpManager+LoginOrRegister.h */,
-				1A63BDEE24BE9668009070FD /* HttpManager+LoginOrRegister.m */,
 				1A63BDEF24BE9668009070FD /* HttpManager+UploadFile.h */,
 				1A63BDED24BE9668009070FD /* HttpManager+UploadFile.m */,
 			);
@@ -598,7 +593,6 @@
 				1A64DAC224BD924A009AFB82 /* ConversationInputBarImageView.m in Sources */,
 				1A64DAB424BD924A009AFB82 /* ConversationContentParserTool.m in Sources */,
 				1A64DAD024BD94BD009AFB82 /* WebSocketClient.m in Sources */,
-				1A63BDF424BE9668009070FD /* HttpManager+LoginOrRegister.m in Sources */,
 				1A64DAF924BD9DEA009AFB82 /* AlbumPhotoCollectionCell.m in Sources */,
 				1A64DA7624BD9198009AFB82 /* ViewController.m in Sources */,
 				1A63BDDE24BE8FF4009070FD /* GravityImageView.m in Sources */,
@@ -793,7 +787,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "---.ConversationDemo";
+				PRODUCT_BUNDLE_IDENTIFIER = www.ecpss.com.ListeningBook;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -811,7 +805,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "---.ConversationDemo";
+				PRODUCT_BUNDLE_IDENTIFIER = www.ecpss.com.ListeningBook;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

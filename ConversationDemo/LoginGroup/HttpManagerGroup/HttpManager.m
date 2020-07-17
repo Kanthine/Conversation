@@ -52,18 +52,13 @@
 
 #pragma mark - Private Method
 
-+ (void)requestForGetUrl:(NSString *)url success:(void (^)(id))success failure:(void (^)(NSError *))failure
-{
-    [[AFNetAPIClient sharedClient].startRequestQueue addOperationWithBlock:^{
-        [[AFNetAPIClient sharedClient] requestForGetUrl:url success:success failure:failure];
-    }];
++ (void)requestForGetUrl:(NSString *)url success:(void (^)(id))success failure:(void (^)(NSError *))failure{
+    [[AFNetAPIClient sharedClient] requestForGetUrl:url success:success failure:failure];
+
 }
 
-+ (void)requestForPostUrl:(NSString *)url Parameters:(NSDictionary *)parameters success:(void (^)(id))success failure:(void (^)(NSError *))failure
-{
-    [[AFNetAPIClient sharedClient].startRequestQueue addOperationWithBlock:^{
-        [[AFNetAPIClient sharedClient] requestForPostUrl:url Parameters:parameters success:success failure:failure];
-    }];
++ (void)requestForPostUrl:(NSString *)url Parameters:(NSDictionary *)parameters success:(void (^)(id))success failure:(void (^)(NSError *))failure{
+    [[AFNetAPIClient sharedClient] requestForPostUrl:url Parameters:parameters success:success failure:failure];
 }
 
 

@@ -11,12 +11,9 @@
 
 @interface AFNetAPIClient : AFHTTPSessionManager
 
-@property (nonatomic ,strong) NSOperationQueue *startRequestQueue;
-
-/*
- * 创建一个单例类
+/** 创建一个单例类
  */
-+(AFNetAPIClient *)sharedClient;
++(AFNetAPIClient *_Nonnull)sharedClient;
 
 
 -(NSURLSessionDataTask *)requestForGetUrl:(NSString*)url success:(void (^)(id responseObject))success failure:(void (^)(NSError *error))failure;
@@ -24,7 +21,6 @@
 -(NSURLSessionDataTask *)requestForPostUrl:(NSString*)url Parameters:(NSDictionary *)parameters success:(void (^)(id responseObject))success failure:(void (^)(NSError *error))failure;
 
 - (void)logSessionDataTask:(NSURLSessionDataTask *)task ResponseObject:(id  _Nullable) responseObject;
-
 
 @end
 

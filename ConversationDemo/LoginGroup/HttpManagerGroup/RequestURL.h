@@ -14,26 +14,15 @@
 #define PostTimeOutInterval 15.0f  //post网络请求时间
 #define UploadTimeOutInterval 40.0f  //文件上传网络请求时间
 
-#ifdef DEBUG//条件编译
+#define ITunes @"http://itunes.apple.com/cn/lookup?id=414478124"
 
-//#define DOMAINBASE @"https://long.马帅.cn"
-
-
-#define DOMAINBASE @"https://long.xn--bttn85k.cn"
-//#define DOMAINBASE @"https://180.76.140.80:443"
-
-#else
-
-#define DOMAINBASE @"https://long.马帅.cn"
-
-
-#endif
+#define DOMAINBASE @"http://route.51mypc.cn"
+#define URL_Login @"api/user/login"
+#define URL_Register @"api/user/reg"
 
 
 
 #define URL_Test @"fancy/test"
-#define URL_Login @"fancy/userService.do?method=loginApp"
-#define URL_Register @"fancy/userService.do?method=regApp"
 #define URL_Update_Header @"fancy/userService.do?method=updatePhoto"
 #define URL_Load_Header @"fancy/userService.do?method=updatePhoto"
 #define URL_File_List @"fancy/userService.do?method=getFileListOrFile"

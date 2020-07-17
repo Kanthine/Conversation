@@ -14,15 +14,12 @@ typedef NS_ENUM(NSUInteger,LoginTextViewType) {
     LoginTextViewTypeEmail,
 };
 @interface UITextField (Placeholder)
-/*
- *【设置占位文字的颜色】
- * @param placeholderColor  占位文字的颜色
+
+/** 设置占位文字的颜色
  */
 @property UIColor *placeholderColor;
 
-
 @end
-
 
 
 @interface LoginTextView : UIView

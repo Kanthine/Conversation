@@ -23,6 +23,8 @@
 #import <Masonry.h>
 #import "GlobalTools.h"
 #import "HttpManager.h"
+#import "UserManager.h"
+#import "AppDelegate.h"
 
 static CGFloat const YYSpringSpeed = 6.0;
 static CGFloat const YYSpringBounciness = 16.0;
@@ -38,7 +40,7 @@ static CGFloat const YYSpringBounciness = 16.0;
 @property (nonatomic ,strong) UIImageView *logoImageView;
 @property (nonatomic ,strong) UILabel *logoLable;
 @property (nonatomic ,strong) UIButton *getButton;
-@property (nonatomic,strong) UIView *textContainerView;//get按钮动画view
+@property (nonatomic ,strong) UIView *textContainerView;//get按钮动画view
 @property (nonatomic ,strong) LoginTextView *accountView;
 @property (nonatomic ,strong) LoginTextView *passwordView;
 @property (nonatomic ,strong) UIButton *loginButton;
@@ -51,64 +53,45 @@ static CGFloat const YYSpringBounciness = 16.0;
 
 @end
 
-//loginBack
 @implementation LoginViewController
 
-- (void)dealloc
-{
+- (void)dealloc{
+}
+
+- (void)viewDidLoad{
+    [super viewDidLoad];
+    [self setLoginUI];
+    
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardChangeNotification:) name:UIKeyboardWillChangeFrameNotification object:nil];
+}
+
+- (void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardChangeNotification:) name:UIKeyboardWillChangeFrameNotification object:nil];
-    
-    [self setLoginUI];
+- (UIStatusBarStyle)preferredStatusBarStyle{
+    return UIStatusBarStyleLightContent;
 }
 
 #pragma mark - UITextFieldDelegate
 
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
-{
-
-    if (range.length == 1 && string.length == 0)
-    {
-        return YES;
-    }
-    else
-    {
-        if ([textField isEqual:self.accountView.textFiled] && textField.text.length > 10)
-        {
-            
-            textField.text = [textField.text substringToIndex:10];
-            [self.view makeToast:@"请输入正确手机号" duration:3 position:CSToastPositionCenter];
-        }
-        else if ([textField isEqual:self.passwordView.textFiled])
-        {
-
-        }
-        [self changeLogOrRegStatus];
-
-        return YES;
-    }
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+    [self changeLogOrRegStatus];
+    return YES;
 }
-
 
 - (void)textFieldDidEndEditing:(UITextField *)textField{
     [self changeLogOrRegStatus];
-    
-    if ([textField isEqual:self.accountView.textFiled] &&
-        !isMobileNumber(self.accountView.textFiled.text) &&
-        textField.text.length > 1){
-        [self.view makeToast:@"请输入正确手机号" duration:3 position:CSToastPositionCenter];
-    }
 }
 
-
 -(void)changeLogOrRegStatus{
-    if ( isMobileNumber(self.accountView.textFiled.text) && self.passwordView.textFiled.text.length > 1){
+    if (self.accountView.textFiled.text.length > 1 &&
+        self.passwordView.textFiled.text.length > 1){
         self.loginButton.backgroundColor = colorByValue(0x0088FF, 1);
         [self.loginButton setUserInteractionEnabled:YES];
     }else{
@@ -119,41 +102,35 @@ static CGFloat const YYSpringBounciness = 16.0;
 
 #pragma mark - NSNotification
 
-- (void)keyBoardChangeNotification:(NSNotification *)notification
-{
+- (void)keyBoardChangeNotification:(NSNotification *)notification{
     CGRect endframe = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
     float duration = [notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] floatValue];
     
     [UIView animateWithDuration:duration animations:^{
-        
-        if (endframe.origin.y > CGRectGetHeight(UIScreen.mainScreen.bounds) - 1)
-        {
+        if (endframe.origin.y > CGRectGetHeight(UIScreen.mainScreen.bounds) - 1){
             //键盘消失
             self.logoImageView.center = CGPointMake(CGRectGetWidth(UIScreen.mainScreen.bounds) / 2.0, CGRectGetHeight(UIScreen.mainScreen.bounds) / 2.0 - CGRectGetWidth(UIScreen.mainScreen.bounds) * 0.25 - kUpOffset);
             self.logoLable.center = CGPointMake(CGRectGetWidth(UIScreen.mainScreen.bounds) / 2.0, CGRectGetHeight(UIScreen.mainScreen.bounds) / 2.0 - kUpOffset);
             
-            self.loginButton.center = CGPointMake(CGRectGetWidth(UIScreen.mainScreen.bounds) / 2.0, _endPointY);
+            self.loginButton.center = CGPointMake(CGRectGetWidth(UIScreen.mainScreen.bounds) / 2.0, self->_endPointY);
             self.textContainerView.center = CGPointMake(CGRectGetWidth(UIScreen.mainScreen.bounds) / 2.0, self.loginButton.center.y  - kTextContainerViewHeight / 2.0 - 20 - kTextContainerViewHeight - 5);
-        }
-        else
-        {
+        }else{
             //键盘出现
-            if (self.logoImageView.center.y > 0)
-            {
+            if (self.logoImageView.center.y > 0){
                 self.logoImageView.center = CGPointMake(CGRectGetWidth(UIScreen.mainScreen.bounds) / 2.0,  - CGRectGetWidth(UIScreen.mainScreen.bounds) * 0.5);
                 self.logoLable.center = CGPointMake(CGRectGetWidth(UIScreen.mainScreen.bounds) / 2.0,- 20);
-                
             }
             
             float buttonMax_Y = CGRectGetMaxY(self.loginButton.frame) + 10;
-            if (endframe.origin.y < buttonMax_Y)
-            {
+            if (endframe.origin.y < buttonMax_Y){
                 self.loginButton.center = CGPointMake(CGRectGetWidth(UIScreen.mainScreen.bounds) / 2.0, endframe.origin.y - 10 - kTextContainerViewHeight / 2.0);
                 self.textContainerView.center = CGPointMake(CGRectGetWidth(UIScreen.mainScreen.bounds) / 2.0, self.loginButton.center.y  - kTextContainerViewHeight / 2.0 - 20 - kTextContainerViewHeight - 5);
             }
-            
         }
-        
+    } completion:^(BOOL finished) {
+        NSLog(@"self.textContainerView ====== %@",self.textContainerView);
+        NSLog(@"self.accountView ====== %@",self.accountView);
+        NSLog(@"self.passwordView ====== %@",self.passwordView);
     }];
     
 }
@@ -161,11 +138,11 @@ static CGFloat const YYSpringBounciness = 16.0;
 #pragma mark - CAAnimationDelegate
 
 /** 动画执行结束回调 */
-- (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag
-{
+- (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag{
     NSLog(@"anim ----- %@",((CABasicAnimation *)anim).keyPath);
-    if([((CABasicAnimation *)anim).keyPath isEqualToString:@"bounds.size.height"])
-    {
+    
+
+    if([((CABasicAnimation *)anim).keyPath isEqualToString:@"bounds.size.height"]){
         //阴影颜色
         self.textContainerView.layer.shadowColor = [UIColor redColor].CGColor;
         //阴影的透明度
@@ -177,28 +154,27 @@ static CGFloat const YYSpringBounciness = 16.0;
         self.textContainerView.frame = CGRectMake(kLeftSpace, CGRectGetHeight(UIScreen.mainScreen.bounds) / 2.0 - kUpOffset, kTextContainerViewWidth, kTextContainerViewHeight * 2.0 + 10);
         self.accountView.alpha = 1.0;
         self.passwordView.alpha = 1.0;
-    }
-    else if ([((CABasicAnimation *)anim).keyPath isEqualToString:@"bounds.size"])
-    {
+    }else if ([((CABasicAnimation *)anim).keyPath isEqualToString:@"bounds.size"]){
         self.loginButton.frame = CGRectMake(kLeftSpace, CGRectGetMaxY(self.textContainerView.frame) + 20, kTextContainerViewWidth, kTextContainerViewHeight);
         self.registerButton.hidden = NO;
         self.registerButton.frame = CGRectMake(CGRectGetMaxX(self.loginButton.frame) - 80, CGRectGetMaxY(self.loginButton.frame) + 20, 80, 40);
         _endPointY = self.loginButton.center.y;
     }
-    
+    [self.textContainerView.layer removeAnimationForKey:((CABasicAnimation *)anim).keyPath];
+//    [self.textContainerView pop_removeAllAnimations];
+//    [self.logoImageView pop_removeAllAnimations];
+//    [self.logoLable pop_removeAllAnimations];
 }
 
 
 #pragma mark - response event
 
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
-{
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     [self.accountView.textFiled resignFirstResponder];
     [self.passwordView.textFiled resignFirstResponder];
 }
 
-- (void)getButtonClick
-{
+- (void)getButtonClick{
     /**
      *  动画的思路：
      *  1、造一个view来执行动画，看上去就像get按钮本身在形变移动，其实是这个view
@@ -301,16 +277,13 @@ static CGFloat const YYSpringBounciness = 16.0;
     anim5.springBounciness = YYSpringBounciness;
     anim5.springSpeed = YYSpringSpeed;
     [self.logoLable pop_addAnimation:anim5 forKey:nil];
-
 }
 
-- (void)loginButtonClick
-{
+- (void)loginButtonClick{
     [self.accountView.textFiled resignFirstResponder];
     [self.passwordView.textFiled resignFirstResponder];
     
-    if ([self judgeLeagle] == NO)
-    {
+    if ([self judgeLeagle] == NO){
         [self loginFailClick];
         return;
     }
@@ -353,8 +326,7 @@ static CGFloat const YYSpringBounciness = 16.0;
     }];
 }
 
-- (void)registerButtonClick
-{
+- (void)registerButtonClick{
     [self.accountView.textFiled resignFirstResponder];
     [self.passwordView.textFiled resignFirstResponder];
     
@@ -364,14 +336,11 @@ static CGFloat const YYSpringBounciness = 16.0;
 
 
 /** 登录失败 */
-- (void)loginFailClick
-{
+- (void)loginFailClick{
     //把蒙版、动画view等隐藏，把真正的login按钮显示出来
     self.loginButton.hidden = NO;
-//    [self.HUDView removeFromSuperview];
     
-    if (_loginAnimationView)
-    {
+    if (_loginAnimationView){
         [self.loginAnimationView removeFromSuperview];
         [self.loginAnimationView.layer removeAllAnimations];
     }
@@ -402,8 +371,7 @@ static CGFloat const YYSpringBounciness = 16.0;
 
 #pragma mark - private method
 
-- (void)setLoginUI
-{
+- (void)setLoginUI{
     UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
     imageView.image = [UIImage imageNamed:@"loginBack"];
     [self.view addSubview:imageView];
@@ -411,33 +379,36 @@ static CGFloat const YYSpringBounciness = 16.0;
     [self.view addSubview:self.logoImageView];
     [self.view addSubview:self.logoLable];
     [self.view addSubview:self.getButton];
-    
     [self.view addSubview:self.loginButton];
-
     [self.view addSubview:self.registerButton];
 }
 
-- (BOOL)judgeLeagle
-{
-    if (self.accountView.textFiled.text.length < 1)
-    {
+- (BOOL)judgeLeagle{
+    if (self.accountView.textFiled.text.length < 1){
         return NO;
     }
-    
-    if (self.passwordView.textFiled.text.length < 1)
-    {
+    if (self.passwordView.textFiled.text.length < 1){
         return NO;
     }
-    
     return YES;
 }
 
-- (void)startLoginRequest
-{
-    [HttpManager requestLoginWithAccount:self.accountView.textFiled.text Password:self.passwordView.textFiled.text Success:^(UserManager *account)
-    {
-//        UIApplication.sharedApplication.keyWindow.rootViewController = [[MainTabbarController alloc]init];
+- (void)startLoginRequest{
+    
+    NSDictionary *dict = @{@"account":self.accountView.textFiled.text,@"password":self.passwordView.textFiled.text};
+    
+    [HttpManager requestForPostUrl:URL_Login Parameters:dict success:^(id responseObject) {
+        NSLog(@"responseObject ===== %@",responseObject);
 
+        UserManager.shareUser.nickName = responseObject[@"data"][@"nickName"];
+        UserManager.shareUser.account = responseObject[@"data"][@"account"];
+        UserManager.shareUser.password = responseObject[@"data"][@"password"];
+        [UserManager.shareUser save];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [((AppDelegate *)UIApplication.sharedApplication.delegate) loginOrRegisterSuccess];
+
+        });
+        
     } failure:^(NSError *error) {
         [self.view makeToast:error.domain duration:3 position:CSToastPositionCenter];
         [self loginFailClick];
@@ -446,10 +417,8 @@ static CGFloat const YYSpringBounciness = 16.0;
 
 #pragma mark - setter and getter
 
-- (UIImageView *)logoImageView
-{
-    if (_logoImageView == nil)
-    {
+- (UIImageView *)logoImageView{
+    if (_logoImageView == nil){
         CGFloat LoginImageWH = CGRectGetWidth(UIScreen.mainScreen.bounds) * 0.25;
         CGFloat y = (CGRectGetHeight(UIScreen.mainScreen.bounds) - CGRectGetWidth(UIScreen.mainScreen.bounds) * 0.25) / 2.0 - CGRectGetWidth(UIScreen.mainScreen.bounds) * 0.25;
         UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"logo"]];
@@ -462,10 +431,8 @@ static CGFloat const YYSpringBounciness = 16.0;
     return _logoImageView;
 }
 
-- (UILabel *)logoLable
-{
-    if (_logoLable == nil)
-    {
+- (UILabel *)logoLable{
+    if (_logoLable == nil){
         UILabel *lable = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(UIScreen.mainScreen.bounds), 30)];
         lable.textColor = [UIColor whiteColor];
         lable.text = @"Mo 陌上桑";
@@ -478,10 +445,8 @@ static CGFloat const YYSpringBounciness = 16.0;
     return _logoLable;
 }
 
-- (UIButton *)getButton
-{
-    if (_getButton == nil)
-    {
+- (UIButton *)getButton{
+    if (_getButton == nil){
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         button.frame = CGRectMake(CGRectGetWidth(UIScreen.mainScreen.bounds) * 0.3, CGRectGetHeight(UIScreen.mainScreen.bounds) * 0.7,  CGRectGetWidth(UIScreen.mainScreen.bounds) * 0.4,44);
         button.layer.cornerRadius = 22;
@@ -497,31 +462,24 @@ static CGFloat const YYSpringBounciness = 16.0;
     return _getButton;
 }
 
-- (UIView *)textContainerView
-{
-    if (_textContainerView == nil)
-    {
+- (UIView *)textContainerView{
+    if (_textContainerView == nil){
         UIView *animView = [[UIView alloc] initWithFrame:self.getButton.frame];
         animView.layer.cornerRadius = 10;
         animView.backgroundColor = self.getButton.backgroundColor;
         
         [animView addSubview:self.accountView];
         [animView addSubview:self.passwordView];
-        
         _textContainerView = animView;
     }
-    
     return _textContainerView;
 }
 
-- (LoginTextView *)accountView
-{
-    if (_accountView == nil)
-    {
+- (LoginTextView *)accountView{
+    if (_accountView == nil){
         LoginTextView *textView = [[LoginTextView alloc] init];
         textView.textFiled.placeholder = @"请输入账号";
-        textView.textFiled.keyboardType = UIKeyboardTypeNumberPad;
-        textView.textFiled.placeholderColor = [UIColor whiteColor];
+        //textView.textFiled.keyboardType = UIKeyboardTypeNumberPad;
         textView.frame = CGRectMake(0, 0, kTextContainerViewWidth, kTextContainerViewHeight);
         textView.textFiled.delegate = self;
         textView.hidden = YES;
@@ -530,14 +488,11 @@ static CGFloat const YYSpringBounciness = 16.0;
     return _accountView;
 }
 
-- (LoginTextView *)passwordView
-{
-    if (_passwordView == nil)
-    {
+- (LoginTextView *)passwordView{
+    if (_passwordView == nil){
         LoginTextView *textView = [[LoginTextView alloc] init];
         textView.textFiled.delegate = self;
         textView.textFiled.placeholder = @"请输入密码";
-        textView.textFiled.placeholderColor = [UIColor whiteColor];
         textView.hidden = YES;
         textView.frame = CGRectMake(0, kTextContainerViewHeight + 10, kTextContainerViewWidth, kTextContainerViewHeight);
         _passwordView = textView;
@@ -545,10 +500,8 @@ static CGFloat const YYSpringBounciness = 16.0;
     return _passwordView;
 }
 
-- (UIButton *)loginButton
-{
-    if (_loginButton == nil)
-    {
+- (UIButton *)loginButton{
+    if (_loginButton == nil){
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         button.frame = CGRectMake(CGRectGetWidth(UIScreen.mainScreen.bounds) * 0.3, CGRectGetHeight(UIScreen.mainScreen.bounds) * 0.7,  CGRectGetWidth(UIScreen.mainScreen.bounds) * 0.4,44);
         button.layer.cornerRadius = 25;
@@ -564,10 +517,8 @@ static CGFloat const YYSpringBounciness = 16.0;
     return _loginButton;
 }
 
-- (UIView *)loginAnimationView
-{
-    if (_loginAnimationView == nil)
-    {
+- (UIView *)loginAnimationView{
+    if (_loginAnimationView == nil){
         UIView *view = [[UIView alloc] initWithFrame:self.loginButton.frame];
         view.layer.cornerRadius = self.loginButton.layer.cornerRadius;
         view.layer.masksToBounds = YES;
@@ -577,10 +528,8 @@ static CGFloat const YYSpringBounciness = 16.0;
     return _loginAnimationView;
 }
 
-- (UIButton *)registerButton
-{
-    if (_registerButton == nil)
-    {
+- (UIButton *)registerButton{
+    if (_registerButton == nil){
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         button.layer.cornerRadius = 6;
         button.clipsToBounds = YES;
