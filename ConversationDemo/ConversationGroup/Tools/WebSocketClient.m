@@ -35,7 +35,7 @@ NSString *const kChatAddress = @"http://route.51mypc.cn/wss/im/";//心跳频率
     self = [super init];
     if (self) {
         _reconnectionCount = 0;
-        _networkManager = [AFNetworkReachabilityManager managerForDomain:[NSString stringWithFormat:@"%@%@",kChatAddress,UserManager.shareUser.nickName]];
+        _networkManager = [AFNetworkReachabilityManager managerForDomain:[NSString stringWithFormat:@"%@%@",kChatAddress,UserManager.shareUser.account]];
         [_networkManager startMonitoring];
     }
     return self;

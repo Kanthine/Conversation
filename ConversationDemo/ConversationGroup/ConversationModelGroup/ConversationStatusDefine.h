@@ -9,7 +9,7 @@
 #ifndef ConversationStatusDefine_h
 #define ConversationStatusDefine_h
 
-/* 消息的方向
+/** 消息的方向
  */
 typedef NS_ENUM(NSUInteger, ConversationDirection) {
     ConversationDirection_SEND = 1,//发送

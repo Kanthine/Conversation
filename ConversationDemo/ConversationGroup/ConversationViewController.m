@@ -48,6 +48,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.currentPage = 1;
+    _isGroup = YES;
     self.view.backgroundColor = [UIColor colorWithRed:238/255.0 green:238/255.0 blue:238/255.0 alpha:1.0];
     self.edgesForExtendedLayout = UIRectEdgeNone;
     self.navigationItem.leftBarButtonItem = [UIBarButtonItem leftBackItemWithTarget:self action:@selector(leftBarButtonItemClick)];
@@ -179,7 +180,7 @@
     model.sendDate = dict[@"sendDate"];
     model.sendUserId = dict[@"from"];
     model.receUserId = dict[@"to"];
-    model.content = dict[@"text"];
+    model.content = dict[@"content"];
     model.msgId = dict[@"msgId"];
     model.messageType = @"TEXT";
     [model parserExtraInfo];
@@ -227,7 +228,7 @@
 
 - (WebSocketClient *)socketClient{
     if (_socketClient == nil) {
-        NSString *url = [NSString stringWithFormat:@"%@%@",kChatAddress,UserManager.shareUser.nickName];
+        NSString *url = [NSString stringWithFormat:@"%@%@",kChatAddress,UserManager.shareUser.account];
         _socketClient = [[WebSocketClient alloc] init];
         [_socketClient openSocketWithURL:url heartBeat:@{}];
         __weak typeof(self) weakSelf = self;
@@ -276,8 +277,10 @@
             NSString *timeSp = [NSString stringWithFormat:@"%ld", (long)[NSDate.date timeIntervalSince1970]*1000];//时间戳
             NSDictionary *dict = @{@"from":UserManager.shareUser.nickName,@"to":@"",@"text":text,@"sendDate":timeSp};
             
-            dict = @{@"content":text,@"from":UserManager.shareUser.nickName,@"to":@"Alan"};
-//            [weakSelf.socketClient sendData:dict];
+            //{"content":"新消息","from":"user"}
+            //{"content":"发送消息","from":"user1","to":"user2"}
+            
+            dict = @{@"content":text,@"from":UserManager.shareUser.account};
             [weakSelf.socketClient sendString:text];
 
             

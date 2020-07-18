@@ -61,6 +61,7 @@
 		1A64DAFE24BD9DEA009AFB82 /* MediaStreamsResource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1A64DAF324BD9DEA009AFB82 /* MediaStreamsResource.bundle */; };
 		1A64DAFF24BD9DEA009AFB82 /* EditPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A64DAF424BD9DEA009AFB82 /* EditPhotoViewController.m */; };
 		1A64DB0224BDA102009AFB82 /* UserManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A64DB0124BDA102009AFB82 /* UserManager.m */; };
+		1A7539C224C28B0400263C20 /* ConversationListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A7539C124C28B0400263C20 /* ConversationListViewController.m */; };
 		BCC9E904E1179FDFC3907988 /* libPods-ConversationDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F8C188AABEA5FAE17C9A90AD /* libPods-ConversationDemo.a */; };
 /* End PBXBuildFile section */
 
@@ -172,6 +173,9 @@
 		1A64DAF424BD9DEA009AFB82 /* EditPhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditPhotoViewController.m; sourceTree = "<group>"; };
 		1A64DB0024BDA102009AFB82 /* UserManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserManager.h; sourceTree = "<group>"; };
 		1A64DB0124BDA102009AFB82 /* UserManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserManager.m; sourceTree = "<group>"; };
+		1A7539C024C28B0400263C20 /* ConversationListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConversationListViewController.h; sourceTree = "<group>"; };
+		1A7539C124C28B0400263C20 /* ConversationListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ConversationListViewController.m; sourceTree = "<group>"; };
+		1A7539C324C28D3600263C20 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		97CF5ED06F4491927A3B9A77 /* Pods-ConversationDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ConversationDemo.debug.xcconfig"; path = "Target Support Files/Pods-ConversationDemo/Pods-ConversationDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		E59B6C2ECE01D6EFCDC9EA60 /* Pods-ConversationDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ConversationDemo.release.xcconfig"; path = "Target Support Files/Pods-ConversationDemo/Pods-ConversationDemo.release.xcconfig"; sourceTree = "<group>"; };
 		F8C188AABEA5FAE17C9A90AD /* libPods-ConversationDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ConversationDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -283,6 +287,7 @@
 				1A64DA7C24BD919A009AFB82 /* LaunchScreen.storyboard */,
 				1A64DA7F24BD919A009AFB82 /* Info.plist */,
 				1A64DA8024BD919A009AFB82 /* main.m */,
+				1A7539C324C28D3600263C20 /* PrefixHeader.pch */,
 			);
 			path = ConversationDemo;
 			sourceTree = "<group>";
@@ -294,6 +299,8 @@
 				1A64DA8924BD9249009AFB82 /* ConversationModelGroup */,
 				1A64DA9124BD9249009AFB82 /* ConversationViewController.h */,
 				1A64DA8824BD9249009AFB82 /* ConversationViewController.m */,
+				1A7539C024C28B0400263C20 /* ConversationListViewController.h */,
+				1A7539C124C28B0400263C20 /* ConversationListViewController.m */,
 				1A64DA9C24BD924A009AFB82 /* ConversationViewGroup */,
 				1A64DA9224BD924A009AFB82 /* EmojiGroup */,
 				1A64DACD24BD94BD009AFB82 /* Tools */,
@@ -628,6 +635,7 @@
 				1A63BDF624BE9668009070FD /* AFNetAPIClient.m in Sources */,
 				1A64DA7024BD9198009AFB82 /* AppDelegate.m in Sources */,
 				1A64DA8124BD919A009AFB82 /* main.m in Sources */,
+				1A7539C224C28B0400263C20 /* ConversationListViewController.m in Sources */,
 				1A64DAC124BD924A009AFB82 /* ConversationTextView.m in Sources */,
 				1A64DAB524BD924A009AFB82 /* ConversationEmojiContentView.m in Sources */,
 				1A64DAB324BD924A009AFB82 /* ConversationObjectModel.m in Sources */,
@@ -782,6 +790,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = M2NC8A2MPU;
+				GCC_PREFIX_HEADER = "${SRCROOT}/ConversationDemo/PrefixHeader.pch";
 				INFOPLIST_FILE = ConversationDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -800,6 +809,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = M2NC8A2MPU;
+				GCC_PREFIX_HEADER = "${SRCROOT}/ConversationDemo/PrefixHeader.pch";
 				INFOPLIST_FILE = ConversationDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

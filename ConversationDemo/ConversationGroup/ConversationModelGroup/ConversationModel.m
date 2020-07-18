@@ -143,7 +143,7 @@ NSString *const kConversationModelMsgId = @"msgId";
 extern CGFloat getConversationTableTextCellHeight(ConversationModel *model);
 extern CGFloat kConversationTableSeatsCellHeight;
 - (void)parserExtraInfo{
-    if ([self.sendUserId isEqualToString:[NSString stringWithFormat:@"%@",@""]]) {
+    if ([self.sendUserId isEqualToString:[NSString stringWithFormat:@"%@",UserManager.shareUser.account]]) {
         self.direction = ConversationDirection_SEND;
     }else{
         self.direction = ConversationDirection_RECEIVE;

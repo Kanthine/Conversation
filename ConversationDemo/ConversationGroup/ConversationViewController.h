@@ -13,6 +13,9 @@ NS_ASSUME_NONNULL_BEGIN
 /* 会话界面
  */
 @interface ConversationViewController : UIViewController
+
+@property (nonatomic ,assign) BOOL isGroup;
+
 - (instancetype)initWithID:(NSString *)idString;
 @end
 

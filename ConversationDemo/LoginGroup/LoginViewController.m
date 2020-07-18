@@ -403,6 +403,8 @@ static CGFloat const YYSpringBounciness = 16.0;
         UserManager.shareUser.nickName = responseObject[@"data"][@"nickName"];
         UserManager.shareUser.account = responseObject[@"data"][@"account"];
         UserManager.shareUser.password = responseObject[@"data"][@"password"];
+        UserManager.shareUser.token = responseObject[@"data"][@"token"];
+
         [UserManager.shareUser save];
         dispatch_async(dispatch_get_main_queue(), ^{
             [((AppDelegate *)UIApplication.sharedApplication.delegate) loginOrRegisterSuccess];
