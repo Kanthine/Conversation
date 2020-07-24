@@ -21,8 +21,6 @@ typedef NS_ENUM(NSUInteger, ConversationDirection) {
 typedef NS_ENUM(NSUInteger, ConversationType) {
     ConversationType_TEXT = 0,//文本消息
     ConversationType_IMAGE,//图片
-    ConversationType_ORDER,//订单
-    ConversationType_Seats,//订座
 };
 
 

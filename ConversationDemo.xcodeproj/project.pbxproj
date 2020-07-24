@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1A6199FD24CA864B00C4C112 /* UserHomePageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A6199FB24CA864B00C4C112 /* UserHomePageViewController.m */; };
+		1A619A0024CA86BD00C4C112 /* UserHomeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A6199FF24CA86BD00C4C112 /* UserHomeView.m */; };
+		1A619A0324CA890C00C4C112 /* UserHomeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A619A0224CA890C00C4C112 /* UserHomeCell.m */; };
 		1A63BDDB24BE8FF4009070FD /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A63BDD024BE8FF4009070FD /* LoginViewController.m */; };
 		1A63BDDC24BE8FF4009070FD /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A63BDD124BE8FF4009070FD /* RegisterViewController.m */; };
 		1A63BDDD24BE8FF4009070FD /* LoginTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A63BDD624BE8FF4009070FD /* LoginTextView.m */; };
@@ -26,7 +29,6 @@
 		1A64DA8124BD919A009AFB82 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A64DA8024BD919A009AFB82 /* main.m */; };
 		1A64DAB124BD924A009AFB82 /* ConversationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A64DA8824BD9249009AFB82 /* ConversationViewController.m */; };
 		1A64DAB224BD924A009AFB82 /* ConversationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A64DA8A24BD9249009AFB82 /* ConversationModel.m */; };
-		1A64DAB324BD924A009AFB82 /* ConversationObjectModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A64DA8C24BD9249009AFB82 /* ConversationObjectModel.m */; };
 		1A64DAB424BD924A009AFB82 /* ConversationContentParserTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A64DA9024BD9249009AFB82 /* ConversationContentParserTool.m */; };
 		1A64DAB524BD924A009AFB82 /* ConversationEmojiContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A64DA9324BD924A009AFB82 /* ConversationEmojiContentView.m */; };
 		1A64DAB624BD924A009AFB82 /* ConversationEmojiTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A64DA9424BD924A009AFB82 /* ConversationEmojiTools.m */; };
@@ -34,9 +36,7 @@
 		1A64DAB824BD924A009AFB82 /* ConversationEmojiKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A64DA9624BD924A009AFB82 /* ConversationEmojiKeyboard.m */; };
 		1A64DAB924BD924A009AFB82 /* UIImage+ConversationEmoji.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A64DA9724BD924A009AFB82 /* UIImage+ConversationEmoji.m */; };
 		1A64DABA24BD924A009AFB82 /* ConversationContentLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A64DA9E24BD924A009AFB82 /* ConversationContentLabel.m */; };
-		1A64DABB24BD924A009AFB82 /* ConversationTableSeatsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A64DA9F24BD924A009AFB82 /* ConversationTableSeatsCell.m */; };
 		1A64DABC24BD924A009AFB82 /* ConversationTableBaseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A64DAA024BD924A009AFB82 /* ConversationTableBaseCell.m */; };
-		1A64DABD24BD924A009AFB82 /* ConversationTableOrderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A64DAA124BD924A009AFB82 /* ConversationTableOrderCell.m */; };
 		1A64DABE24BD924A009AFB82 /* ConversationTableImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A64DAA224BD924A009AFB82 /* ConversationTableImageCell.m */; };
 		1A64DABF24BD924A009AFB82 /* ConversationTableTextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A64DAA324BD924A009AFB82 /* ConversationTableTextCell.m */; };
 		1A64DAC024BD924A009AFB82 /* ConversationInputBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A64DAAC24BD924A009AFB82 /* ConversationInputBar.m */; };
@@ -61,11 +61,16 @@
 		1A64DAFE24BD9DEA009AFB82 /* MediaStreamsResource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1A64DAF324BD9DEA009AFB82 /* MediaStreamsResource.bundle */; };
 		1A64DAFF24BD9DEA009AFB82 /* EditPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A64DAF424BD9DEA009AFB82 /* EditPhotoViewController.m */; };
 		1A64DB0224BDA102009AFB82 /* UserManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A64DB0124BDA102009AFB82 /* UserManager.m */; };
-		1A7539C224C28B0400263C20 /* ConversationListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A7539C124C28B0400263C20 /* ConversationListViewController.m */; };
 		BCC9E904E1179FDFC3907988 /* libPods-ConversationDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F8C188AABEA5FAE17C9A90AD /* libPods-ConversationDemo.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1A6199FB24CA864B00C4C112 /* UserHomePageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserHomePageViewController.m; sourceTree = "<group>"; };
+		1A6199FC24CA864B00C4C112 /* UserHomePageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserHomePageViewController.h; sourceTree = "<group>"; };
+		1A6199FE24CA86BD00C4C112 /* UserHomeView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserHomeView.h; sourceTree = "<group>"; };
+		1A6199FF24CA86BD00C4C112 /* UserHomeView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserHomeView.m; sourceTree = "<group>"; };
+		1A619A0124CA890C00C4C112 /* UserHomeCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserHomeCell.h; sourceTree = "<group>"; };
+		1A619A0224CA890C00C4C112 /* UserHomeCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserHomeCell.m; sourceTree = "<group>"; };
 		1A63BDD024BE8FF4009070FD /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		1A63BDD124BE8FF4009070FD /* RegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterViewController.m; sourceTree = "<group>"; };
 		1A63BDD224BE8FF4009070FD /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
@@ -102,10 +107,8 @@
 		1A64DA8824BD9249009AFB82 /* ConversationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationViewController.m; sourceTree = "<group>"; };
 		1A64DA8A24BD9249009AFB82 /* ConversationModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationModel.m; sourceTree = "<group>"; };
 		1A64DA8B24BD9249009AFB82 /* ConversationContentParserTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationContentParserTool.h; sourceTree = "<group>"; };
-		1A64DA8C24BD9249009AFB82 /* ConversationObjectModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationObjectModel.m; sourceTree = "<group>"; };
 		1A64DA8D24BD9249009AFB82 /* ConversationStatusDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationStatusDefine.h; sourceTree = "<group>"; };
 		1A64DA8E24BD9249009AFB82 /* ConversationModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationModel.h; sourceTree = "<group>"; };
-		1A64DA8F24BD9249009AFB82 /* ConversationObjectModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationObjectModel.h; sourceTree = "<group>"; };
 		1A64DA9024BD9249009AFB82 /* ConversationContentParserTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationContentParserTool.m; sourceTree = "<group>"; };
 		1A64DA9124BD9249009AFB82 /* ConversationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationViewController.h; sourceTree = "<group>"; };
 		1A64DA9324BD924A009AFB82 /* ConversationEmojiContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationEmojiContentView.m; sourceTree = "<group>"; };
@@ -118,15 +121,11 @@
 		1A64DA9A24BD924A009AFB82 /* UIImage+ConversationEmoji.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ConversationEmoji.h"; sourceTree = "<group>"; };
 		1A64DA9B24BD924A009AFB82 /* ConversationEmojiKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationEmojiKeyboard.h; sourceTree = "<group>"; };
 		1A64DA9E24BD924A009AFB82 /* ConversationContentLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationContentLabel.m; sourceTree = "<group>"; };
-		1A64DA9F24BD924A009AFB82 /* ConversationTableSeatsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationTableSeatsCell.m; sourceTree = "<group>"; };
 		1A64DAA024BD924A009AFB82 /* ConversationTableBaseCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationTableBaseCell.m; sourceTree = "<group>"; };
-		1A64DAA124BD924A009AFB82 /* ConversationTableOrderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationTableOrderCell.m; sourceTree = "<group>"; };
 		1A64DAA224BD924A009AFB82 /* ConversationTableImageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationTableImageCell.m; sourceTree = "<group>"; };
 		1A64DAA324BD924A009AFB82 /* ConversationTableTextCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationTableTextCell.m; sourceTree = "<group>"; };
 		1A64DAA424BD924A009AFB82 /* ConversationContentLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationContentLabel.h; sourceTree = "<group>"; };
 		1A64DAA524BD924A009AFB82 /* ConversationTableBaseCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationTableBaseCell.h; sourceTree = "<group>"; };
-		1A64DAA624BD924A009AFB82 /* ConversationTableSeatsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationTableSeatsCell.h; sourceTree = "<group>"; };
-		1A64DAA724BD924A009AFB82 /* ConversationTableOrderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationTableOrderCell.h; sourceTree = "<group>"; };
 		1A64DAA824BD924A009AFB82 /* ConversationTableTextCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationTableTextCell.h; sourceTree = "<group>"; };
 		1A64DAA924BD924A009AFB82 /* ConversationTableImageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationTableImageCell.h; sourceTree = "<group>"; };
 		1A64DAAB24BD924A009AFB82 /* ConversationInputBarImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationInputBarImageView.h; sourceTree = "<group>"; };
@@ -173,8 +172,6 @@
 		1A64DAF424BD9DEA009AFB82 /* EditPhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditPhotoViewController.m; sourceTree = "<group>"; };
 		1A64DB0024BDA102009AFB82 /* UserManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserManager.h; sourceTree = "<group>"; };
 		1A64DB0124BDA102009AFB82 /* UserManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserManager.m; sourceTree = "<group>"; };
-		1A7539C024C28B0400263C20 /* ConversationListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConversationListViewController.h; sourceTree = "<group>"; };
-		1A7539C124C28B0400263C20 /* ConversationListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ConversationListViewController.m; sourceTree = "<group>"; };
 		1A7539C324C28D3600263C20 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		97CF5ED06F4491927A3B9A77 /* Pods-ConversationDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ConversationDemo.debug.xcconfig"; path = "Target Support Files/Pods-ConversationDemo/Pods-ConversationDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		E59B6C2ECE01D6EFCDC9EA60 /* Pods-ConversationDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ConversationDemo.release.xcconfig"; path = "Target Support Files/Pods-ConversationDemo/Pods-ConversationDemo.release.xcconfig"; sourceTree = "<group>"; };
@@ -203,6 +200,8 @@
 				1A63BDD024BE8FF4009070FD /* LoginViewController.m */,
 				1A63BDD324BE8FF4009070FD /* RegisterViewController.h */,
 				1A63BDD124BE8FF4009070FD /* RegisterViewController.m */,
+				1A6199FC24CA864B00C4C112 /* UserHomePageViewController.h */,
+				1A6199FB24CA864B00C4C112 /* UserHomePageViewController.m */,
 			);
 			path = LoginGroup;
 			sourceTree = "<group>";
@@ -216,6 +215,10 @@
 				1A63BDDA24BE8FF4009070FD /* GravityInduction.m */,
 				1A63BDD924BE8FF4009070FD /* LoginTextView.h */,
 				1A63BDD624BE8FF4009070FD /* LoginTextView.m */,
+				1A6199FE24CA86BD00C4C112 /* UserHomeView.h */,
+				1A6199FF24CA86BD00C4C112 /* UserHomeView.m */,
+				1A619A0124CA890C00C4C112 /* UserHomeCell.h */,
+				1A619A0224CA890C00C4C112 /* UserHomeCell.m */,
 			);
 			path = LoginView;
 			sourceTree = "<group>";
@@ -299,8 +302,6 @@
 				1A64DA8924BD9249009AFB82 /* ConversationModelGroup */,
 				1A64DA9124BD9249009AFB82 /* ConversationViewController.h */,
 				1A64DA8824BD9249009AFB82 /* ConversationViewController.m */,
-				1A7539C024C28B0400263C20 /* ConversationListViewController.h */,
-				1A7539C124C28B0400263C20 /* ConversationListViewController.m */,
 				1A64DA9C24BD924A009AFB82 /* ConversationViewGroup */,
 				1A64DA9224BD924A009AFB82 /* EmojiGroup */,
 				1A64DACD24BD94BD009AFB82 /* Tools */,
@@ -311,13 +312,11 @@
 		1A64DA8924BD9249009AFB82 /* ConversationModelGroup */ = {
 			isa = PBXGroup;
 			children = (
-				1A64DA8A24BD9249009AFB82 /* ConversationModel.m */,
 				1A64DA8B24BD9249009AFB82 /* ConversationContentParserTool.h */,
-				1A64DA8C24BD9249009AFB82 /* ConversationObjectModel.m */,
-				1A64DA8D24BD9249009AFB82 /* ConversationStatusDefine.h */,
-				1A64DA8E24BD9249009AFB82 /* ConversationModel.h */,
-				1A64DA8F24BD9249009AFB82 /* ConversationObjectModel.h */,
 				1A64DA9024BD9249009AFB82 /* ConversationContentParserTool.m */,
+				1A64DA8E24BD9249009AFB82 /* ConversationModel.h */,
+				1A64DA8A24BD9249009AFB82 /* ConversationModel.m */,
+				1A64DA8D24BD9249009AFB82 /* ConversationStatusDefine.h */,
 			);
 			path = ConversationModelGroup;
 			sourceTree = "<group>";
@@ -350,18 +349,14 @@
 		1A64DA9D24BD924A009AFB82 /* ConversationCellGroup */ = {
 			isa = PBXGroup;
 			children = (
-				1A64DA9E24BD924A009AFB82 /* ConversationContentLabel.m */,
-				1A64DA9F24BD924A009AFB82 /* ConversationTableSeatsCell.m */,
-				1A64DAA024BD924A009AFB82 /* ConversationTableBaseCell.m */,
-				1A64DAA124BD924A009AFB82 /* ConversationTableOrderCell.m */,
-				1A64DAA224BD924A009AFB82 /* ConversationTableImageCell.m */,
-				1A64DAA324BD924A009AFB82 /* ConversationTableTextCell.m */,
 				1A64DAA424BD924A009AFB82 /* ConversationContentLabel.h */,
+				1A64DA9E24BD924A009AFB82 /* ConversationContentLabel.m */,
 				1A64DAA524BD924A009AFB82 /* ConversationTableBaseCell.h */,
-				1A64DAA624BD924A009AFB82 /* ConversationTableSeatsCell.h */,
-				1A64DAA724BD924A009AFB82 /* ConversationTableOrderCell.h */,
-				1A64DAA824BD924A009AFB82 /* ConversationTableTextCell.h */,
+				1A64DAA024BD924A009AFB82 /* ConversationTableBaseCell.m */,
 				1A64DAA924BD924A009AFB82 /* ConversationTableImageCell.h */,
+				1A64DAA224BD924A009AFB82 /* ConversationTableImageCell.m */,
+				1A64DAA824BD924A009AFB82 /* ConversationTableTextCell.h */,
+				1A64DAA324BD924A009AFB82 /* ConversationTableTextCell.m */,
 			);
 			path = ConversationCellGroup;
 			sourceTree = "<group>";
@@ -369,12 +364,12 @@
 		1A64DAAA24BD924A009AFB82 /* ConversationInputBarGroup */ = {
 			isa = PBXGroup;
 			children = (
-				1A64DAAB24BD924A009AFB82 /* ConversationInputBarImageView.h */,
+				1A64DAB024BD924A009AFB82 /* ConversationInputBar.h */,
 				1A64DAAC24BD924A009AFB82 /* ConversationInputBar.m */,
-				1A64DAAD24BD924A009AFB82 /* ConversationTextView.m */,
+				1A64DAAB24BD924A009AFB82 /* ConversationInputBarImageView.h */,
 				1A64DAAE24BD924A009AFB82 /* ConversationInputBarImageView.m */,
 				1A64DAAF24BD924A009AFB82 /* ConversationTextView.h */,
-				1A64DAB024BD924A009AFB82 /* ConversationInputBar.h */,
+				1A64DAAD24BD924A009AFB82 /* ConversationTextView.m */,
 			);
 			path = ConversationInputBarGroup;
 			sourceTree = "<group>";
@@ -609,12 +604,13 @@
 				1A64DAB224BD924A009AFB82 /* ConversationModel.m in Sources */,
 				1A64DAC624BD92BF009AFB82 /* UIScrollView+RefreshManager.m in Sources */,
 				1A64DB0224BDA102009AFB82 /* UserManager.m in Sources */,
+				1A619A0024CA86BD00C4C112 /* UserHomeView.m in Sources */,
 				1A64DAFC24BD9DEA009AFB82 /* UIBarButtonItem+PhotoBarLeftItem.m in Sources */,
 				1A64DAD624BD9CA2009AFB82 /* GlobalTools.m in Sources */,
 				1A63BDF324BE9668009070FD /* HttpManager+UploadFile.m in Sources */,
 				1A64DAC924BD940F009AFB82 /* NSObject+Swizzling.m in Sources */,
-				1A64DABB24BD924A009AFB82 /* ConversationTableSeatsCell.m in Sources */,
 				1A63BDFA24BEA019009070FD /* UINavigationController+TransitionAnimation.m in Sources */,
+				1A6199FD24CA864B00C4C112 /* UserHomePageViewController.m in Sources */,
 				1A64DABC24BD924A009AFB82 /* ConversationTableBaseCell.m in Sources */,
 				1A63BDE424BE91F1009070FD /* MBProgressHUD+CustomView.m in Sources */,
 				1A64DAF824BD9DEA009AFB82 /* PhotosManager.m in Sources */,
@@ -630,15 +626,13 @@
 				1A64DAD324BD9BF9009AFB82 /* UIBarButtonItem+LeftBarItem.m in Sources */,
 				1A64DAFD24BD9DEA009AFB82 /* PHAsset+MediaStreams.m in Sources */,
 				1A64DAC024BD924A009AFB82 /* ConversationInputBar.m in Sources */,
-				1A64DABD24BD924A009AFB82 /* ConversationTableOrderCell.m in Sources */,
 				1A64DAFA24BD9DEA009AFB82 /* AlbumGroupTableCell.m in Sources */,
 				1A63BDF624BE9668009070FD /* AFNetAPIClient.m in Sources */,
 				1A64DA7024BD9198009AFB82 /* AppDelegate.m in Sources */,
 				1A64DA8124BD919A009AFB82 /* main.m in Sources */,
-				1A7539C224C28B0400263C20 /* ConversationListViewController.m in Sources */,
+				1A619A0324CA890C00C4C112 /* UserHomeCell.m in Sources */,
 				1A64DAC124BD924A009AFB82 /* ConversationTextView.m in Sources */,
 				1A64DAB524BD924A009AFB82 /* ConversationEmojiContentView.m in Sources */,
-				1A64DAB324BD924A009AFB82 /* ConversationObjectModel.m in Sources */,
 				1A63BDF524BE9668009070FD /* HttpManager.m in Sources */,
 				1A64DABE24BD924A009AFB82 /* ConversationTableImageCell.m in Sources */,
 				1A63BDDD24BE8FF4009070FD /* LoginTextView.m in Sources */,
@@ -792,13 +786,14 @@
 				DEVELOPMENT_TEAM = M2NC8A2MPU;
 				GCC_PREFIX_HEADER = "${SRCROOT}/ConversationDemo/PrefixHeader.pch";
 				INFOPLIST_FILE = ConversationDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = www.ecpss.com.ListeningBook;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -811,13 +806,14 @@
 				DEVELOPMENT_TEAM = M2NC8A2MPU;
 				GCC_PREFIX_HEADER = "${SRCROOT}/ConversationDemo/PrefixHeader.pch";
 				INFOPLIST_FILE = ConversationDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = www.ecpss.com.ListeningBook;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

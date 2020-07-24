@@ -164,9 +164,8 @@
     [HttpManager requestForPostUrl:URL_Register Parameters:dict success:^(id responseObject) {
         NSLog(@"URL_Register ===== %@",responseObject);
 
-        UserManager.shareUser.nickName = responseObject[@"data"][@"nickName"];
-        UserManager.shareUser.account = responseObject[@"data"][@"account"];
-        UserManager.shareUser.password = responseObject[@"data"][@"password"];
+        [UserManager.shareUser parserWithDictionary:responseObject[@"data"]];
+        UserManager.shareUser.password = self.passwordView.textFiled.text;
         [UserManager.shareUser save];
         dispatch_async(dispatch_get_main_queue(), ^{
             [hud hideAnimated:YES];

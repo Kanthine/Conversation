@@ -25,8 +25,12 @@
     self.window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
     [self.window makeKeyAndVisible];
     
+    
+    UINavigationBar.appearance.backgroundColor = UIColor.whiteColor;
+    UINavigationBar.appearance.titleTextAttributes = @{NSFontAttributeName:[UIFont systemFontOfSize:18],NSForegroundColorAttributeName:UIColor.blackColor};
+    
     if (UserManager.shareUser.nickName) {
-        ConversationViewController *vc = [[[ConversationViewController alloc]init]initWithID:UserManager.shareUser.nickName];
+        ConversationViewController *vc = [[ConversationViewController alloc]init];
         self.window.rootViewController = [[UINavigationController alloc]initWithRootViewController:vc];
     }else{
         LoginViewController *loginVC = [[LoginViewController alloc]init];
@@ -62,7 +66,7 @@
 }
 
 - (void)loginOrRegisterSuccess{
-    ConversationViewController *vc = [[[ConversationViewController alloc]init]initWithID:UserManager.shareUser.nickName];
+    ConversationViewController *vc = [[ConversationViewController alloc]init];
     self.window.rootViewController = [[UINavigationController alloc]initWithRootViewController:vc];
 }
 

@@ -9,7 +9,9 @@
 #import <Foundation/Foundation.h>
 
 FOUNDATION_EXPORT int const kHeartBeatInterval;//心跳频率
-FOUNDATION_EXPORT NSString *const kChatAddress;//心跳频率
+//FOUNDATION_EXPORT NSString * _Nonnull const kChatAddress;//心跳频率
+
+FOUNDATION_EXPORT NSString * _Nonnull getSocketLink(void);//长链接
 
 NS_ASSUME_NONNULL_BEGIN
 

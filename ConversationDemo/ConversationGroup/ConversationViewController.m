@@ -11,34 +11,42 @@
 #import "ConversationViewController.h"
 #import "ConversationModel.h"
 #import "UIScrollView+RefreshManager.h"
-#import "ConversationObjectModel.h"
 #import "ConversationTableTextCell.h"
-#import "ConversationTableSeatsCell.h"
 #import "ConversationInputBar.h"
 #import "WebSocketClient.h"
 #import "UIBarButtonItem+LeftBarItem.h"
 #import "GlobalTools.h"
 #import "UserManager.h"
 #import <UIImageView+WebCache.h>
+#import "UserHomePageViewController.h"
 
 
 @interface ConversationViewController ()
 <UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic, assign) int currentPage;
-@property (nonatomic ,strong) ConversationObjectModel *shopModel;
 @property (nonatomic ,strong) NSMutableArray<ConversationModel *> *dataArray;
 @property (nonatomic ,strong) UITableView *tableView;
 @property (nonatomic ,strong) ConversationInputBar *inputBar;//输入框
 @property (nonatomic ,strong) WebSocketClient *socketClient;
+
+@property (nonatomic ,strong) NSString *targetID;
+
 @end
 
 @implementation ConversationViewController
 
-- (instancetype)initWithID:(NSString *)idString{
+- (instancetype)init{
+    return [self initWithTargetID:@"happy_group"];
+}
+
+- (instancetype)initWithTargetID:(NSString *)targetID{
     self = [super init];
     if (self) {
-        self.shopModel.shopNo = idString;
+        if ([targetID isEqualToString:@"happy_group"]) {
+            self.isGroup = YES;
+        }
+        self.targetID = targetID;
     }
     return self;
 }
@@ -52,7 +60,6 @@
     self.view.backgroundColor = [UIColor colorWithRed:238/255.0 green:238/255.0 blue:238/255.0 alpha:1.0];
     self.edgesForExtendedLayout = UIRectEdgeNone;
     self.navigationItem.leftBarButtonItem = [UIBarButtonItem leftBackItemWithTarget:self action:@selector(leftBarButtonItemClick)];
-    self.navigationItem.rightBarButtonItem = [UIBarButtonItem rightItemWithImage:[UIImage imageNamed:@"conversation_call_phone"] target:self action:@selector(rightBarButtonItemClick)];
     [self.view addSubview:self.tableView];
     [self.view addSubview:self.inputBar];
     [self socketClient];
@@ -70,13 +77,6 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (void)rightBarButtonItemClick{
-    if (self.shopModel.mobile.length > 5) {
-        NSMutableString *str=[[NSMutableString alloc] initWithFormat:@"telprompt://%@",self.shopModel.mobile];
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
-    }
-}
-
 #pragma mark - UITableViewDelegate
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -92,15 +92,10 @@
     if (model.type == ConversationType_TEXT) {
         ConversationTableTextCell *cell = [tableView dequeueReusableCellWithIdentifier:Cell_Text_Identifer forIndexPath:indexPath];
         if (model.direction == ConversationDirection_SEND) {
-            [cell.portraitImageView sd_setImageWithURL:[NSURL URLWithString:UserManager.shareUser.headPath] placeholderImage:[UIImage imageNamed:@"login_default_header"]];
+            [cell.portraitImageView sd_setImageWithURL:[NSURL URLWithString:UserManager.shareUser.headPath] placeholderImage:[UIImage imageNamed:@"register_Default"]];
         }else{
-            [cell.portraitImageView sd_setImageWithURL:[NSURL URLWithString:UserManager.shareUser.headPath] placeholderImage:[UIImage imageNamed:@"login_default_header"]];
+            [cell.portraitImageView sd_setImageWithURL:[NSURL URLWithString:UserManager.shareUser.headPath] placeholderImage:[UIImage imageNamed:@"register_Default"]];
         }
-        cell.model = model;
-        return cell;
-    }else if (model.type == ConversationType_Seats){
-        ConversationTableSeatsCell *cell = [tableView dequeueReusableCellWithIdentifier:Cell_Seats_Identifer forIndexPath:indexPath];
-        model.seatsInfo.shopName = self.shopModel.shopName;
         cell.model = model;
         return cell;
     }
@@ -111,9 +106,10 @@
     ConversationModel *model = self.dataArray[indexPath.row];
     if (model.type == ConversationType_TEXT) {
         
-    }else if (model.type == ConversationType_Seats){
-
     }
+    
+    UserHomePageViewController *userVC = [[UserHomePageViewController alloc] initWithUserId:self.targetID];
+    [self.navigationController pushViewController:userVC animated:YES];
 }
 
 #pragma mark - private methods
@@ -178,11 +174,12 @@
 - (void)insertConversationMessage:(NSDictionary *)dict{
     ConversationModel *model = [[ConversationModel alloc] init];
     model.sendDate = dict[@"sendDate"];
-    model.sendUserId = dict[@"from"];
-    model.receUserId = dict[@"to"];
+    model.sendUserId = dict[@"fromID"];
+    model.receUserId = dict[@"toID"];
     model.content = dict[@"content"];
     model.msgId = dict[@"msgId"];
-    model.messageType = @"TEXT";
+    model.isGroup = [dict[@"isGroup"] boolValue];
+    model.messageType = dict[@"msgType"];
     [model parserExtraInfo];
     NSLog(@"model ==== %@",model);
     [self.dataArray addObject:model];
@@ -218,19 +215,10 @@
     return _dataArray;
 }
 
-- (ConversationObjectModel *)shopModel{
-    if (_shopModel == nil) {
-        _shopModel = [[ConversationObjectModel alloc] init];
-        _shopModel.shopNo = @"";
-    }
-    return _shopModel;
-}
-
 - (WebSocketClient *)socketClient{
-    if (_socketClient == nil) {
-        NSString *url = [NSString stringWithFormat:@"%@%@",kChatAddress,UserManager.shareUser.account];
+    if (_socketClient == nil) {        
         _socketClient = [[WebSocketClient alloc] init];
-        [_socketClient openSocketWithURL:url heartBeat:@{}];
+        [_socketClient openSocketWithURL:getSocketLink() heartBeat:@{}];
         __weak typeof(self) weakSelf = self;
         _socketClient.receivedMessage = ^(NSDictionary * _Nonnull dict) {
 //            [weakSelf insertConversationMessage:dict];
@@ -250,7 +238,6 @@
         tableView.rowHeight = 70.0f;
         tableView.sectionFooterHeight = 0.1f;
         [tableView registerClass:ConversationTableTextCell.class forCellReuseIdentifier:Cell_Text_Identifer];
-        [tableView registerClass:ConversationTableSeatsCell.class forCellReuseIdentifier:Cell_Seats_Identifer];        
         tableView.backgroundColor = [UIColor colorWithRed:238/255.0 green:238/255.0 blue:238/255.0 alpha:1.0];
         __weak typeof(self) weakSelf = self;
         tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
@@ -272,19 +259,15 @@
             weakSelf.tableView.frame = CGRectMake(0, 0, CGRectGetWidth(UIScreen.mainScreen.bounds),frame.origin.y);
             [weakSelf tableViewScrollToBottom:duration];
         };
-        
-        _inputBar.sendCommentHandle = ^(NSString * _Nonnull text) {
-            NSString *timeSp = [NSString stringWithFormat:@"%ld", (long)[NSDate.date timeIntervalSince1970]*1000];//时间戳
-            NSDictionary *dict = @{@"from":UserManager.shareUser.nickName,@"to":@"",@"text":text,@"sendDate":timeSp};
-            
-            //{"content":"新消息","from":"user"}
-            //{"content":"发送消息","from":"user1","to":"user2"}
-            
-            dict = @{@"content":text,@"from":UserManager.shareUser.account};
-            [weakSelf.socketClient sendString:text];
 
-            
-            [weakSelf insertConversationMessage:@{@"content":text,@"from":UserManager.shareUser.nickName}];
+        _inputBar.sendCommentHandle = ^(NSString * _Nonnull text) {
+            NSDictionary *dict = @{@"msgType": @"Text",
+                                   @"isGroup": @(weakSelf.isGroup),
+                                   @"content":text,
+                                   @"fromID":UserManager.shareUser.userId,
+                                   @"toID":weakSelf.targetID};
+            [weakSelf.socketClient sendString:text];
+            [weakSelf insertConversationMessage:dict];
         };
     }
     return _inputBar;

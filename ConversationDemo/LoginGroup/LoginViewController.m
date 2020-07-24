@@ -399,16 +399,11 @@ static CGFloat const YYSpringBounciness = 16.0;
     
     [HttpManager requestForPostUrl:URL_Login Parameters:dict success:^(id responseObject) {
         NSLog(@"responseObject ===== %@",responseObject);
-
-        UserManager.shareUser.nickName = responseObject[@"data"][@"nickName"];
-        UserManager.shareUser.account = responseObject[@"data"][@"account"];
-        UserManager.shareUser.password = responseObject[@"data"][@"password"];
-        UserManager.shareUser.token = responseObject[@"data"][@"token"];
-
+        [UserManager.shareUser parserWithDictionary:responseObject[@"data"]];
+        UserManager.shareUser.password = self.passwordView.textFiled.text;
         [UserManager.shareUser save];
         dispatch_async(dispatch_get_main_queue(), ^{
             [((AppDelegate *)UIApplication.sharedApplication.delegate) loginOrRegisterSuccess];
-
         });
         
     } failure:^(NSError *error) {

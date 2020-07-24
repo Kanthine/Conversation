@@ -12,7 +12,16 @@ static int const kHeartBeatInterval = 5;
 #import <SocketRocket.h>
 #import <AFNetworkReachabilityManager.h>
 #import "UserManager.h"
-NSString *const kChatAddress = @"http://route.51mypc.cn/wss/im/";//心跳频率
+//NSString *const kChatAddress = @"http://route.51mypc.cn/wss/im-chat/";//心跳频率
+
+//ws://route.51mypc.cn/wss/im-chat/eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiIxNTk0OTcyMjcxOTYyLTM2NCIsInVzZXJOYW1lIjoiNzc0NzkyMzgxQHFxLmNvbSIsImV4cCI6MTYyNzAwNjI0MH0.ePF9Z10TqWqvGzbMxfj7himXPkWVMtMACaOdtUQ9MOY
+///长链接
+NSString * _Nonnull getSocketLink(void){
+    NSString *link = [NSString stringWithFormat:@"ws://route.51mypc.cn/wss/im-chat/%@",UserManager.shareUser.token];
+    NSLog(@"link ===== %@",link);
+    return link;
+}
+
 
 @interface WebSocketClient ()
 <SRWebSocketDelegate>
@@ -35,7 +44,7 @@ NSString *const kChatAddress = @"http://route.51mypc.cn/wss/im/";//心跳频率
     self = [super init];
     if (self) {
         _reconnectionCount = 0;
-        _networkManager = [AFNetworkReachabilityManager managerForDomain:[NSString stringWithFormat:@"%@%@",kChatAddress,UserManager.shareUser.account]];
+        _networkManager = [AFNetworkReachabilityManager managerForDomain:@"http://route.51mypc.cn"];
         [_networkManager startMonitoring];
     }
     return self;

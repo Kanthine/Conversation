@@ -11,18 +11,6 @@
 #import "ConversationStatusDefine.h"
 NS_ASSUME_NONNULL_BEGIN
 
-/* 订座信息
- */
-@interface ConversationModelSeatsContent : NSObject <NSCoding, NSCopying>
-@property (nonatomic, strong) NSString *orderNo;
-@property (nonatomic, strong) NSString *personCount;
-@property (nonatomic, strong) NSString *state;
-@property (nonatomic, strong) NSString *shopImage;
-@property (nonatomic, strong) NSString *shopName;
-@property (nonatomic, strong) NSString *seatType;
-@property (nonatomic, strong) NSString *reserveTime;
-+ (instancetype)modelObjectWithDictionary:(NSDictionary *)dict;
-@end
 
 
 
@@ -35,12 +23,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *sendDate;
 @property (nonatomic, strong) NSString *msgId;
 
-
+@property (nonatomic ,assign) BOOL isGroup;
 @property (nonatomic ,assign) CGSize contentSize;
 @property (nonatomic ,assign) CGFloat cellHeight;
 @property (nonatomic ,assign) ConversationDirection direction;
 @property (nonatomic ,assign) ConversationType type;
-@property (nonatomic, strong) ConversationModelSeatsContent *seatsInfo;
 @property (nonatomic, strong) NSAttributedString *attributedString;
 
 

@@ -10,13 +10,17 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-/* 会话界面
+/** 会话界面
+ * http://route.51mypc.cn/notes/
+ * https://route.51mypc.cn/chat/chat.html
+ * http://route.51mypc.cn/chat/chat.html
  */
 @interface ConversationViewController : UIViewController
 
 @property (nonatomic ,assign) BOOL isGroup;
 
-- (instancetype)initWithID:(NSString *)idString;
+- (instancetype)initWithTargetID:(NSString *)targetID;
+
 @end
 
 NS_ASSUME_NONNULL_END
