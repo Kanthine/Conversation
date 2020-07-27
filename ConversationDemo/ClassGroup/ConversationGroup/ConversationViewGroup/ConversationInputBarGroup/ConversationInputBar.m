@@ -1,0 +1,368 @@
+//
+//  ConversationInputBar.m
+//  ConversationDemo
+//
+//  Created by 苏沫离 on 2019/9/18.
+//  Copyright © 2019 Tomato FoodNet Corp. All rights reserved.
+//
+
+#import "ConversationInputBar.h"
+#import <Masonry.h>
+#import "NSObject+GetTheController.h"
+#import "ConversationInputBarImageView.h"
+#import "AlbumMainViewController.h"
+
+@interface ConversationInputBar ()
+
+{
+    CGFloat _defaultHeight;
+    ConversationInputBarImageView *_imageToolsView;
+}
+
+//默认不可以发送图片消息
+@property (nonatomic ,assign) BOOL isCanSendImage;//是否可以发送图片，默认为 NO
+
+@property (nonatomic ,strong) UIButton *imageTypeButton;//选择图片
+@property (nonatomic ,strong) UIButton *sendButton;//发送消息
+@property (nonatomic ,strong) UIButton *coverButton;//背景蒙层
+
+@end
+
+@implementation ConversationInputBar
+
+- (void)dealloc{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (instancetype)init{
+    self = [super init];
+    if (self) {
+        _isCanSendImage = NO;
+        _defaultHeight = 52.0f;
+        
+        self.frame = CGRectMake(0, getPageSafeAreaHeight(YES)  - _defaultHeight,CGRectGetWidth(UIScreen.mainScreen.bounds) , _defaultHeight);
+        self.backgroundColor = UIColor.whiteColor;
+        
+        UIView *topLineview = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(UIScreen.mainScreen.bounds), 0.5)];//顶部分割线
+        topLineview.backgroundColor = [UIColor colorWithRed:239/255.0 green:239/255.0 blue:244/255.0 alpha:1];
+        [self addSubview:topLineview];
+        
+        UIView *bottomLineview = [[UIView alloc] init];//底部分割线
+        bottomLineview.backgroundColor = [UIColor colorWithRed:239/255.0 green:239/255.0 blue:244/255.0 alpha:1];
+        [self addSubview:bottomLineview];
+        [bottomLineview mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.bottom.right.mas_equalTo(0);
+            make.height.mas_equalTo(0.5);
+        }];
+        
+        [self addSubview:self.textView];
+        [self addSubview:self.sendButton];
+        
+        [self addObserverNotification];
+    }
+    return self;
+}
+
+- (void)layoutSubviews{
+    [super layoutSubviews];
+}
+
+#pragma mark - Notification
+
+//监测键盘的高度
+- (void)addObserverNotification{
+    __weak typeof(self) weakSelf = self;
+    
+    //键盘弹出，向输入框下层插入防误触遮罩
+    [[NSNotificationCenter defaultCenter] addObserverForName:UIKeyboardDidShowNotification object:nil queue:NSOperationQueue.mainQueue usingBlock:^(NSNotification *note){
+        NSDictionary *info = [note userInfo];
+        CGRect endKeyboardRect = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+        
+        CGRect weakSelfFrame = weakSelf.frame;
+        weakSelfFrame.origin.y = endKeyboardRect.origin.y - CGRectGetHeight(weakSelfFrame) - getNavigationBarHeight();
+        weakSelf.frame = weakSelfFrame;
+        if (weakSelf.frameChangeHandle) {
+            weakSelf.frameChangeHandle(weakSelf.frame,0.0);
+        }
+        weakSelf.textView.keyboardSize = endKeyboardRect.size;
+        [weakSelf.viewTheController.view addSubview:weakSelf.coverButton];
+        [weakSelf.viewTheController.view insertSubview:weakSelf.coverButton belowSubview:weakSelf];
+    }];
+    
+    //键盘消失，移除防误触遮罩
+    [[NSNotificationCenter defaultCenter] addObserverForName:UIKeyboardDidHideNotification object:nil queue:NSOperationQueue.mainQueue usingBlock:^(NSNotification *note){
+        [weakSelf.coverButton removeFromSuperview];
+        weakSelf.coverButton = nil;
+    }];
+    
+    [[NSNotificationCenter defaultCenter] addObserverForName:UIKeyboardWillChangeFrameNotification object:nil queue:NSOperationQueue.mainQueue usingBlock:^(NSNotification *note){
+        NSDictionary *info = [note userInfo];
+        CGFloat duration = [[info objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
+        CGRect endKeyboardRect = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+        weakSelf.textView.keyboardSize = endKeyboardRect.size;
+        CGRect weakSelfFrame = weakSelf.frame;
+        weakSelfFrame.origin.y = endKeyboardRect.origin.y - CGRectGetHeight(weakSelfFrame) - getNavigationBarHeight();
+        [UIView animateWithDuration:duration animations:^{
+            weakSelf.frame = weakSelfFrame;
+        } completion:^(BOOL finished) {}];
+        if (weakSelf.frameChangeHandle) {
+            weakSelf.frameChangeHandle(weakSelfFrame,duration);
+        }
+    }];
+}
+
+/* 输入框文字改变，重置输入框高度、工具栏高度
+ * 参数 isChangeImageTools：是否因为 插入\删除图片 引发布局重置
+ */
+- (void)textViewDidChangeResertFrame:(BOOL)isChangeImageTools{
+    [self updateSendButtonUI];
+    
+    //判断工具栏是否插入图片
+    if (isChangeImageTools) {
+        if (_isCanSendImage == NO) {
+            self.textView.frame = CGRectMake(12, 6, CGRectGetWidth(self.frame) - 12 - 50, CGRectGetHeight(self.textView.frame));
+        }else if (_imageToolsView == nil) {
+            self.textView.frame = CGRectMake(50, 6, CGRectGetWidth(self.frame) - 50 * 2, CGRectGetHeight(self.textView.frame));
+        }else{
+            self.textView.frame = CGRectMake(12, CGRectGetMaxY(_imageToolsView.frame) + 20, CGRectGetWidth(self.frame) - 12 - 50, CGRectGetHeight(self.textView.frame));
+        }
+        CGFloat height = CGRectGetMaxY(self.textView.frame) + 8;
+        CGFloat maxY = CGRectGetMaxY(self.frame);
+        height = height < _defaultHeight ? _defaultHeight : height;
+        self.frame = CGRectMake(0, maxY - height, CGRectGetWidth(self.frame),height);
+        //next：输入框宽度改变，高度可能会改变，所以需要去重置输入框高度、工具栏高度
+    }
+    
+    //重置输入框高度、工具栏高度
+    CGFloat textWidth = self.textView.contentSize.width;
+    CGFloat newHeight = [self.textView sizeThatFits:CGSizeMake(textWidth,MAXFLOAT)].height;
+    CGFloat oldHeight = CGRectGetHeight(self.textView.frame);
+    //只有高度差超过一行文字，再去重置；否则无意义
+    if (fabs(oldHeight - newHeight) > 15.0) {
+        
+        //设置 textView 是否可滑动
+        if (newHeight > self.textView.logicTools.maxHeight && self.textView.scrollEnabled == NO) {
+            self.textView.scrollEnabled = YES;
+        }else if(newHeight <= self.textView.logicTools.maxHeight && self.textView.scrollEnabled == YES) {
+           self.textView.scrollEnabled = NO;
+        }
+        
+        //设置最小最大值
+        newHeight = newHeight < 36.0 ? 36.0 : newHeight;
+        newHeight = newHeight > self.textView.logicTools.maxHeight ? self.textView.logicTools.maxHeight : newHeight;
+        //重置 textView 高度
+        CGRect textFrame = self.textView.frame;
+        textFrame.size.height = newHeight;
+        self.textView.frame = textFrame;
+        
+        //重置 self 坐标
+        CGFloat maxY = CGRectGetMaxY(self.frame);
+        CGFloat toolsViewHeight = CGRectGetMaxY(self.textView.frame) + 6;
+        
+        self.frame = CGRectMake(0, maxY - toolsViewHeight, CGRectGetWidth(UIScreen.mainScreen.bounds), toolsViewHeight);
+    }
+    
+    if (self.frameChangeHandle) {
+        self.frameChangeHandle(self.frame,0.0);
+    }
+    
+    //两侧的按钮需要跟着重置
+    _sendButton.frame = CGRectMake(CGRectGetWidth(UIScreen.mainScreen.bounds) - 50, CGRectGetHeight(self.frame) - 50, 50, 50);
+    if (_imageTypeButton) {
+        _imageTypeButton.frame = CGRectMake(0, CGRectGetHeight(self.frame) - 50,50,50);
+    }
+}
+
+#pragma mark - private method
+
+- (void)updateSendButtonUI{
+    NSString *content = [_textView.logicTools.getTextViewRawData copy];
+    if (content.length == 0 && _imageToolsView.imageURL == nil) {
+        //判断字符串为空
+        [_sendButton setImage:[UIImage imageNamed:@"conversation_input_send"] forState:UIControlStateNormal];
+        _sendButton.userInteractionEnabled = NO;
+    }else if ([[content  stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]length]==0){
+        //判断字符串只为空格
+        [_sendButton setImage:[UIImage imageNamed:@"conversation_input_send"] forState:UIControlStateNormal];
+        _sendButton.userInteractionEnabled = NO;
+    }else{
+        [_sendButton setImage:[UIImage imageNamed:@"conversation_input_send_highlight"] forState:UIControlStateNormal];
+        _sendButton.userInteractionEnabled = YES;
+    }
+}
+
+#pragma mark - public method
+
+- (void)becomeResponder{
+    [self.textView becomeFirstResponder];
+}
+
+- (void)resignKeyboardToolsFirstResponder{
+    [_textView resignFirstResponder];
+}
+
+#pragma mark - response click
+
+//遮罩点击，使键盘消失
+- (void)coverButtonDismissKeyboardClick{
+    [self resignKeyboardToolsFirstResponder];
+}
+
+//发送图片按钮
+- (void)imageButtonClick{
+    if (PhotosManager.libraryAuthorization == NO) {
+        [PhotosManager requestLibraryAuthorization];
+        return;
+    }
+    
+    __weak typeof(self) weakSelf = self;
+    AlbumMainViewController *albumMainVC = [[AlbumMainViewController alloc] initWithAlbumResourcesType:AlbumResourcesTypeLibrary];
+    albumMainVC.selectedImagesHanlder = ^(NSMutableArray<PHAsset *> *selectedArray) {
+        if (selectedArray.count > 0) {
+            PHAsset *assert = selectedArray.firstObject;
+            [weakSelf toolsImageViewAddClick:assert.originalImage imageURL:@""];
+        }
+    };
+    [self.viewTheController presentViewController:albumMainVC animated:YES completion:nil];
+}
+
+/* 发布评论
+ */
+- (void)sendCommentButtonCilck:(UIButton *)sender{
+    
+    //评论内容
+    NSString *content = [_textView.logicTools.getTextViewRawData copy];
+    CGFloat length = [ConversationInputServiceLogicTools getAttributedStringLength:_textView.attributedText];
+    
+    if (length == 0 && _imageToolsView.imageURL == nil) {
+        return ;//判断字符串为空
+    }else if ([[content  stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]length]==0){
+        NSLog(@"都为空格");//判断字符串只为空格
+        return ;
+    }else if (length > 150) {
+//        kPI(@"评论内容过长");
+        return;
+    }else{
+        //如果有图片，则附加图片地址
+        if (_imageToolsView && _imageToolsView.imageURL) {
+            NSString *imageURL = [NSString stringWithFormat:@"＜comImg:%@＞",_imageToolsView.imageURL];
+            if (content && content.length > 0) {
+                content = [NSString stringWithFormat:@"%@ %@",content,imageURL];
+            }else{
+                content = imageURL;
+            }
+        }
+    }
+    
+    if (self.sendCommentHandle) {
+        self.sendCommentHandle(content);
+    }
+    
+    _textView.text = @"";
+    [self textViewDidChangeResertFrame:YES];
+}
+
+/* 删除输入框中的图片
+ * 重新布局输入框
+ */
+- (void)toolsImageViewDeleteButtonClick{
+    if (_imageToolsView) {
+        //删除图片
+        [_imageToolsView removeFromSuperview];
+        _imageToolsView = nil;
+        //添加图片按钮
+        [self addSubview:self.imageTypeButton];
+    }
+    //重新布局 frame
+    [self textViewDidChangeResertFrame:YES];
+}
+
+/* 添加图片至输入框中
+ * 重新布局输入框
+ */
+- (void)toolsImageViewAddClick:(UIImage *)image imageURL:(NSString *)url{
+    //初始化并添加图片
+    _imageToolsView = [ConversationInputBarImageView initializeWithImage:image imageURL:url];
+    [_imageToolsView.deleteButton addTarget:self action:@selector(toolsImageViewDeleteButtonClick) forControlEvents:UIControlEventTouchUpInside];
+    [self addSubview:_imageToolsView];
+    
+    //移除图片按钮
+    [_imageTypeButton removeFromSuperview];
+    _imageTypeButton = nil;
+    
+    //重新布局 frame
+    [self textViewDidChangeResertFrame:YES];
+}
+
+#pragma mark - setter and getter
+
+- (void)setIsCanSendImage:(BOOL)isCanSendImage{
+    if (_isCanSendImage != isCanSendImage) {
+        _isCanSendImage = isCanSendImage;
+        
+        if (isCanSendImage) {
+            [self addSubview:self.imageTypeButton];
+        }else{
+            [_imageTypeButton removeFromSuperview];
+            _imageTypeButton = nil;
+        }
+        [self textViewDidChangeResertFrame:YES];
+    }
+}
+
+- (UIButton *)coverButton{
+    if (_coverButton == nil) {
+        _coverButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _coverButton.frame = UIScreen.mainScreen.bounds;
+        _coverButton.backgroundColor = UIColor.clearColor;
+        [_coverButton addTarget:self action:@selector(coverButtonDismissKeyboardClick) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _coverButton;
+}
+
+- (UIButton *)imageTypeButton{
+    if (_imageTypeButton == nil) {
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+        button.frame = CGRectMake(0, 0,50,50);
+        [button setImage:[UIImage imageNamed:@"conversation_input_send_image"] forState:UIControlStateNormal];
+        button.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 8);
+        button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+        [button addTarget:self action:@selector(imageButtonClick) forControlEvents:UIControlEventTouchUpInside];
+        _imageTypeButton = button;
+    }
+    return _imageTypeButton;
+}
+
+- (UIButton *)sendButton{
+    if (_sendButton == nil) {
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+        button.frame = CGRectMake(CGRectGetWidth(UIScreen.mainScreen.bounds) - 50, 0,50,50);
+        [button setImage:[UIImage imageNamed:@"conversation_input_send"] forState:UIControlStateNormal];
+        button.adjustsImageWhenHighlighted = NO;
+        button.adjustsImageWhenDisabled = NO;
+        button.imageEdgeInsets = UIEdgeInsetsMake(0, 12, 0, 0);
+        button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+        [button addTarget:self action:@selector(sendCommentButtonCilck:) forControlEvents:UIControlEventTouchUpInside];
+        _sendButton = button;
+    }
+    return _sendButton;
+}
+
+- (ConversationTextView *)textView{
+    if (_textView == nil) {
+        ConversationInputServiceLogicTools *logic = [[ConversationInputServiceLogicTools alloc] init];
+        _textView = [[ConversationTextView alloc] initWithFrame:CGRectMake(12, 6,CGRectGetWidth(UIScreen.mainScreen.bounds) - 50 - 12,36) logic:logic];
+        __weak typeof(self) weakSelf = self;
+        //键盘发送按钮事件
+        _textView.logicTools.sendKeyHandler = ^{
+            [weakSelf sendCommentButtonCilck:weakSelf.sendButton];
+        };
+        //输入框文本改变事件
+        _textView.logicTools.textDidChangeHandler = ^{
+            [weakSelf textViewDidChangeResertFrame:NO];
+        };
+    }
+    return _textView;
+}
+
+@end

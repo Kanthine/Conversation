@@ -10,6 +10,11 @@
 #define PrefixHeader_pch
 
 #import "UserManager.h"
+#import "WebSocketClient.h"
+#import "GlobalTools.h"
+#import "HttpManager.h"
+
+#import <UIImageView+WebCache.h>
 
 
 #endif /* PrefixHeader_pch */
