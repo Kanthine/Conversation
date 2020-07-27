@@ -13,9 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 /* 文本消息
  */
 @interface ConversationTableTextCell : ConversationTableBaseCell
-@property (nonatomic ,strong) UIImageView *portraitImageView;
 
-@property (nonatomic ,copy) void(^tapPortraitClick)(void);
 
 @end
 

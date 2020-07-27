@@ -5,18 +5,17 @@
 //  Created by 苏沫离 on 2019/9/17.
 //  Copyright © 2019 Tomato FoodNet Corp. All rights reserved.
 //
-#define Cell_Text_Identifer @"ConversationTableTextCell"
-#define Cell_Seats_Identifer @"ConversationTableSeatsCell"
 
 #import "ConversationViewController.h"
 #import "ConversationModel.h"
 #import "UIScrollView+RefreshManager.h"
 #import "ConversationTableTextCell.h"
+#import "ConversationTableImageCell.h"
 #import "ConversationInputBar.h"
 #import "WebSocketClient.h"
 #import "UIBarButtonItem+LeftBarItem.h"
 #import "UserHomePageViewController.h"
-
+#import "AFNetAPIClient.h"
 
 @interface ConversationViewController ()
 <UITableViewDelegate,UITableViewDataSource>
@@ -54,6 +53,11 @@
     self.navigationItem.title = self.targetUser.nickName;
     
     [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(socketReceiveMessageNotification:) name:kSocketReceiveMessageNotification object:nil];
+    
+    [ConversationModel getAllModels:^(NSMutableArray<ConversationModel *> * _Nonnull modelsArray) {
+        self.dataArray = modelsArray;
+        [self.tableView reloadData];
+    }];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -85,21 +89,12 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     ConversationModel *model = self.dataArray[indexPath.row];
-    if (model.type == ConversationType_TEXT) {
-        ConversationTableTextCell *cell = [tableView dequeueReusableCellWithIdentifier:Cell_Text_Identifer forIndexPath:indexPath];
-        if (model.direction == ConversationDirection_SEND) {
-            [cell.portraitImageView sd_setImageWithURL:[NSURL URLWithString:UserManager.shareUser.headPath] placeholderImage:[UIImage imageNamed:@"register_Default"]];
-        }else{
-            [cell.portraitImageView sd_setImageWithURL:[NSURL URLWithString:UserManager.shareUser.headPath] placeholderImage:[UIImage imageNamed:@"register_Default"]];
-        }
-        cell.model = model;
-        cell.tapPortraitClick = ^{
-            UserHomePageViewController *userVC = [[UserHomePageViewController alloc] initWithUserId:model.fromID];
-            [self.navigationController pushViewController:userVC animated:YES];
-        };
-        return cell;
-    }
-    return nil;
+    ConversationTableBaseCell *cell = [ConversationTableBaseCell tableView:tableView cellAtIndexPath:indexPath cellForModel:model];
+    cell.tapPortraitClick = ^{
+        UserHomePageViewController *userVC = [[UserHomePageViewController alloc] initWithUserId:model.fromID];
+        [self.navigationController pushViewController:userVC animated:YES];
+    };
+    return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -172,8 +167,19 @@
 
 //{"content":"收得到？","fromHeaderPath":"/pic/1594721397551-939/1594721397551-939.jpg","fromID":"1594721397551-939","fromName":"Alan","group":false,"msgType":"Text","toHeaderPath":"/pic/1594972271962-364/1594972271962-364.jpg","toID":"1594972271962-364","toName":"774792381@qq.com"}
 
+- (void)sendMessageWithText:(NSString *)text msgType:(ConversationType)type{
+    NSDictionary *dict = @{@"msgType":  type == ConversationType_TEXT ? @"Text" : @"Image",
+                            @"group": @(self.targetUser.isGroup),
+                            @"content":text,
+                            @"fromID":UserManager.shareUser.userId,
+                            @"toID":self.targetUser.userId};
+     [WebSocketClient.shareClient sendData:dict];
+     [self insertConversationMessage:dict];
+}
+
 - (void)insertConversationMessage:(NSDictionary *)dict{
     ConversationModel *model = [ConversationModel modelObjectWithDictionary:dict];
+    [ConversationModel insertModel:model];
     NSLog(@"model ==== %@",model);
     [self.dataArray addObject:model];
     [self.tableView reloadData];
@@ -218,13 +224,13 @@
         tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         tableView.rowHeight = 70.0f;
         tableView.sectionFooterHeight = 0.1f;
-        [tableView registerClass:ConversationTableTextCell.class forCellReuseIdentifier:Cell_Text_Identifer];
         tableView.backgroundColor = [UIColor colorWithRed:238/255.0 green:238/255.0 blue:238/255.0 alpha:1.0];
         __weak typeof(self) weakSelf = self;
         tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
             weakSelf.currentPage ++;
             [weakSelf loadNetWorkRequest];
         }];
+        [ConversationTableBaseCell regisCellForTableView:tableView];
         tableView.autoHiddenFooter = YES;
         _tableView = tableView;
     }
@@ -242,13 +248,16 @@
         };
 
         _inputBar.sendCommentHandle = ^(NSString * _Nonnull text) {
-            NSDictionary *dict = @{@"msgType": @"Text",
-                                   @"group": @(weakSelf.targetUser.isGroup),
-                                   @"content":text,
-                                   @"fromID":UserManager.shareUser.userId,
-                                   @"toID":weakSelf.targetUser.userId};
-            [WebSocketClient.shareClient sendData:dict];
-            [weakSelf insertConversationMessage:dict];
+            [weakSelf sendMessageWithText:text msgType:ConversationType_TEXT];
+        };
+        
+        _inputBar.sendImageHandle = ^(UIImage * _Nonnull image) {
+            [AFNetAPIClient uploadImage:image success:^(NSString * _Nonnull url) {
+                
+                [weakSelf sendMessageWithText:url msgType:ConversationType_IMAGE];
+            } error:^(NSString * _Nonnull error) {
+                
+            }];
         };
     }
     return _inputBar;

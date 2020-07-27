@@ -33,7 +33,6 @@
 		1ACA602424CE6D3900EC22B0 /* ConversationTableTextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ACA5FC424CE6D3900EC22B0 /* ConversationTableTextCell.m */; };
 		1ACA602524CE6D3900EC22B0 /* ConversationInputBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ACA5FCB24CE6D3900EC22B0 /* ConversationInputBar.m */; };
 		1ACA602624CE6D3900EC22B0 /* ConversationTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ACA5FCC24CE6D3900EC22B0 /* ConversationTextView.m */; };
-		1ACA602724CE6D3900EC22B0 /* ConversationInputBarImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ACA5FCD24CE6D3900EC22B0 /* ConversationInputBarImageView.m */; };
 		1ACA602824CE6D3900EC22B0 /* UserManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ACA5FD224CE6D3900EC22B0 /* UserManager.m */; };
 		1ACA602924CE6D3900EC22B0 /* NSString+CharacterLength.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ACA5FD424CE6D3900EC22B0 /* NSString+CharacterLength.m */; };
 		1ACA602A24CE6D3900EC22B0 /* UIScrollView+RefreshManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ACA5FD624CE6D3900EC22B0 /* UIScrollView+RefreshManager.m */; };
@@ -59,7 +58,6 @@
 		1ACA603E24CE6D3900EC22B0 /* MBProgressHUD+CustomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ACA600924CE6D3900EC22B0 /* MBProgressHUD+CustomView.m */; };
 		1ACA603F24CE6D3900EC22B0 /* ProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1ACA600B24CE6D3900EC22B0 /* ProgressHUD.bundle */; };
 		1ACA604024CE6D3900EC22B0 /* GlobalTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ACA600C24CE6D3900EC22B0 /* GlobalTools.m */; };
-		1ACA604324CE6E3B00EC22B0 /* UserInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ACA604224CE6E3B00EC22B0 /* UserInfoModel.m */; };
 		1ACA604624CE702D00EC22B0 /* ConversationListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ACA604524CE702D00EC22B0 /* ConversationListViewController.m */; };
 		1ACA604924CE710600EC22B0 /* ConversationListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ACA604824CE710600EC22B0 /* ConversationListCell.m */; };
 		1ACA605C24CEABE400EC22B0 /* BookTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ACA605824CEABE400EC22B0 /* BookTableCell.m */; };
@@ -107,6 +105,8 @@
 		1ACA60DE24CEAD8700EC22B0 /* UIPageViewController+Extend.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ACA60B324CEAD8700EC22B0 /* UIPageViewController+Extend.m */; };
 		1ACA60DF24CEAD8700EC22B0 /* YLReadViewBGController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ACA60B424CEAD8700EC22B0 /* YLReadViewBGController.m */; };
 		1ACA60E024CEAD8700EC22B0 /* YLReadController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ACA60B524CEAD8700EC22B0 /* YLReadController.m */; };
+		1ACA60E324CEB09700EC22B0 /* ConversationUserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ACA60E224CEB09700EC22B0 /* ConversationUserModel.m */; };
+		1ACA60E924CECC1D00EC22B0 /* ConversationDatabaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ACA60E824CECC1D00EC22B0 /* ConversationDatabaseManager.m */; };
 		BCC9E904E1179FDFC3907988 /* libPods-ConversationDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F8C188AABEA5FAE17C9A90AD /* libPods-ConversationDemo.a */; };
 /* End PBXBuildFile section */
 
@@ -159,10 +159,8 @@
 		1ACA5FC624CE6D3900EC22B0 /* ConversationTableBaseCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationTableBaseCell.h; sourceTree = "<group>"; };
 		1ACA5FC724CE6D3900EC22B0 /* ConversationTableTextCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationTableTextCell.h; sourceTree = "<group>"; };
 		1ACA5FC824CE6D3900EC22B0 /* ConversationTableImageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationTableImageCell.h; sourceTree = "<group>"; };
-		1ACA5FCA24CE6D3900EC22B0 /* ConversationInputBarImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationInputBarImageView.h; sourceTree = "<group>"; };
 		1ACA5FCB24CE6D3900EC22B0 /* ConversationInputBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationInputBar.m; sourceTree = "<group>"; };
 		1ACA5FCC24CE6D3900EC22B0 /* ConversationTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationTextView.m; sourceTree = "<group>"; };
-		1ACA5FCD24CE6D3900EC22B0 /* ConversationInputBarImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationInputBarImageView.m; sourceTree = "<group>"; };
 		1ACA5FCE24CE6D3900EC22B0 /* ConversationTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationTextView.h; sourceTree = "<group>"; };
 		1ACA5FCF24CE6D3900EC22B0 /* ConversationInputBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationInputBar.h; sourceTree = "<group>"; };
 		1ACA5FD224CE6D3900EC22B0 /* UserManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserManager.m; sourceTree = "<group>"; };
@@ -215,8 +213,6 @@
 		1ACA600A24CE6D3900EC22B0 /* MBProgressHUD+CustomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+CustomView.h"; sourceTree = "<group>"; };
 		1ACA600B24CE6D3900EC22B0 /* ProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ProgressHUD.bundle; sourceTree = "<group>"; };
 		1ACA600C24CE6D3900EC22B0 /* GlobalTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlobalTools.m; sourceTree = "<group>"; };
-		1ACA604124CE6E3B00EC22B0 /* UserInfoModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserInfoModel.h; sourceTree = "<group>"; };
-		1ACA604224CE6E3B00EC22B0 /* UserInfoModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserInfoModel.m; sourceTree = "<group>"; };
 		1ACA604424CE702D00EC22B0 /* ConversationListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConversationListViewController.h; sourceTree = "<group>"; };
 		1ACA604524CE702D00EC22B0 /* ConversationListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ConversationListViewController.m; sourceTree = "<group>"; };
 		1ACA604724CE710600EC22B0 /* ConversationListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConversationListCell.h; sourceTree = "<group>"; };
@@ -310,6 +306,10 @@
 		1ACA60B424CEAD8700EC22B0 /* YLReadViewBGController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YLReadViewBGController.m; sourceTree = "<group>"; };
 		1ACA60B524CEAD8700EC22B0 /* YLReadController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YLReadController.m; sourceTree = "<group>"; };
 		1ACA60B624CEAD8700EC22B0 /* YLReadViewScrollController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YLReadViewScrollController.h; sourceTree = "<group>"; };
+		1ACA60E124CEB09700EC22B0 /* ConversationUserModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConversationUserModel.h; sourceTree = "<group>"; };
+		1ACA60E224CEB09700EC22B0 /* ConversationUserModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ConversationUserModel.m; sourceTree = "<group>"; };
+		1ACA60E724CECC1D00EC22B0 /* ConversationDatabaseManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConversationDatabaseManager.h; sourceTree = "<group>"; };
+		1ACA60E824CECC1D00EC22B0 /* ConversationDatabaseManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ConversationDatabaseManager.m; sourceTree = "<group>"; };
 		97CF5ED06F4491927A3B9A77 /* Pods-ConversationDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ConversationDemo.debug.xcconfig"; path = "Target Support Files/Pods-ConversationDemo/Pods-ConversationDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		E59B6C2ECE01D6EFCDC9EA60 /* Pods-ConversationDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ConversationDemo.release.xcconfig"; path = "Target Support Files/Pods-ConversationDemo/Pods-ConversationDemo.release.xcconfig"; sourceTree = "<group>"; };
 		F8C188AABEA5FAE17C9A90AD /* libPods-ConversationDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ConversationDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -442,13 +442,15 @@
 			children = (
 				1ACA5FAE24CE6D3900EC22B0 /* ConversationContentParserTool.h */,
 				1ACA5FB224CE6D3900EC22B0 /* ConversationContentParserTool.m */,
+				1ACA60E724CECC1D00EC22B0 /* ConversationDatabaseManager.h */,
+				1ACA60E824CECC1D00EC22B0 /* ConversationDatabaseManager.m */,
 				1ACA5FB124CE6D3900EC22B0 /* ConversationModel.h */,
 				1ACA5FAD24CE6D3900EC22B0 /* ConversationModel.m */,
+				1ACA60E124CEB09700EC22B0 /* ConversationUserModel.h */,
+				1ACA60E224CEB09700EC22B0 /* ConversationUserModel.m */,
 				1ACA5FB024CE6D3900EC22B0 /* ConversationStatusDefine.h */,
 				1ACA5FB324CE6D3900EC22B0 /* WebSocketClient.h */,
 				1ACA5FAF24CE6D3900EC22B0 /* WebSocketClient.m */,
-				1ACA604124CE6E3B00EC22B0 /* UserInfoModel.h */,
-				1ACA604224CE6E3B00EC22B0 /* UserInfoModel.m */,
 			);
 			path = ConversationModelGroup;
 			sourceTree = "<group>";
@@ -498,12 +500,10 @@
 		1ACA5FC924CE6D3900EC22B0 /* ConversationInputBarGroup */ = {
 			isa = PBXGroup;
 			children = (
-				1ACA5FCA24CE6D3900EC22B0 /* ConversationInputBarImageView.h */,
-				1ACA5FCB24CE6D3900EC22B0 /* ConversationInputBar.m */,
-				1ACA5FCC24CE6D3900EC22B0 /* ConversationTextView.m */,
-				1ACA5FCD24CE6D3900EC22B0 /* ConversationInputBarImageView.m */,
-				1ACA5FCE24CE6D3900EC22B0 /* ConversationTextView.h */,
 				1ACA5FCF24CE6D3900EC22B0 /* ConversationInputBar.h */,
+				1ACA5FCB24CE6D3900EC22B0 /* ConversationInputBar.m */,
+				1ACA5FCE24CE6D3900EC22B0 /* ConversationTextView.h */,
+				1ACA5FCC24CE6D3900EC22B0 /* ConversationTextView.m */,
 			);
 			path = ConversationInputBarGroup;
 			sourceTree = "<group>";
@@ -598,14 +598,14 @@
 		1ACA5FFB24CE6D3900EC22B0 /* HttpManagerGroup */ = {
 			isa = PBXGroup;
 			children = (
-				1ACA5FFC24CE6D3900EC22B0 /* HttpManager.h */,
-				1ACA5FFD24CE6D3900EC22B0 /* RequestURL.h */,
-				1ACA5FFE24CE6D3900EC22B0 /* AFNetTools.h */,
 				1ACA5FFF24CE6D3900EC22B0 /* AFNetAPIClient.h */,
-				1ACA600024CE6D3900EC22B0 /* HttpCategory */,
-				1ACA600324CE6D3900EC22B0 /* HttpManager.m */,
 				1ACA600424CE6D3900EC22B0 /* AFNetAPIClient.m */,
+				1ACA5FFE24CE6D3900EC22B0 /* AFNetTools.h */,
 				1ACA600524CE6D3900EC22B0 /* AFNetTools.m */,
+				1ACA600024CE6D3900EC22B0 /* HttpCategory */,
+				1ACA5FFC24CE6D3900EC22B0 /* HttpManager.h */,
+				1ACA600324CE6D3900EC22B0 /* HttpManager.m */,
+				1ACA5FFD24CE6D3900EC22B0 /* RequestURL.h */,
 			);
 			path = HttpManagerGroup;
 			sourceTree = "<group>";
@@ -900,6 +900,7 @@
 				1ACA602624CE6D3900EC22B0 /* ConversationTextView.m in Sources */,
 				1ACA603624CE6D3900EC22B0 /* UIBarButtonItem+PhotoBarLeftItem.m in Sources */,
 				1ACA60D224CEAD8700EC22B0 /* YLReadBottomView.m in Sources */,
+				1ACA60E324CEB09700EC22B0 /* ConversationUserModel.m in Sources */,
 				1ACA60C924CEAD8700EC22B0 /* YLReadModel.m in Sources */,
 				1ACA602D24CE6D3900EC22B0 /* NSObject+Swizzling.m in Sources */,
 				1ACA60B824CEAD8700EC22B0 /* YLKeyedArchiver.m in Sources */,
@@ -951,7 +952,7 @@
 				1ACA601B24CE6D3900EC22B0 /* ConversationContentParserTool.m in Sources */,
 				1ACA60DD24CEAD8700EC22B0 /* YLReadCoverController.m in Sources */,
 				1ACA602924CE6D3900EC22B0 /* NSString+CharacterLength.m in Sources */,
-				1ACA602724CE6D3900EC22B0 /* ConversationInputBarImageView.m in Sources */,
+				1ACA60E924CECC1D00EC22B0 /* ConversationDatabaseManager.m in Sources */,
 				1ACA60DE24CEAD8700EC22B0 /* UIPageViewController+Extend.m in Sources */,
 				1ACA602E24CE6D3900EC22B0 /* NSObject+GetTheController.m in Sources */,
 				1ACA60C824CEAD8700EC22B0 /* YLReadMenu.m in Sources */,
@@ -964,7 +965,6 @@
 				1ACA60DF24CEAD8700EC22B0 /* YLReadViewBGController.m in Sources */,
 				1ACA60CD24CEAD8700EC22B0 /* YLReadLongPressCursorView.m in Sources */,
 				1ACA604624CE702D00EC22B0 /* ConversationListViewController.m in Sources */,
-				1ACA604324CE6E3B00EC22B0 /* UserInfoModel.m in Sources */,
 				1ACA605D24CEABE400EC22B0 /* BookModel.m in Sources */,
 				1ACA601F24CE6D3900EC22B0 /* ConversationEmojiKeyboard.m in Sources */,
 				1ACA60E024CEAD8700EC22B0 /* YLReadController.m in Sources */,

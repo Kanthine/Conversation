@@ -8,5 +8,5 @@ pod 'Masonry'
 pod 'SocketRocket'
 pod 'pop'
 pod 'MBProgressHUD'
-
+pod 'FMDB'
 end

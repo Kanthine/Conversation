@@ -9,18 +9,16 @@
 #import "ConversationInputBar.h"
 #import <Masonry.h>
 #import "NSObject+GetTheController.h"
-#import "ConversationInputBarImageView.h"
 #import "AlbumMainViewController.h"
 
 @interface ConversationInputBar ()
 
 {
     CGFloat _defaultHeight;
-    ConversationInputBarImageView *_imageToolsView;
 }
 
 //默认不可以发送图片消息
-@property (nonatomic ,assign) BOOL isCanSendImage;//是否可以发送图片，默认为 NO
+@property (nonatomic ,assign) BOOL isCanSendImage;//是否可以发送图片，默认为 YES
 
 @property (nonatomic ,strong) UIButton *imageTypeButton;//选择图片
 @property (nonatomic ,strong) UIButton *sendButton;//发送消息
@@ -37,7 +35,6 @@
 - (instancetype)init{
     self = [super init];
     if (self) {
-        _isCanSendImage = NO;
         _defaultHeight = 52.0f;
         
         self.frame = CGRectMake(0, getPageSafeAreaHeight(YES)  - _defaultHeight,CGRectGetWidth(UIScreen.mainScreen.bounds) , _defaultHeight);
@@ -54,6 +51,8 @@
             make.left.bottom.right.mas_equalTo(0);
             make.height.mas_equalTo(0.5);
         }];
+        
+        self.isCanSendImage = YES;
         
         [self addSubview:self.textView];
         [self addSubview:self.sendButton];
@@ -121,10 +120,8 @@
     if (isChangeImageTools) {
         if (_isCanSendImage == NO) {
             self.textView.frame = CGRectMake(12, 6, CGRectGetWidth(self.frame) - 12 - 50, CGRectGetHeight(self.textView.frame));
-        }else if (_imageToolsView == nil) {
-            self.textView.frame = CGRectMake(50, 6, CGRectGetWidth(self.frame) - 50 * 2, CGRectGetHeight(self.textView.frame));
         }else{
-            self.textView.frame = CGRectMake(12, CGRectGetMaxY(_imageToolsView.frame) + 20, CGRectGetWidth(self.frame) - 12 - 50, CGRectGetHeight(self.textView.frame));
+            self.textView.frame = CGRectMake(50, 6, CGRectGetWidth(self.frame) - 50 * 2, CGRectGetHeight(self.textView.frame));
         }
         CGFloat height = CGRectGetMaxY(self.textView.frame) + 8;
         CGFloat maxY = CGRectGetMaxY(self.frame);
@@ -177,7 +174,7 @@
 
 - (void)updateSendButtonUI{
     NSString *content = [_textView.logicTools.getTextViewRawData copy];
-    if (content.length == 0 && _imageToolsView.imageURL == nil) {
+    if (content.length == 0) {
         //判断字符串为空
         [_sendButton setImage:[UIImage imageNamed:@"conversation_input_send"] forState:UIControlStateNormal];
         _sendButton.userInteractionEnabled = NO;
@@ -220,7 +217,10 @@
     albumMainVC.selectedImagesHanlder = ^(NSMutableArray<PHAsset *> *selectedArray) {
         if (selectedArray.count > 0) {
             PHAsset *assert = selectedArray.firstObject;
-            [weakSelf toolsImageViewAddClick:assert.originalImage imageURL:@""];
+            
+            if (weakSelf.sendImageHandle) {
+                weakSelf.sendImageHandle(assert.originalImage);
+            }
         }
     };
     [self.viewTheController presentViewController:albumMainVC animated:YES completion:nil];
@@ -234,7 +234,7 @@
     NSString *content = [_textView.logicTools.getTextViewRawData copy];
     CGFloat length = [ConversationInputServiceLogicTools getAttributedStringLength:_textView.attributedText];
     
-    if (length == 0 && _imageToolsView.imageURL == nil) {
+    if (length == 0) {
         return ;//判断字符串为空
     }else if ([[content  stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]length]==0){
         NSLog(@"都为空格");//判断字符串只为空格
@@ -243,15 +243,7 @@
 //        kPI(@"评论内容过长");
         return;
     }else{
-        //如果有图片，则附加图片地址
-        if (_imageToolsView && _imageToolsView.imageURL) {
-            NSString *imageURL = [NSString stringWithFormat:@"＜comImg:%@＞",_imageToolsView.imageURL];
-            if (content && content.length > 0) {
-                content = [NSString stringWithFormat:@"%@ %@",content,imageURL];
-            }else{
-                content = imageURL;
-            }
-        }
+
     }
     
     if (self.sendCommentHandle) {
@@ -259,38 +251,6 @@
     }
     
     _textView.text = @"";
-    [self textViewDidChangeResertFrame:YES];
-}
-
-/* 删除输入框中的图片
- * 重新布局输入框
- */
-- (void)toolsImageViewDeleteButtonClick{
-    if (_imageToolsView) {
-        //删除图片
-        [_imageToolsView removeFromSuperview];
-        _imageToolsView = nil;
-        //添加图片按钮
-        [self addSubview:self.imageTypeButton];
-    }
-    //重新布局 frame
-    [self textViewDidChangeResertFrame:YES];
-}
-
-/* 添加图片至输入框中
- * 重新布局输入框
- */
-- (void)toolsImageViewAddClick:(UIImage *)image imageURL:(NSString *)url{
-    //初始化并添加图片
-    _imageToolsView = [ConversationInputBarImageView initializeWithImage:image imageURL:url];
-    [_imageToolsView.deleteButton addTarget:self action:@selector(toolsImageViewDeleteButtonClick) forControlEvents:UIControlEventTouchUpInside];
-    [self addSubview:_imageToolsView];
-    
-    //移除图片按钮
-    [_imageTypeButton removeFromSuperview];
-    _imageTypeButton = nil;
-    
-    //重新布局 frame
     [self textViewDidChangeResertFrame:YES];
 }
 

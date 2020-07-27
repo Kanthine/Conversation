@@ -7,8 +7,6 @@
 //
 
 #import "ConversationTableTextCell.h"
-#import <UIImageView+WebCache.h>
-#import <Masonry.h>
 #import "ConversationContentLabel.h"
 #import "ConversationContentParserTool.h"
 
@@ -76,11 +74,7 @@ CGFloat getConversationTableTextCellHeight(ConversationModel *model){
     [self setNeedsDisplay];
 }
 
-- (void)portraitTapGestureClick{
-    if (self.tapPortraitClick) {
-        self.tapPortraitClick();
-    }
-}
+
 
 #pragma mark - setter and getters
 
@@ -103,19 +97,6 @@ CGFloat getConversationTableTextCellHeight(ConversationModel *model){
         _messageLabel = label;
     }
     return _messageLabel;
-}
-
-- (UIImageView *)portraitImageView{
-    if (_portraitImageView == nil) {
-        _portraitImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
-        _portraitImageView.layer.cornerRadius = 15.0;
-        _portraitImageView.clipsToBounds = YES;
-        _portraitImageView.backgroundColor = UIColor.clearColor;
-        _portraitImageView.userInteractionEnabled = YES;
-        UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(portraitTapGestureClick)];
-        [_portraitImageView addGestureRecognizer:tapGesture];
-    }
-    return _portraitImageView;
 }
 
 @end

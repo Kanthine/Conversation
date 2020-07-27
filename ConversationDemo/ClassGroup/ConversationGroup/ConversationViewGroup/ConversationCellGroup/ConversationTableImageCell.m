@@ -8,17 +8,65 @@
 
 #import "ConversationTableImageCell.h"
 
+@interface ConversationTableImageCell()
+@property (nonatomic ,strong) UIImageView *photoView;
+@end
+
 @implementation ConversationTableImageCell
 
-- (void)awakeFromNib {
-    [super awakeFromNib];
-    // Initialization code
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
+    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+    if (self){
+        [self.contentView addSubview:self.portraitImageView];
+        [self.contentView addSubview:self.photoView];
+    }
+    return self;
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
+- (void)layoutSubviews{
+    [super layoutSubviews];
+    
+    if (self.model.direction == ConversationDirection_SEND) {
+        self.portraitImageView.center = CGPointMake(CGRectGetWidth(self.contentView.frame) - 14 - 15, 15);
+        
+        self.photoView.frame = CGRectMake(self.portraitImageView.frame.origin.x - 10 - (self.model.contentSize.width + 20),  self.portraitImageView.center.y, self.model.contentSize.width + 20, self.model.contentSize.height + 12);
+        UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:self.photoView.bounds byRoundingCorners:UIRectCornerTopLeft| UIRectCornerBottomRight | UIRectCornerBottomLeft  cornerRadii:CGSizeMake(15, 15)];
+        CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
+        maskLayer.frame = self.photoView.bounds;
+        maskLayer.path = maskPath.CGPath;
+        self.photoView.layer.mask = maskLayer;
+    }else{
+        self.portraitImageView.center = CGPointMake(14 + 15, 15);
+        self.photoView.frame = CGRectMake(CGRectGetMaxX(self.portraitImageView.frame) + 10, self.portraitImageView.center.y, self.model.contentSize.width + 20, self.model.contentSize.height + 12);
+        
+        UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:self.photoView.bounds byRoundingCorners:UIRectCornerTopRight| UIRectCornerBottomRight | UIRectCornerBottomLeft  cornerRadii:CGSizeMake(15, 15)];
+        CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
+        maskLayer.frame = self.photoView.bounds;
+        maskLayer.path = maskPath.CGPath;
+        self.photoView.layer.mask = maskLayer;
+    }
+    
+    if (self.model.cellHeight == 0) {
+        self.model.cellHeight = CGRectGetMaxY(self.photoView.frame) + 10;
+    }
+}
 
-    // Configure the view for the selected state
+- (void)setModel:(ConversationModel *)model{
+    [super setModel:model];
+    [self.photoView sd_setImageWithURL:[NSURL URLWithString:model.content] placeholderImage:[UIImage imageNamed:@""]];
+    [self setNeedsDisplay];
+}
+
+#pragma mark - setter and getters
+
+- (UIImageView *)photoView{
+    if (_photoView == nil) {
+        _photoView = [[UIImageView alloc] init];
+        _photoView.backgroundColor = UIColor.whiteColor;
+    }
+    return _photoView;
 }
 
 @end
+
+

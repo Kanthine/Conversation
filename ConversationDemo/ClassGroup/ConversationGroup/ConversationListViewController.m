@@ -10,6 +10,7 @@
 #import "ConversationListViewController.h"
 #import "ConversationListCell.h"
 #import "ConversationViewController.h"
+#import <Toast.h>
 
 @interface ConversationListViewController ()
 <UITableViewDelegate,UITableViewDataSource>
@@ -58,9 +59,13 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    ConversationViewController *conversationVC = [[ConversationViewController alloc] initWithTargetUser:self.userArray[indexPath.row]];
-    conversationVC.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:conversationVC animated:YES];
+    if ([self.userArray[indexPath.row].userId isEqualToString:UserManager.shareUser.userId]) {
+        [self.view makeToast:@"不能和自己聊天" duration:3 position:CSToastPositionCenter];
+    }else{
+        ConversationViewController *conversationVC = [[ConversationViewController alloc] initWithTargetUser:self.userArray[indexPath.row]];
+        conversationVC.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:conversationVC animated:YES];
+    }
 }
 
 #pragma mark - network
@@ -69,14 +74,21 @@
     [HttpManager requestForGetUrl:@"/api/user/online" success:^(id responseObject) {
         
         NSMutableArray *array = [NSMutableArray array];
-        UserManager *group = [[UserManager alloc] init];
-           group.userId = @"happy_group";
-           group.nickName = @"大群";
+        ConversationUserModel *group = [[ConversationUserModel alloc] init];
+        group.userId = @"happy_group";
+        group.nickName = @"大群";
         group.isGroup = YES;
-           group.headPath = @"https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3526296747,2488805525&fm=26&gp=0.jpg";
+        group.headPath = @"https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3526296747,2488805525&fm=26&gp=0.jpg";
         [array addObject:group];
         
         if ([responseObject[@"success"] boolValue]) {
+            NSArray<NSDictionary *> *dataArray = responseObject[@"data"];
+            if (dataArray && [dataArray isKindOfClass:NSArray.class]) {
+                [dataArray enumerateObjectsUsingBlock:^(NSDictionary * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                    ConversationUserModel *model = [ConversationUserModel modelObjectWithDictionary:obj];
+                    [array addObject:model];
+                }];
+            }
             
         }
         dispatch_async(dispatch_get_main_queue(), ^{

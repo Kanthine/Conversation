@@ -210,7 +210,6 @@
         if ([responseObject isKindOfClass:NSData.class]) {
             responseObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
         }
-        [AFNetAPIClient.sharedClient logSessionDataTask:task ResponseObject:responseObject];
 
         if (!responseObject || (![responseObject isKindOfClass:[NSDictionary class]] && ![responseObject isKindOfClass:[NSArray class]])){// 若解析数据格式异常，返回错误
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -222,7 +221,14 @@
                     errorHandler(responseObject[@"message"]);
                 });
             }else{
-                successHandler(responseObject[@"data"]);
+                NSString *url = responseObject[@"data"];
+                if (![url hasPrefix:@"http"]) {
+                    url = [NSString stringWithFormat:@"%@%@",DOMAINBASE,url];
+                }
+                NSLog(@"上传成功 ------ %@",url);
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    successHandler(url);
+                });
             }
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {

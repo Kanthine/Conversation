@@ -35,8 +35,8 @@
 
 #pragma mark - public method
 
-- (void)setUserModel:(UserManager *)userModel{
-    [self.portraitImageView sd_setImageWithURL:[NSURL URLWithString:userModel.headPath]];
+- (void)setUserModel:(ConversationUserModel *)userModel{
+    [self.portraitImageView sd_setImageWithURL:[NSURL URLWithString:userModel.headPath] placeholderImage:[UIImage imageNamed:@"register_Default"]];
     self.nameLable.text = userModel.nickName;
     self.timeLable.text = @"2020.07";
     self.contentLable.text = @"德玛西亚";

@@ -16,8 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ConversationInputBar : UIView
 
 @property (nonatomic ,copy) void(^sendCommentHandle)(NSString *text);
+@property (nonatomic ,copy) void(^sendImageHandle)(UIImage *image);
 @property (nonatomic ,copy) void(^frameChangeHandle)(CGRect frame,CGFloat duration);
-
 @property (nonatomic ,strong) ConversationTextView *textView;//输入框
 
 

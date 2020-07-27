@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "ConversationUserModel.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ConversationListCell : UITableViewCell
@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic ,strong) UILabel *nameLable;
 @property (nonatomic ,strong) UILabel *contentLable;
 @property (nonatomic ,strong) UILabel *timeLable;
-@property (nonatomic ,strong) UserManager *userModel;
+@property (nonatomic ,strong) ConversationUserModel *userModel;
 
 
 @end
