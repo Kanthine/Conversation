@@ -19,8 +19,7 @@ FOUNDATION_EXPORT CGFloat getPageSafeAreaHeight(BOOL isShowNavBar);
 
 #pragma mark - 时间转换
 
-/** 将秒数转为 mm:ss
- * @note 如果大于一小时，则转换成 hh:mm:ss
+/** 将秒数getTabBarHeight@note 如果大于一小时，则转换成 hh:mm:ss
  */
 FOUNDATION_EXPORT NSString *transformTimeToMMSS(NSTimeInterval duration);
 

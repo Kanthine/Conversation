@@ -7,15 +7,18 @@
 //
 
 
-#define HeaderBookIdentifer @"UserHomeTableBookSectionHeaderView"
+#define HeaderBookIdentifer @"BookTableSectionHeaderView"
 #define CellBookIdentifer @"BookTableCell"
 
 #import "UserHomePageViewController.h"
 #import "UserHomeView.h"
-#import "UserHomeCell.h"
+#import "BookTableCell.h"
 #import "ConversationViewController.h"
 #import "UIView+Toast.h"
 #import "MBProgressHUD+CustomView.h"
+#import "YLReadTextParser.h"
+#import "YLReadController.h"
+
 
 @interface UserHomePageViewController ()
 <UIImagePickerControllerDelegate, UINavigationControllerDelegate,
@@ -25,7 +28,7 @@ UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic ,strong) UserHomeTableHeaderView *tableHeaderView;
 @property (nonatomic ,strong) UITableView *tableView;
 @property (nonatomic ,strong) UserManager *userModel;
-@property (nonatomic ,strong) NSMutableArray<NSString *> *booksArray;
+@property (nonatomic ,strong) NSMutableArray<BookModel *> *booksArray;
 
 @end
 
@@ -47,13 +50,11 @@ UITableViewDelegate,UITableViewDataSource>
     [self.view addSubview:self.tableView];
     [self.view addSubview:self.navBarView];
     
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        self.booksArray = [[NSBundle bundleWithPath:[NSBundle.mainBundle pathForResource:@"BookResources" ofType:@"bundle"]] pathsForResourcesOfType:@"txt" inDirectory:nil];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.tableView reloadData];
-        });
-    });
-
+    [BookModel getBooks:^(NSMutableArray<BookModel *> *bookArray) {
+        self.booksArray = bookArray;
+        [self.tableView reloadData];
+    }];
+    
     if (self.navigationController.viewControllers.count == 1) {
         self.navBarView.backButton.hidden = YES;
         [self.tableHeaderView reloadData:UserManager.shareUser];
@@ -112,20 +113,29 @@ UITableViewDelegate,UITableViewDataSource>
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    UserHomeTableBookSectionHeaderView *headerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:HeaderBookIdentifer];
+    BookTableSectionHeaderView *headerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:HeaderBookIdentifer];
     return headerView;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     BookTableCell *cell = [tableView dequeueReusableCellWithIdentifier:CellBookIdentifer];
-    NSString *path = self.booksArray[indexPath.row];
-    NSString *bookName = [path stringByRemovingPercentEncoding].lastPathComponent.stringByDeletingPathExtension ? : @"";
-    cell.bookName = bookName;
+    cell.book = self.booksArray[indexPath.row];;
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    BookModel *book = self.booksArray[indexPath.row];
+    NSLog(@"path ------------------- %@",book.filePath);
     
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.label.text = @"正在解析...";
+    YLReadModel *readModel = [YLReadTextParser parserWithURL:book.fileUrl];
+    [hud hideAnimated:YES];
+    
+    YLReadController *readVC = [[YLReadController alloc] init];
+    readVC.hidesBottomBarWhenPushed = YES;
+    readVC.readModel = readModel;
+    [self.navigationController pushViewController:readVC animated:YES];
 }
 
 #pragma mark - UIImagePickerControllerDelegate
@@ -228,12 +238,12 @@ UITableViewDelegate,UITableViewDataSource>
         tableView.dataSource = self;
         tableView.backgroundColor = [UIColor colorWithRed:250/255.0 green:250/255.0 blue:250/255.0 alpha:1.0];
         tableView.sectionHeaderHeight = 50;
-        tableView.rowHeight = 72;
+        tableView.rowHeight = kBookTableCellHeight;
         tableView.showsVerticalScrollIndicator = NO;
         tableView.showsHorizontalScrollIndicator = NO;
         tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         [tableView registerClass:BookTableCell.class forCellReuseIdentifier:CellBookIdentifer];
-        [tableView registerClass:UserHomeTableBookSectionHeaderView.class forHeaderFooterViewReuseIdentifier:HeaderBookIdentifer];
+        [tableView registerClass:BookTableSectionHeaderView.class forHeaderFooterViewReuseIdentifier:HeaderBookIdentifer];
         tableView.tableHeaderView = self.tableHeaderView;
 
         if (@available(iOS 11.0, *)) {
