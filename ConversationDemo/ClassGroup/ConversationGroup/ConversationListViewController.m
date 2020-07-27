@@ -16,7 +16,7 @@
 <UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic ,strong) UITableView *tableView;
-@property (nonatomic ,strong) NSMutableArray<UserManager *> *userArray;
+@property (nonatomic ,strong) NSMutableArray<ConversationUserModel *> *userArray;
 
 @end
 

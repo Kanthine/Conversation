@@ -15,9 +15,10 @@ NS_ASSUME_NONNULL_BEGIN
  * https://route.51mypc.cn/chat/chat.html
  * http://route.51mypc.cn/chat/chat.html
  */
+@class ConversationUserModel;
 @interface ConversationViewController : UIViewController
 
-- (instancetype)initWithTargetUser:(UserManager *)target;
+- (instancetype)initWithTargetUser:(ConversationUserModel *)target;
 
 @end
 

@@ -16,6 +16,7 @@
 #import "UIBarButtonItem+LeftBarItem.h"
 #import "UserHomePageViewController.h"
 #import "AFNetAPIClient.h"
+#import "ConversationUserModel.h"
 
 @interface ConversationViewController ()
 <UITableViewDelegate,UITableViewDataSource>
@@ -24,14 +25,14 @@
 @property (nonatomic ,strong) NSMutableArray<ConversationModel *> *dataArray;
 @property (nonatomic ,strong) UITableView *tableView;
 @property (nonatomic ,strong) ConversationInputBar *inputBar;//输入框
-@property (nonatomic ,strong) UserManager *targetUser;
+@property (nonatomic ,strong) ConversationUserModel *targetUser;
 
 @end
 
 @implementation ConversationViewController
 
 
-- (instancetype)initWithTargetUser:(UserManager *)target{
+- (instancetype)initWithTargetUser:(ConversationUserModel *)target{
     self = [super init];
     if (self) {
         self.targetUser = target;
@@ -54,9 +55,9 @@
     
     [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(socketReceiveMessageNotification:) name:kSocketReceiveMessageNotification object:nil];
     
-    [ConversationModel getAllModels:^(NSMutableArray<ConversationModel *> * _Nonnull modelsArray) {
+    [ConversationModel getModelsWithTarget:self.targetUser complete:^(NSMutableArray<ConversationModel *> * _Nonnull modelsArray) {
         self.dataArray = modelsArray;
-        [self.tableView reloadData];
+         [self.tableView reloadData];
     }];
 }
 
@@ -225,11 +226,11 @@
         tableView.rowHeight = 70.0f;
         tableView.sectionFooterHeight = 0.1f;
         tableView.backgroundColor = [UIColor colorWithRed:238/255.0 green:238/255.0 blue:238/255.0 alpha:1.0];
-        __weak typeof(self) weakSelf = self;
-        tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-            weakSelf.currentPage ++;
-            [weakSelf loadNetWorkRequest];
-        }];
+//        __weak typeof(self) weakSelf = self;
+//        tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+//            weakSelf.currentPage ++;
+//            [weakSelf loadNetWorkRequest];
+//        }];
         [ConversationTableBaseCell regisCellForTableView:tableView];
         tableView.autoHiddenFooter = YES;
         _tableView = tableView;

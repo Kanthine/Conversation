@@ -221,7 +221,7 @@ extern CGFloat kConversationTableSeatsCellHeight;
 
 
 
-
+#import "ConversationUserModel.h"
 #import "ConversationDatabaseManager.h"
 @implementation ConversationModel (DAO)
 
@@ -253,6 +253,46 @@ extern CGFloat kConversationTableSeatsCellHeight;
         [ConversationModel creatTableWithDatabase:database];
         
         FMResultSet *resultSet = [database executeQuery:@"SELECT * FROM ConversationMessage"];
+        NSMutableArray *array = [NSMutableArray array];
+        
+        while ([resultSet next]){
+            ConversationModel *model = [[ConversationModel alloc] init];
+            model.content = [resultSet stringForColumn:@"content"];
+            model.msgType = [resultSet stringForColumn:@"msgType"];
+            model.msgId = [resultSet stringForColumn:@"msgId"];
+            
+            model.group = [resultSet stringForColumn:@"isGroup"];
+            model.sendDate = [resultSet longForColumn:@"sendDate"];
+
+            model.fromID = [resultSet stringForColumn:@"fromID"];
+            model.fromName = [resultSet stringForColumn:@"fromName"];
+            model.fromHeaderPath = [resultSet stringForColumn:@"fromHeaderPath"];
+            
+            model.toName = [resultSet stringForColumn:@"toName"];
+            model.toHeaderPath = [resultSet stringForColumn:@"toHeaderPath"];
+            model.toID = [resultSet stringForColumn:@"toID"];
+            
+            [model parserExtraInfo];
+            
+            [array addObject:model];
+        }
+        [resultSet close];
+       dispatch_async(dispatch_get_main_queue(), ^{
+            block(array);
+        });
+    }];
+}
+
++ (void)getModelsWithTarget:(ConversationUserModel *)target complete:(void(^)(NSMutableArray<ConversationModel *> *modelsArray))block{
+    [ConversationDatabaseManager databaseChildThreadInTransaction:^(FMDatabase *database, BOOL *rollback) {
+        [ConversationModel creatTableWithDatabase:database];
+                        
+        FMResultSet *resultSet;
+        if (target.isGroup) {
+            resultSet = [database executeQuery:@"SELECT * FROM ConversationMessage WHERE toID = ?",target.userId];
+        }else{
+            resultSet = [database executeQuery:@"SELECT * FROM ConversationMessage WHERE (fromID = ? AND toID = ?) OR (fromID = ? AND toID = ?)",target.userId,UserManager.shareUser.userId,UserManager.shareUser.userId,target.userId];
+        }
         NSMutableArray *array = [NSMutableArray array];
         
         while ([resultSet next]){

@@ -50,6 +50,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 
+@class ConversationUserModel;
 @interface ConversationModel (DAO)
 
 /** 插入数据
@@ -60,6 +61,11 @@ NS_ASSUME_NONNULL_BEGIN
 /** 获取所有消息
  */
 + (void)getAllModels:(void(^)(NSMutableArray<ConversationModel *> *modelsArray))block;
+
+/** 获取某个对象相关的所有消息
+ */
++ (void)getModelsWithTarget:(ConversationUserModel *)target complete:(void(^)(NSMutableArray<ConversationModel *> *modelsArray))block;
+
 @end
 
 
