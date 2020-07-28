@@ -8,10 +8,9 @@
 
 #define CellIdentifer @"ChatBackListCollectionViewCell"
 
-
-
 #import "ConversationBackSetViewController.h"
 #import "UIBarButtonItem+LeftBarItem.h"
+#import "UIImage+ConversationEmoji.h"
 
 @interface ChatBackListCollectionViewCell : UICollectionViewCell
 @property (nonatomic ,strong) UIImageView *imageView;
@@ -42,7 +41,7 @@
     _isCurrentImage = isCurrentImage;
     if (isCurrentImage) {
         self.bottomView.backgroundColor = [UIColor colorWithRed:255/255.0 green:122/255.0 blue:151/255.0 alpha:1.0];
-        self.statueImageView.image = [UIImage imageNamed:@"conversation_back_selected"];
+        self.statueImageView.image = [UIImage imageConversationBack:@"conversation_back_selected"];
     }else{
         self.statueImageView.image = nil;
         self.bottomView.backgroundColor = UIColor.clearColor;
@@ -70,7 +69,7 @@
 //conversation_back_download
 - (UIImageView *)statueImageView{
     if (_statueImageView == nil) {
-        _statueImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"conversation_back_download"]];
+        _statueImageView = [[UIImageView alloc] initWithImage:[UIImage imageConversationBack:@"conversation_back_download"]];
         _statueImageView.frame = CGRectMake(0, 0, 12, 12);
     }
     return _statueImageView;
@@ -129,7 +128,7 @@ NSString * const kChatBackImageKey = @"com.chatBack.imgae";
 {
     ChatBackListCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifer forIndexPath:indexPath];
     NSString *imageName = self.dataArray[indexPath.row];
-    cell.imageView.image = [UIImage imageNamed:imageName];
+    cell.imageView.image = [UIImage imageConversationBack:imageName];
     cell.isCurrentImage = [self.selectedName isEqualToString:imageName];
     return cell;
 }

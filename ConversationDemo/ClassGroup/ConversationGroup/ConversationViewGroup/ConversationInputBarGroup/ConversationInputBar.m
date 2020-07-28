@@ -7,7 +7,6 @@
 //
 
 #import "ConversationInputBar.h"
-#import <Masonry.h>
 #import "NSObject+GetTheController.h"
 #import "AlbumMainViewController.h"
 
@@ -17,9 +16,7 @@
     CGFloat _defaultHeight;
 }
 
-//默认不可以发送图片消息
 @property (nonatomic ,assign) BOOL isCanSendImage;//是否可以发送图片，默认为 YES
-
 @property (nonatomic ,strong) UIButton *imageTypeButton;//选择图片
 @property (nonatomic ,strong) UIButton *sendButton;//发送消息
 @property (nonatomic ,strong) UIButton *coverButton;//背景蒙层
@@ -45,12 +42,10 @@
         [self addSubview:topLineview];
         
         UIView *bottomLineview = [[UIView alloc] init];//底部分割线
+        bottomLineview.tag = 10;
         bottomLineview.backgroundColor = [UIColor colorWithRed:239/255.0 green:239/255.0 blue:244/255.0 alpha:1];
         [self addSubview:bottomLineview];
-        [bottomLineview mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.bottom.right.mas_equalTo(0);
-            make.height.mas_equalTo(0.5);
-        }];
+
         
         self.isCanSendImage = YES;
         
@@ -64,6 +59,7 @@
 
 - (void)layoutSubviews{
     [super layoutSubviews];
+    [self viewWithTag:10].frame = CGRectMake(0, CGRectGetHeight(self.bounds) - 0.5, CGRectGetWidth(self.bounds), 0.5);
 }
 
 #pragma mark - Notification
@@ -94,6 +90,7 @@
         weakSelf.coverButton = nil;
     }];
     
+    //键盘改变
     [[NSNotificationCenter defaultCenter] addObserverForName:UIKeyboardWillChangeFrameNotification object:nil queue:NSOperationQueue.mainQueue usingBlock:^(NSNotification *note){
         NSDictionary *info = [note userInfo];
         CGFloat duration = [[info objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
@@ -110,25 +107,22 @@
     }];
 }
 
-/* 输入框文字改变，重置输入框高度、工具栏高度
+/** 输入框文字改变，重置输入框高度、工具栏高度
  * 参数 isChangeImageTools：是否因为 插入\删除图片 引发布局重置
  */
-- (void)textViewDidChangeResertFrame:(BOOL)isChangeImageTools{
+- (void)textViewDidChangeResertFrame{
     [self updateSendButtonUI];
     
-    //判断工具栏是否插入图片
-    if (isChangeImageTools) {
-        if (_isCanSendImage == NO) {
-            self.textView.frame = CGRectMake(12, 6, CGRectGetWidth(self.frame) - 12 - 50, CGRectGetHeight(self.textView.frame));
-        }else{
-            self.textView.frame = CGRectMake(50, 6, CGRectGetWidth(self.frame) - 50 * 2, CGRectGetHeight(self.textView.frame));
-        }
-        CGFloat height = CGRectGetMaxY(self.textView.frame) + 8;
-        CGFloat maxY = CGRectGetMaxY(self.frame);
-        height = height < _defaultHeight ? _defaultHeight : height;
-        self.frame = CGRectMake(0, maxY - height, CGRectGetWidth(self.frame),height);
-        //next：输入框宽度改变，高度可能会改变，所以需要去重置输入框高度、工具栏高度
+    if (_isCanSendImage == NO) {
+        self.textView.frame = CGRectMake(12, 6, CGRectGetWidth(self.frame) - 12 - 50, CGRectGetHeight(self.textView.frame));
+    }else{
+        self.textView.frame = CGRectMake(50, 6, CGRectGetWidth(self.frame) - 50 * 2, CGRectGetHeight(self.textView.frame));
     }
+    CGFloat height = CGRectGetMaxY(self.textView.frame) + 8;
+    CGFloat maxY = CGRectGetMaxY(self.frame);
+    height = height < _defaultHeight ? _defaultHeight : height;
+    self.frame = CGRectMake(0, maxY - height, CGRectGetWidth(self.frame),height);
+    //next：输入框宽度改变，高度可能会改变，所以需要去重置输入框高度、工具栏高度
     
     //重置输入框高度、工具栏高度
     CGFloat textWidth = self.textView.contentSize.width;
@@ -136,7 +130,6 @@
     CGFloat oldHeight = CGRectGetHeight(self.textView.frame);
     //只有高度差超过一行文字，再去重置；否则无意义
     if (fabs(oldHeight - newHeight) > 15.0) {
-        
         //设置 textView 是否可滑动
         if (newHeight > self.textView.logicTools.maxHeight && self.textView.scrollEnabled == NO) {
             self.textView.scrollEnabled = YES;
@@ -200,12 +193,7 @@
 
 #pragma mark - response click
 
-//遮罩点击，使键盘消失
-- (void)coverButtonDismissKeyboardClick{
-    [self resignKeyboardToolsFirstResponder];
-}
-
-//发送图片按钮
+///发送图片按钮
 - (void)imageButtonClick{
     if (PhotosManager.libraryAuthorization == NO) {
         [PhotosManager requestLibraryAuthorization];
@@ -226,10 +214,9 @@
     [self.viewTheController presentViewController:albumMainVC animated:YES completion:nil];
 }
 
-/* 发布评论
+/** 发送消息
  */
-- (void)sendCommentButtonCilck:(UIButton *)sender{
-    
+- (void)sendButtonCilck:(UIButton *)sender{
     //评论内容
     NSString *content = [_textView.logicTools.getTextViewRawData copy];
     CGFloat length = [ConversationInputServiceLogicTools getAttributedStringLength:_textView.attributedText];
@@ -240,18 +227,16 @@
         NSLog(@"都为空格");//判断字符串只为空格
         return ;
     }else if (length > 150) {
-//        kPI(@"评论内容过长");
+        NSLog(@"内容过长");
         return;
     }else{
 
     }
-    
     if (self.sendCommentHandle) {
         self.sendCommentHandle(content);
     }
-    
     _textView.text = @"";
-    [self textViewDidChangeResertFrame:YES];
+    [self textViewDidChangeResertFrame];
 }
 
 #pragma mark - setter and getter
@@ -266,7 +251,7 @@
             [_imageTypeButton removeFromSuperview];
             _imageTypeButton = nil;
         }
-        [self textViewDidChangeResertFrame:YES];
+        [self textViewDidChangeResertFrame];
     }
 }
 
@@ -275,7 +260,7 @@
         _coverButton = [UIButton buttonWithType:UIButtonTypeCustom];
         _coverButton.frame = UIScreen.mainScreen.bounds;
         _coverButton.backgroundColor = UIColor.clearColor;
-        [_coverButton addTarget:self action:@selector(coverButtonDismissKeyboardClick) forControlEvents:UIControlEventTouchUpInside];
+        [_coverButton addTarget:self action:@selector(resignKeyboardToolsFirstResponder) forControlEvents:UIControlEventTouchUpInside];
     }
     return _coverButton;
 }
@@ -302,7 +287,7 @@
         button.adjustsImageWhenDisabled = NO;
         button.imageEdgeInsets = UIEdgeInsetsMake(0, 12, 0, 0);
         button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-        [button addTarget:self action:@selector(sendCommentButtonCilck:) forControlEvents:UIControlEventTouchUpInside];
+        [button addTarget:self action:@selector(sendButtonCilck:) forControlEvents:UIControlEventTouchUpInside];
         _sendButton = button;
     }
     return _sendButton;
@@ -315,11 +300,11 @@
         __weak typeof(self) weakSelf = self;
         //键盘发送按钮事件
         _textView.logicTools.sendKeyHandler = ^{
-            [weakSelf sendCommentButtonCilck:weakSelf.sendButton];
+            [weakSelf sendButtonCilck:weakSelf.sendButton];
         };
         //输入框文本改变事件
         _textView.logicTools.textDidChangeHandler = ^{
-            [weakSelf textViewDidChangeResertFrame:NO];
+            [weakSelf textViewDidChangeResertFrame];
         };
     }
     return _textView;

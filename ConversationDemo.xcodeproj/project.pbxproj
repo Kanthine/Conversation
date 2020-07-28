@@ -24,7 +24,6 @@
 		1ACA601B24CE6D3900EC22B0 /* ConversationContentParserTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ACA5FB224CE6D3900EC22B0 /* ConversationContentParserTool.m */; };
 		1ACA601C24CE6D3900EC22B0 /* ConversationEmojiContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ACA5FB624CE6D3900EC22B0 /* ConversationEmojiContentView.m */; };
 		1ACA601D24CE6D3900EC22B0 /* ConversationEmojiTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ACA5FB724CE6D3900EC22B0 /* ConversationEmojiTools.m */; };
-		1ACA601E24CE6D3900EC22B0 /* ConversatioEmojiResource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1ACA5FB824CE6D3900EC22B0 /* ConversatioEmojiResource.bundle */; };
 		1ACA601F24CE6D3900EC22B0 /* ConversationEmojiKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ACA5FB924CE6D3900EC22B0 /* ConversationEmojiKeyboard.m */; };
 		1ACA602024CE6D3900EC22B0 /* UIImage+ConversationEmoji.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ACA5FBA24CE6D3900EC22B0 /* UIImage+ConversationEmoji.m */; };
 		1ACA602124CE6D3900EC22B0 /* ConversationContentLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ACA5FC124CE6D3900EC22B0 /* ConversationContentLabel.m */; };
@@ -108,6 +107,7 @@
 		1ACA60E324CEB09700EC22B0 /* ConversationUserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ACA60E224CEB09700EC22B0 /* ConversationUserModel.m */; };
 		1ACA60E924CECC1D00EC22B0 /* ConversationDatabaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ACA60E824CECC1D00EC22B0 /* ConversationDatabaseManager.m */; };
 		1AD76A5F24CFB72800A91320 /* ConversationBackSetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AD76A5E24CFB72800A91320 /* ConversationBackSetViewController.m */; };
+		1AD76A6124CFCE7E00A91320 /* ConversationResource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1AD76A6024CFCE7E00A91320 /* ConversationResource.bundle */; };
 		BCC9E904E1179FDFC3907988 /* libPods-ConversationDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F8C188AABEA5FAE17C9A90AD /* libPods-ConversationDemo.a */; };
 /* End PBXBuildFile section */
 
@@ -145,7 +145,6 @@
 		1ACA5FB424CE6D3900EC22B0 /* ConversationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationViewController.h; sourceTree = "<group>"; };
 		1ACA5FB624CE6D3900EC22B0 /* ConversationEmojiContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationEmojiContentView.m; sourceTree = "<group>"; };
 		1ACA5FB724CE6D3900EC22B0 /* ConversationEmojiTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationEmojiTools.m; sourceTree = "<group>"; };
-		1ACA5FB824CE6D3900EC22B0 /* ConversatioEmojiResource.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ConversatioEmojiResource.bundle; sourceTree = "<group>"; };
 		1ACA5FB924CE6D3900EC22B0 /* ConversationEmojiKeyboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationEmojiKeyboard.m; sourceTree = "<group>"; };
 		1ACA5FBA24CE6D3900EC22B0 /* UIImage+ConversationEmoji.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ConversationEmoji.m"; sourceTree = "<group>"; };
 		1ACA5FBB24CE6D3900EC22B0 /* ConversationEmojiTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationEmojiTools.h; sourceTree = "<group>"; };
@@ -313,6 +312,7 @@
 		1ACA60E824CECC1D00EC22B0 /* ConversationDatabaseManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ConversationDatabaseManager.m; sourceTree = "<group>"; };
 		1AD76A5D24CFB72800A91320 /* ConversationBackSetViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConversationBackSetViewController.h; sourceTree = "<group>"; };
 		1AD76A5E24CFB72800A91320 /* ConversationBackSetViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ConversationBackSetViewController.m; sourceTree = "<group>"; };
+		1AD76A6024CFCE7E00A91320 /* ConversationResource.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ConversationResource.bundle; sourceTree = "<group>"; };
 		97CF5ED06F4491927A3B9A77 /* Pods-ConversationDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ConversationDemo.debug.xcconfig"; path = "Target Support Files/Pods-ConversationDemo/Pods-ConversationDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		E59B6C2ECE01D6EFCDC9EA60 /* Pods-ConversationDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ConversationDemo.release.xcconfig"; path = "Target Support Files/Pods-ConversationDemo/Pods-ConversationDemo.release.xcconfig"; sourceTree = "<group>"; };
 		F8C188AABEA5FAE17C9A90AD /* libPods-ConversationDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ConversationDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -463,7 +463,7 @@
 		1ACA5FB524CE6D3900EC22B0 /* EmojiGroup */ = {
 			isa = PBXGroup;
 			children = (
-				1ACA5FB824CE6D3900EC22B0 /* ConversatioEmojiResource.bundle */,
+				1AD76A6024CFCE7E00A91320 /* ConversationResource.bundle */,
 				1ACA5FBC24CE6D3900EC22B0 /* ConversationEmojiContentView.h */,
 				1ACA5FB624CE6D3900EC22B0 /* ConversationEmojiContentView.m */,
 				1ACA5FBE24CE6D3900EC22B0 /* ConversationEmojiKeyboard.h */,
@@ -841,11 +841,11 @@
 			files = (
 				1ACA605E24CEABE400EC22B0 /* BookResources.bundle in Resources */,
 				1ACA603824CE6D3900EC22B0 /* MediaStreamsResource.bundle in Resources */,
-				1ACA601E24CE6D3900EC22B0 /* ConversatioEmojiResource.bundle in Resources */,
 				1ACA603F24CE6D3900EC22B0 /* ProgressHUD.bundle in Resources */,
 				1A64DA7E24BD919A009AFB82 /* LaunchScreen.storyboard in Resources */,
 				1ACA603024CE6D3900EC22B0 /* PhotoAlbumLocalized.strings in Resources */,
 				1A64DA7B24BD919A009AFB82 /* Assets.xcassets in Resources */,
+				1AD76A6124CFCE7E00A91320 /* ConversationResource.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -13,8 +13,6 @@
 #import "ConversationEmojiContentView.h"
 
 
-
-
 @interface ConversationEmojiCollectionTitleSectionView : UICollectionReusableView
 @property (nonatomic ,strong) UILabel *titleLable;
 @end

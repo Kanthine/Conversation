@@ -20,7 +20,7 @@
 }
 
 + (UIImage *)imageEmojiCode:(NSString *)code{
-    NSString *imageName = [NSString stringWithFormat:@"%@/%@",kConversationEmojiBundleName,code];
+    NSString *imageName = [NSString stringWithFormat:@"%@/Conversation_Emoji/%@",kConversationEmojiBundleName,code];
     UIImage *image = [UIImage imageNamed:imageName];
     image.emojiCode = code;
     if (image == nil) {
@@ -40,7 +40,12 @@
         [dict setObject:self.emojiCode forKey:@"emojiCode"];
     }
     return [NSString stringWithFormat:@"%@",dict];
-    
+}
+
++ (UIImage *)imageConversationBack:(NSString *)imageName{
+    imageName = [NSString stringWithFormat:@"%@/Conversation_back/%@",kConversationEmojiBundleName,imageName];
+    UIImage *image = [UIImage imageNamed:imageName];
+    return image;
 }
 
 #pragma mark - setter and getter

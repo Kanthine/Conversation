@@ -15,6 +15,8 @@
 #import "AFNetAPIClient.h"
 #import "ConversationUserModel.h"
 #import "ConversationBackSetViewController.h"
+#import "UIImage+ConversationEmoji.h"
+
 @interface ConversationViewController ()
 <UITableViewDelegate,UITableViewDataSource>
 
@@ -67,7 +69,8 @@
     
     NSString *backImageName = [NSUserDefaults.standardUserDefaults objectForKey:@"com.chatBack.imgae"];
     if (backImageName) {
-        self.backImageView.image = [UIImage imageNamed:backImageName];
+        backImageName = [NSString stringWithFormat:@"%@_big.jpg",backImageName];
+        self.backImageView.image = [UIImage imageConversationBack:backImageName];
     }
 }
 

@@ -13,7 +13,7 @@
  * 字符为 纯汉字 | 纯字母，长度在 1-3 之间
  */
 NSString * const kConversationEmojiRegula = @"(?<=\\[)(([\u4e00-\u9fa5]{1,3})|([a-zA-Z]{1,3}))(?=\\])";
-NSString * const kConversationEmojiBundleName = @"ConversatioEmojiResource.bundle";
+NSString * const kConversationEmojiBundleName = @"ConversationResource.bundle";
 NSUInteger const kConversationEmojiCount = 71;
 
 NSString * getEmojiName(NSString * code){
@@ -45,8 +45,8 @@ NSString * getEmojiCode(NSString * name){
 
 //获取所有的 Emoji 表情
 + (NSDictionary<NSString *, NSString *> *)getEmojiInfo{
-    NSBundle *emojiBundle = [NSBundle bundleWithPath:[NSBundle.mainBundle pathForResource:@"ConversatioEmojiResource" ofType:@"bundle"]];
-    NSString *infoPath = [emojiBundle pathForResource:@"ConversatioEmoji" ofType:@"plist"];
+    NSBundle *emojiBundle = [NSBundle bundleWithPath:[NSBundle.mainBundle pathForResource:@"ConversationResource" ofType:@"bundle"]];
+    NSString *infoPath = [emojiBundle pathForResource:@"Conversation_Emoji/ConversatioEmoji" ofType:@"plist"];
     NSMutableDictionary *plistDict = [NSMutableDictionary dictionaryWithContentsOfFile:infoPath];
     return plistDict;
 }

@@ -17,6 +17,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (UIImage *)imageEmojiName:(NSString *)name;
 + (UIImage *)imageEmojiCode:(NSString *)code;
+
++ (UIImage *)imageConversationBack:(NSString *)imageName;
+
 @end
 
 NS_ASSUME_NONNULL_END
