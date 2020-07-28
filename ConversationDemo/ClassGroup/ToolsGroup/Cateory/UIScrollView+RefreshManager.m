@@ -3,7 +3,7 @@
 //  ConversationDemo
 //
 //  Created by 苏沫离 on 2019/5/30.
-//  Copyright © 2019 Tomato FoodNet Corp. All rights reserved.
+//  Copyright © 2019 苏沫离. All rights reserved.
 //
 
 #import "UIScrollView+RefreshManager.h"

@@ -12,8 +12,6 @@
 #import "MBProgressHUD+CustomView.h"
 #import "GravityImageView.h"
 #import "LoginTextView.h"
-#import <Masonry.h>
-#import "AppDelegate.h"
 
 @interface RegisterViewController()
 <UIImagePickerControllerDelegate, UINavigationControllerDelegate,UITextFieldDelegate>
@@ -175,7 +173,7 @@
 }
 
 - (void)regisSuccessClick{
-    [((AppDelegate *)UIApplication.sharedApplication.delegate) loginOrRegisterSuccess];
+    [UserManager setRootController];
 }
 
 //头像

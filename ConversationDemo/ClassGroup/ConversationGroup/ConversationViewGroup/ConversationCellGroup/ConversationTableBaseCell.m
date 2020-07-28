@@ -3,7 +3,7 @@
 //  ConversationDemo
 //
 //  Created by 苏沫离 on 2019/9/17.
-//  Copyright © 2019 Tomato FoodNet Corp. All rights reserved.
+//  Copyright © 2019 苏沫离. All rights reserved.
 //
 
 #import "ConversationTableBaseCell.h"
@@ -20,7 +20,7 @@
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self){
-        self.backgroundColor = [UIColor colorWithRed:238/255.0 green:238/255.0 blue:238/255.0 alpha:1.0];
+        self.backgroundColor = UIColor.clearColor;
         self.contentView.backgroundColor = UIColor.clearColor;
         self.selectionStyle = UITableViewCellSelectionStyleNone;
     }

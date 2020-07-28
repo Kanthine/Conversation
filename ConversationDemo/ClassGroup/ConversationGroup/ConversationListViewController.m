@@ -45,7 +45,6 @@
     self.tableView.frame = self.view.bounds;
 }
 
-
 #pragma mark - tableViewDelegate
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{

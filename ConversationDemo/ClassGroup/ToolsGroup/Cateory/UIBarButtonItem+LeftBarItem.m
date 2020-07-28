@@ -3,7 +3,7 @@
 //  MyYummy
 //
 //  Created by 苏沫离 on 2019/4/29.
-//  Copyright © 2019 Tomato FoodNet Corp. All rights reserved.
+//  Copyright © 2019 苏沫离. All rights reserved.
 //
 
 #import "UIBarButtonItem+LeftBarItem.h"
@@ -55,7 +55,7 @@
     button.frame = CGRectMake(0, 0, 60, 44);
     [button addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
     [button setTitle:title forState:UIControlStateNormal];
-    [button setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
+    [button setTitleColor:UIColor.blackColor forState:UIControlStateNormal];
     button.titleLabel.font = [UIFont systemFontOfSize:16];
     button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
     button.adjustsImageWhenDisabled = NO;

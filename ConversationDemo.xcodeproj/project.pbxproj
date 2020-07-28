@@ -107,6 +107,7 @@
 		1ACA60E024CEAD8700EC22B0 /* YLReadController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ACA60B524CEAD8700EC22B0 /* YLReadController.m */; };
 		1ACA60E324CEB09700EC22B0 /* ConversationUserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ACA60E224CEB09700EC22B0 /* ConversationUserModel.m */; };
 		1ACA60E924CECC1D00EC22B0 /* ConversationDatabaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ACA60E824CECC1D00EC22B0 /* ConversationDatabaseManager.m */; };
+		1AD76A5F24CFB72800A91320 /* ConversationBackSetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AD76A5E24CFB72800A91320 /* ConversationBackSetViewController.m */; };
 		BCC9E904E1179FDFC3907988 /* libPods-ConversationDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F8C188AABEA5FAE17C9A90AD /* libPods-ConversationDemo.a */; };
 /* End PBXBuildFile section */
 
@@ -310,6 +311,8 @@
 		1ACA60E224CEB09700EC22B0 /* ConversationUserModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ConversationUserModel.m; sourceTree = "<group>"; };
 		1ACA60E724CECC1D00EC22B0 /* ConversationDatabaseManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConversationDatabaseManager.h; sourceTree = "<group>"; };
 		1ACA60E824CECC1D00EC22B0 /* ConversationDatabaseManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ConversationDatabaseManager.m; sourceTree = "<group>"; };
+		1AD76A5D24CFB72800A91320 /* ConversationBackSetViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConversationBackSetViewController.h; sourceTree = "<group>"; };
+		1AD76A5E24CFB72800A91320 /* ConversationBackSetViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ConversationBackSetViewController.m; sourceTree = "<group>"; };
 		97CF5ED06F4491927A3B9A77 /* Pods-ConversationDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ConversationDemo.debug.xcconfig"; path = "Target Support Files/Pods-ConversationDemo/Pods-ConversationDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		E59B6C2ECE01D6EFCDC9EA60 /* Pods-ConversationDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ConversationDemo.release.xcconfig"; path = "Target Support Files/Pods-ConversationDemo/Pods-ConversationDemo.release.xcconfig"; sourceTree = "<group>"; };
 		F8C188AABEA5FAE17C9A90AD /* libPods-ConversationDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ConversationDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -428,6 +431,8 @@
 			children = (
 				1ACA5FB424CE6D3900EC22B0 /* ConversationViewController.h */,
 				1ACA5FAB24CE6D3900EC22B0 /* ConversationViewController.m */,
+				1AD76A5D24CFB72800A91320 /* ConversationBackSetViewController.h */,
+				1AD76A5E24CFB72800A91320 /* ConversationBackSetViewController.m */,
 				1ACA604424CE702D00EC22B0 /* ConversationListViewController.h */,
 				1ACA604524CE702D00EC22B0 /* ConversationListViewController.m */,
 				1ACA5FAC24CE6D3900EC22B0 /* ConversationModelGroup */,
@@ -954,6 +959,7 @@
 				1ACA602924CE6D3900EC22B0 /* NSString+CharacterLength.m in Sources */,
 				1ACA60E924CECC1D00EC22B0 /* ConversationDatabaseManager.m in Sources */,
 				1ACA60DE24CEAD8700EC22B0 /* UIPageViewController+Extend.m in Sources */,
+				1AD76A5F24CFB72800A91320 /* ConversationBackSetViewController.m in Sources */,
 				1ACA602E24CE6D3900EC22B0 /* NSObject+GetTheController.m in Sources */,
 				1ACA60C824CEAD8700EC22B0 /* YLReadMenu.m in Sources */,
 				1ACA602F24CE6D3900EC22B0 /* AlbumMainViewController.m in Sources */,

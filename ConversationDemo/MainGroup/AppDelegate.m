@@ -22,7 +22,6 @@
     UINavigationBar.appearance.backgroundColor = UIColor.whiteColor;
     UINavigationBar.appearance.titleTextAttributes = @{NSFontAttributeName:[UIFont systemFontOfSize:18],NSForegroundColorAttributeName:UIColor.blackColor};
     
-    
     [UserManager setRootController];
     return YES;
 }

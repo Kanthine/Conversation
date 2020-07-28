@@ -21,7 +21,7 @@
 #import "GravityImageView.h"
 #import "LoginTextView.h"
 #import <Masonry.h>
-#import "AppDelegate.h"
+
 
 static CGFloat const YYSpringSpeed = 6.0;
 static CGFloat const YYSpringBounciness = 16.0;
@@ -400,7 +400,7 @@ static CGFloat const YYSpringBounciness = 16.0;
         UserManager.shareUser.password = self.passwordView.textFiled.text;
         [UserManager.shareUser save];
         dispatch_async(dispatch_get_main_queue(), ^{
-            [((AppDelegate *)UIApplication.sharedApplication.delegate) loginOrRegisterSuccess];
+            [UserManager setRootController];
         });
         
     } failure:^(NSError *error) {

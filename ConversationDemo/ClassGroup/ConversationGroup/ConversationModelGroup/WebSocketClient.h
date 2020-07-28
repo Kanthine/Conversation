@@ -3,7 +3,7 @@
 //  MyYummy
 //
 //  Created by 苏沫离 on 2019/5/23.
-//  Copyright © 2019 Tomato FoodNet Corp. All rights reserved.
+//  Copyright © 2019 苏沫离. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>

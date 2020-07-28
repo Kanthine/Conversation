@@ -3,25 +3,23 @@
 //  ConversationDemo
 //
 //  Created by 苏沫离 on 2019/9/17.
-//  Copyright © 2019 Tomato FoodNet Corp. All rights reserved.
+//  Copyright © 2019 苏沫离. All rights reserved.
 //
 
 #import "ConversationViewController.h"
 #import "ConversationModel.h"
-#import "UIScrollView+RefreshManager.h"
-#import "ConversationTableTextCell.h"
-#import "ConversationTableImageCell.h"
+#import "ConversationTableBaseCell.h"
 #import "ConversationInputBar.h"
-#import "WebSocketClient.h"
 #import "UIBarButtonItem+LeftBarItem.h"
 #import "UserHomePageViewController.h"
 #import "AFNetAPIClient.h"
 #import "ConversationUserModel.h"
-
+#import "ConversationBackSetViewController.h"
 @interface ConversationViewController ()
 <UITableViewDelegate,UITableViewDataSource>
 
-@property (nonatomic, assign) int currentPage;
+//聊天背景图
+@property (nonatomic,strong) UIImageView *backImageView;
 @property (nonatomic ,strong) NSMutableArray<ConversationModel *> *dataArray;
 @property (nonatomic ,strong) UITableView *tableView;
 @property (nonatomic ,strong) ConversationInputBar *inputBar;//输入框
@@ -44,10 +42,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.currentPage = 1;
     self.view.backgroundColor = [UIColor colorWithRed:238/255.0 green:238/255.0 blue:238/255.0 alpha:1.0];
     self.edgesForExtendedLayout = UIRectEdgeNone;
     self.navigationItem.leftBarButtonItem = [UIBarButtonItem leftBackItemWithTarget:self action:@selector(leftBarButtonItemClick)];
+    self.navigationItem.rightBarButtonItem = [UIBarButtonItem rightItemWithTitle:@"设置" target:self action:@selector(rightBarButtonItemClick)];
+    [self.view addSubview:self.backImageView];
     [self.view addSubview:self.tableView];
     [self.view addSubview:self.inputBar];
     
@@ -65,6 +64,16 @@
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = NO;
     [self loadNetWorkRequest];
+    
+    NSString *backImageName = [NSUserDefaults.standardUserDefaults objectForKey:@"com.chatBack.imgae"];
+    if (backImageName) {
+        self.backImageView.image = [UIImage imageNamed:backImageName];
+    }
+}
+
+- (void)viewWillLayoutSubviews{
+    [super viewWillLayoutSubviews];
+    self.backImageView.frame = self.view.bounds;
 }
 
 - (void)socketReceiveMessageNotification:(NSNotification *)notification{
@@ -76,6 +85,11 @@
 
 - (void)leftBarButtonItemClick{
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)rightBarButtonItemClick{
+    ConversationBackSetViewController *vc = [[ConversationBackSetViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark - UITableViewDelegate
@@ -103,67 +117,11 @@
     if (model.type == ConversationType_TEXT) {
         
     }
-    
-
 }
 
 #pragma mark - private methods
 
 - (void)loadNetWorkRequest{
-//    NSString *lastMsgDate = self.dataArray.firstObject.sendDate;
-//    if (lastMsgDate == nil || self.currentPage == 1) {
-//        lastMsgDate = @"";
-//    }
-
-//    [HttpManagerTool postWithPath:message_privateInfo params:@{@"pageSize":@(20),@"pageNo":@(self.currentPage),@"shopNo":self.shopModel.shopNo, @"lastMsgDate":lastMsgDate} success:^(id JSON) {
-//        NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:nil];
-//        NSMutableArray *resultArray;
-//        if ([responseDict[@"code"] isEqualToString:@"SUCCESS"]){
-//            [self.shopModel parserObjectWithDictionary:responseDict[@"data"]];
-//            NSArray *priList = responseDict[@"data"][@"twoMsg"];
-//
-//            if (priList && [priList isKindOfClass:[NSArray class]]) {
-//                resultArray = [NSMutableArray arrayWithCapacity:priList.count];
-//                [priList enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-//                    ConversationModel *model = [ConversationModel modelObjectWithDictionary:obj];
-//                    [resultArray insertObject:model atIndex:0];
-//                }];
-//
-//                if (self.currentPage > 1) {
-//                    [resultArray addObjectsFromArray:self.dataArray];
-//                }
-//                self.dataArray = resultArray;
-//
-//                dispatch_async(dispatch_get_main_queue(), ^{
-//                    self.navigationItem.title = self.shopModel.shopName;
-//                    [self.tableView reloadData];
-//                    if (self.currentPage == 1) {
-//                        [self tableViewScrollToBottom:0.0];
-//                    }
-//                });
-//            }
-//        }else{
-//            dispatch_async(dispatch_get_main_queue(), ^{
-////                kPE(responseDict[@"message"]);
-//            });
-//        }
-//
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//            [self.tableView.mj_header endRefreshing];
-//        });
-//
-//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//            if (resultArray && resultArray.count < 20 * self.currentPage) {
-//                self.tableView.mj_header = nil;
-//                self.tableView.contentInset = UIEdgeInsetsMake(6, 0, 0, 0);
-//            }
-//        });
-//
-//    } failure:^(NSError *error) {
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//            [self.tableView.mj_header endRefreshing];
-//        });
-//    }];
 }
 
 //{"content":"收得到？","fromHeaderPath":"/pic/1594721397551-939/1594721397551-939.jpg","fromID":"1594721397551-939","fromName":"Alan","group":false,"msgType":"Text","toHeaderPath":"/pic/1594972271962-364/1594972271962-364.jpg","toID":"1594972271962-364","toName":"774792381@qq.com"}
@@ -215,6 +173,15 @@
     return _dataArray;
 }
 
+- (UIImageView *)backImageView{
+    if (_backImageView == nil) {
+        _backImageView = [[UIImageView alloc] initWithFrame:UIScreen.mainScreen.bounds];
+        _backImageView.contentMode = UIViewContentModeScaleAspectFill;
+        _backImageView.backgroundColor = [UIColor colorWithRed:228/255.0 green:228/255.0 blue:228/255.0 alpha:1.0];
+    }
+    return _backImageView;
+}
+
 - (UITableView *)tableView{
     if (_tableView == nil){
         UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(UIScreen.mainScreen.bounds), getPageSafeAreaHeight(YES) - CGRectGetHeight(self.inputBar.frame)) style:UITableViewStylePlain];
@@ -223,16 +190,9 @@
         tableView.delegate = self;
         tableView.tableFooterView = UIView.new;
         tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        tableView.rowHeight = 70.0f;
         tableView.sectionFooterHeight = 0.1f;
-        tableView.backgroundColor = [UIColor colorWithRed:238/255.0 green:238/255.0 blue:238/255.0 alpha:1.0];
-//        __weak typeof(self) weakSelf = self;
-//        tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-//            weakSelf.currentPage ++;
-//            [weakSelf loadNetWorkRequest];
-//        }];
+        tableView.backgroundColor = UIColor.clearColor;
         [ConversationTableBaseCell regisCellForTableView:tableView];
-        tableView.autoHiddenFooter = YES;
         _tableView = tableView;
     }
     return _tableView;
