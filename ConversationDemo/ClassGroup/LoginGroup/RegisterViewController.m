@@ -165,10 +165,10 @@
             [hud hideAnimated:YES];
             [self regisSuccessClick];
         });
-    } failure:^(NSError *error) {
+    } failure:^(NSString *error) {
         NSLog(@"error ----- %@",error);
         [hud hideAnimated:YES];
-        [self.view makeToast:error.domain duration:3 position:CSToastPositionCenter];
+        [self.view makeToast:error duration:3 position:CSToastPositionCenter];
     }];
 }
 

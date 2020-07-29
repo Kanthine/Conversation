@@ -403,8 +403,8 @@ static CGFloat const YYSpringBounciness = 16.0;
             [UserManager setRootController];
         });
         
-    } failure:^(NSError *error) {
-        [self.view makeToast:error.domain duration:3 position:CSToastPositionCenter];
+    } failure:^(NSString *error) {
+        [self.view makeToast:error duration:3 position:CSToastPositionCenter];
         [self loginFailClick];
     }];
 }

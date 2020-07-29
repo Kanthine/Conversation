@@ -149,7 +149,7 @@ NSString *const kUserManagerPassword = @"password";
         conversationListNAV.tabBarItem.image = [UIImage imageNamed:@"home"];
         conversationListNAV.tabBarItem.selectedImage = [UIImage imageNamed:@"home_select"];
         
-        UserHomePageViewController *userHomeVC = [[UserHomePageViewController alloc]init];
+        UserHomePageViewController *userHomeVC = [[UserHomePageViewController alloc]initWithUserId:UserManager.shareUser.userId];
         UINavigationController *userHomeNAV = [[UINavigationController alloc] initWithRootViewController:userHomeVC];
         userHomeNAV.tabBarItem.title = @"我的";
         userHomeNAV.tabBarItem.image = [UIImage imageNamed:@"mine"];

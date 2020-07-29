@@ -12,7 +12,6 @@
 #import "ConversationInputBar.h"
 #import "UIBarButtonItem+LeftBarItem.h"
 #import "UserHomePageViewController.h"
-#import "AFNetAPIClient.h"
 #import "ConversationUserModel.h"
 #import "ConversationBackSetViewController.h"
 #import "UIImage+ConversationEmoji.h"
@@ -31,6 +30,11 @@
 
 @implementation ConversationViewController
 
+#pragma mark - life cycle
+
+- (void)dealloc{
+    [NSNotificationCenter.defaultCenter removeObserver:self];
+}
 
 - (instancetype)initWithTargetUser:(ConversationUserModel *)target{
     self = [super init];
@@ -39,8 +43,6 @@
     }
     return self;
 }
-
-#pragma mark - life cycle
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -55,10 +57,13 @@
     self.navigationItem.title = self.targetUser.nickName;
     
     [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(socketReceiveMessageNotification:) name:kSocketReceiveMessageNotification object:nil];
+    [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(socketLinkStateNotification:) name:kSocketLinkStateNotification object:nil];
+
     
     [ConversationModel getModelsWithTarget:self.targetUser complete:^(NSMutableArray<ConversationModel *> * _Nonnull modelsArray) {
         self.dataArray = modelsArray;
          [self.tableView reloadData];
+        [self tableViewScrollToBottom];
     }];
 }
 
@@ -79,9 +84,15 @@
     self.backImageView.frame = self.view.bounds;
 }
 
+#pragma mark - Notification
+
 - (void)socketReceiveMessageNotification:(NSNotification *)notification{
     NSDictionary *dict = notification.userInfo;
     [self insertConversationMessage:dict];
+}
+
+- (void)socketLinkStateNotification:(NSNotification *)notification{
+    
 }
 
 #pragma mark - response click
@@ -146,25 +157,18 @@
     [self.dataArray addObject:model];
     [self.tableView reloadData];
     if (model.direction == ConversationDirection_RECEIVE) {
-        [self tableViewScrollToBottom:0.0];
+        [self tableViewScrollToBottom];
     }
 }
 
-- (void)tableViewScrollToBottom:(CGFloat)duration{
+- (void)tableViewScrollToBottom{
     if (self.dataArray.count < 1) {
         return;
     }
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:(self.dataArray.count - 1) inSection:0];
-    if (duration == 0.0) {
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
-        });
-    }else{
-        [UIView animateWithDuration:duration animations:^{
-            [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:NO];
-        } completion:^(BOOL finished) {
-        }];
-    }
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+    });
 }
 
 #pragma mark - setter and getters
@@ -208,7 +212,7 @@
         __weak typeof(self) weakSelf = self;
         _inputBar.frameChangeHandle = ^(CGRect frame, CGFloat duration) {
             weakSelf.tableView.frame = CGRectMake(0, 0, CGRectGetWidth(UIScreen.mainScreen.bounds),frame.origin.y);
-            [weakSelf tableViewScrollToBottom:duration];
+            [weakSelf tableViewScrollToBottom];
         };
 
         _inputBar.sendCommentHandle = ^(NSString * _Nonnull text) {
@@ -216,7 +220,7 @@
         };
         
         _inputBar.sendImageHandle = ^(UIImage * _Nonnull image) {
-            [AFNetAPIClient uploadImage:image success:^(NSString * _Nonnull url) {
+            [HttpManager uploadImage:image success:^(NSString * _Nonnull url) {
                 
                 [weakSelf sendMessageWithText:url msgType:ConversationType_IMAGE];
             } error:^(NSString * _Nonnull error) {

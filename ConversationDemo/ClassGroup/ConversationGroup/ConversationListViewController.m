@@ -15,8 +15,10 @@
 @interface ConversationListViewController ()
 <UITableViewDelegate,UITableViewDataSource>
 
+@property (nonatomic ,strong) UIButton *offLineButton;
 @property (nonatomic ,strong) UITableView *tableView;
 @property (nonatomic ,strong) NSMutableArray<ConversationUserModel *> *userArray;
+@property (nonatomic ,assign) BOOL isOnLine;///是否在线
 
 @end
 
@@ -24,11 +26,18 @@
 
 #pragma mark - life cycle
 
+- (void)dealloc{
+    [NSNotificationCenter.defaultCenter removeObserver:self];
+}
+
 -(void)viewDidLoad{
     [super viewDidLoad];
+    _isOnLine = YES;
     self.navigationItem.title = @"在线人员";
     self.edgesForExtendedLayout = UIRectEdgeNone;
+    [self.view addSubview:self.offLineButton];
     [self.view addSubview:self.tableView];
+    [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(socketLinkStateNotification:) name:kSocketLinkStateNotification object:nil];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -42,7 +51,25 @@
 
 - (void)viewWillLayoutSubviews{
     [super viewWillLayoutSubviews];
-    self.tableView.frame = self.view.bounds;
+    if (_isOnLine) {
+        self.tableView.frame = self.view.bounds;
+    }else{
+        self.tableView.frame = CGRectMake(0, CGRectGetMaxY(self.offLineButton.frame), CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds) - 44);
+    }
+}
+
+#pragma mark - Notification
+
+- (void)socketLinkStateNotification:(NSNotification *)notification{
+    self.isOnLine = [notification.userInfo[kSocketOnLineInfoKey] boolValue];
+}
+
+- (void)offLineButtonClick:(UIButton *)sender{
+    sender.userInteractionEnabled = NO;
+    [WebSocketClient.shareClient recoverSocket];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(10 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        sender.userInteractionEnabled = YES;
+    });
 }
 
 #pragma mark - tableViewDelegate
@@ -94,12 +121,37 @@
             self.userArray = array;
             [self.tableView reloadData];
         });
-    } failure:^(NSError *error) {
+    } failure:^(NSString *error) {
         NSLog(@"error ===== %@",error);
     }];
 }
 
 #pragma mark - setter and getters
+
+- (void)setIsOnLine:(BOOL)isOnLine{
+    _isOnLine = isOnLine;
+    self.offLineButton.userInteractionEnabled = YES;
+    self.offLineButton.hidden = isOnLine;
+    if (_isOnLine) {
+        self.tableView.frame = self.view.bounds;
+    }else{
+        self.tableView.frame = CGRectMake(0, CGRectGetMaxY(self.offLineButton.frame), CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds) - 44);
+    }
+}
+
+- (UIButton *)offLineButton{
+    if (_offLineButton == nil){
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+        button.frame = CGRectMake(0,0,  CGRectGetWidth(UIScreen.mainScreen.bounds),44);
+        button.backgroundColor = [UIColor colorWithRed:254/255.0 green:190/255.0 blue:202/255.0 alpha:1.0];
+        [button setTitle:@"当前网络不好，点击重新上线" forState:UIControlStateNormal];
+        [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        button.titleLabel.font = [UIFont systemFontOfSize:14];
+        [button addTarget:self action:@selector(offLineButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+        _offLineButton = button;
+    }
+    return _offLineButton;
+}
 
 - (UITableView *)tableView{
     if(_tableView == nil){
@@ -116,7 +168,6 @@
             tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
             tableView.contentInset = UIEdgeInsetsMake(0, 0, isIPhoneNotchScreen() ? 34 : 0, 0);
         }
-        
         _tableView = tableView;
     }
     return _tableView;

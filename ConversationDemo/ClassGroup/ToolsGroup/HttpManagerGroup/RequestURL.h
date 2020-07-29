@@ -19,7 +19,7 @@
 #define DOMAINBASE @"http://route.51mypc.cn"
 #define URL_Login @"api/user/login"
 #define URL_Register @"api/user/reg"
-
+#define URL_Update_Info @"api/user/update"
 
 
 #define URL_Test @"fancy/test"

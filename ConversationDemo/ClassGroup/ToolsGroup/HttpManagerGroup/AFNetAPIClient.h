@@ -19,11 +19,10 @@ NS_ASSUME_NONNULL_BEGIN
 +(AFNetAPIClient *_Nonnull)sharedClient;
 
 
--(NSURLSessionDataTask *)requestForGetUrl:(NSString*)url success:(void (^_Nonnull)(id responseObject))success failure:(void (^_Nullable)(NSError *error))failure;
+-(NSURLSessionDataTask *)requestForGetUrl:(NSString*)url success:(void (^_Nonnull)(id responseObject))success failure:(void (^_Nullable)(NSString *error))failure;
 
--(NSURLSessionDataTask *)requestForPostUrl:(NSString*)url Parameters:(NSDictionary *)parameters success:(void (^_Nonnull)(id responseObject))success failure:(void (^_Nullable)(NSError *error))failure;
+-(NSURLSessionDataTask *)requestForPostUrl:(NSString*)url Parameters:(NSDictionary *)parameters success:(void (^_Nonnull)(id responseObject))success failure:(void (^_Nullable)(NSString *error))failure;
 
-+ (void)uploadImage:(UIImage *)image success:(void(^)(NSString *url))successHandler error:(void(^)(NSString *error))errorHandler;
 
 - (void)logSessionDataTask:(NSURLSessionDataTask *_Nullable)task ResponseObject:(id  _Nullable) responseObject;
 

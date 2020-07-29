@@ -90,7 +90,15 @@ UITableViewDelegate,UITableViewDataSource>
 - (void)nickNameButtonClick{
     if ([self.userId isEqualToString:UserManager.shareUser.userId]) {
         [MySetNickNameAlertView showWithBlock:^(NSString * _Nonnull nickname) {
-            
+            [HttpManager requestForPostUrl:URL_Update_Info Parameters:@{@"nickName":nickname} success:^(id responseObject) {
+                UserManager.shareUser.nickName = nickname;
+                [UserManager.shareUser save];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.tableHeaderView reloadData:UserManager.shareUser];
+                });
+            } failure:^(NSString *error) {
+                [self.view makeToast:error duration:3 position:CSToastPositionCenter];
+            }];
         }];
     }
 }
@@ -145,13 +153,20 @@ UITableViewDelegate,UITableViewDataSource>
     
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     hud.label.text = @"上传头像...";
-    [AFNetAPIClient uploadImage:image success:^(NSString * _Nonnull url) {
-        UserManager.shareUser.headPath = url;
-        [UserManager.shareUser save];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.tableHeaderView reloadData:UserManager.shareUser];
+    [HttpManager uploadImage:image success:^(NSString * _Nonnull url) {
+
+        [HttpManager requestForPostUrl:URL_Update_Info Parameters:@{@"photo":url} success:^(id responseObject) {
+            UserManager.shareUser.headPath = url;
+            [UserManager.shareUser save];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.tableHeaderView reloadData:UserManager.shareUser];
+                [hud hideAnimated:YES];
+            });
+        } failure:^(NSString *error) {
             [hud hideAnimated:YES];
-        });
+            [self.view makeToast:error duration:3 position:CSToastPositionCenter];
+        }];
+        
     } error:^(NSString * _Nonnull error) {
         [hud hideAnimated:YES];
         [self.view makeToast:error duration:3 position:CSToastPositionCenter];

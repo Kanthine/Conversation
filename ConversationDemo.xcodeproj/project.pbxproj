@@ -50,7 +50,6 @@
 		1ACA603724CE6D3900EC22B0 /* PHAsset+MediaStreams.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ACA5FF824CE6D3900EC22B0 /* PHAsset+MediaStreams.m */; };
 		1ACA603824CE6D3900EC22B0 /* MediaStreamsResource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1ACA5FF924CE6D3900EC22B0 /* MediaStreamsResource.bundle */; };
 		1ACA603924CE6D3900EC22B0 /* EditPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ACA5FFA24CE6D3900EC22B0 /* EditPhotoViewController.m */; };
-		1ACA603A24CE6D3900EC22B0 /* HttpManager+UploadFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ACA600124CE6D3900EC22B0 /* HttpManager+UploadFile.m */; };
 		1ACA603B24CE6D3900EC22B0 /* HttpManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ACA600324CE6D3900EC22B0 /* HttpManager.m */; };
 		1ACA603C24CE6D3900EC22B0 /* AFNetAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ACA600424CE6D3900EC22B0 /* AFNetAPIClient.m */; };
 		1ACA603D24CE6D3900EC22B0 /* AFNetTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ACA600524CE6D3900EC22B0 /* AFNetTools.m */; };
@@ -202,8 +201,6 @@
 		1ACA5FFD24CE6D3900EC22B0 /* RequestURL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestURL.h; sourceTree = "<group>"; };
 		1ACA5FFE24CE6D3900EC22B0 /* AFNetTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetTools.h; sourceTree = "<group>"; };
 		1ACA5FFF24CE6D3900EC22B0 /* AFNetAPIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetAPIClient.h; sourceTree = "<group>"; };
-		1ACA600124CE6D3900EC22B0 /* HttpManager+UploadFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "HttpManager+UploadFile.m"; sourceTree = "<group>"; };
-		1ACA600224CE6D3900EC22B0 /* HttpManager+UploadFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HttpManager+UploadFile.h"; sourceTree = "<group>"; };
 		1ACA600324CE6D3900EC22B0 /* HttpManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HttpManager.m; sourceTree = "<group>"; };
 		1ACA600424CE6D3900EC22B0 /* AFNetAPIClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFNetAPIClient.m; sourceTree = "<group>"; };
 		1ACA600524CE6D3900EC22B0 /* AFNetTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFNetTools.m; sourceTree = "<group>"; };
@@ -607,21 +604,11 @@
 				1ACA600424CE6D3900EC22B0 /* AFNetAPIClient.m */,
 				1ACA5FFE24CE6D3900EC22B0 /* AFNetTools.h */,
 				1ACA600524CE6D3900EC22B0 /* AFNetTools.m */,
-				1ACA600024CE6D3900EC22B0 /* HttpCategory */,
 				1ACA5FFC24CE6D3900EC22B0 /* HttpManager.h */,
 				1ACA600324CE6D3900EC22B0 /* HttpManager.m */,
 				1ACA5FFD24CE6D3900EC22B0 /* RequestURL.h */,
 			);
 			path = HttpManagerGroup;
-			sourceTree = "<group>";
-		};
-		1ACA600024CE6D3900EC22B0 /* HttpCategory */ = {
-			isa = PBXGroup;
-			children = (
-				1ACA600124CE6D3900EC22B0 /* HttpManager+UploadFile.m */,
-				1ACA600224CE6D3900EC22B0 /* HttpManager+UploadFile.h */,
-			);
-			path = HttpCategory;
 			sourceTree = "<group>";
 		};
 		1ACA600824CE6D3900EC22B0 /* MBProgressHUD */ = {
@@ -984,7 +971,6 @@
 				1ACA60D024CEAD8700EC22B0 /* YLReadTrackingSlider.m in Sources */,
 				1ACA603B24CE6D3900EC22B0 /* HttpManager.m in Sources */,
 				1ACA603424CE6D3900EC22B0 /* AlbumGroupTableCell.m in Sources */,
-				1ACA603A24CE6D3900EC22B0 /* HttpManager+UploadFile.m in Sources */,
 				1ACA602124CE6D3900EC22B0 /* ConversationContentLabel.m in Sources */,
 				1ACA60C324CEAD8700EC22B0 /* YLReadPageModel.m in Sources */,
 				1ACA60B924CEAD8700EC22B0 /* YLCoreText.m in Sources */,

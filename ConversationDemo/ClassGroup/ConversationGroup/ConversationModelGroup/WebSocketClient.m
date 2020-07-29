@@ -1,6 +1,6 @@
 //
 //  WebSocketClient.m
-//  MyYummy
+//  Conversation
 //
 //  Created by 苏沫离 on 2019/5/23.
 //  Copyright © 2019 苏沫离. All rights reserved.
@@ -16,6 +16,9 @@ static int const kHeartBeatInterval = 5;
 
 ///收到消息
 NSString * const kSocketReceiveMessageNotification = @"socket.receive";
+
+NSString * _Nonnull const kSocketLinkStateNotification = @"socket.linkState";
+NSString * _Nonnull const kSocketOnLineInfoKey = @"socket.onLine";
 
 ///长链接
 NSString * _Nonnull getSocketLink(void){
@@ -55,6 +58,7 @@ NSString * _Nonnull getSocketLink(void){
 - (instancetype)init{
     self = [super init];
     if (self) {
+        _isOnLine = NO;
         _reconnectionCount = 0;
         _networkManager = [AFNetworkReachabilityManager managerForDomain:@"http://route.51mypc.cn"];
         [_networkManager startMonitoring];
@@ -71,6 +75,12 @@ NSString * _Nonnull getSocketLink(void){
     _socket = [[SRWebSocket alloc] initWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlString]]];
     _socket.delegate = self;
     [_socket open];
+}
+
+/** 重新链接
+ */
+- (void)recoverSocket{
+    [self openSocketWithURL:self.urlString heartBeat:self.heartBeatDict];//重新开启
 }
 
 - (void)closeSocket{
@@ -101,9 +111,16 @@ NSString * _Nonnull getSocketLink(void){
     }
 }
 
+- (void)setIsOnLine:(BOOL)isOnLine{
+    if (_isOnLine != isOnLine) {
+        _isOnLine = isOnLine;
+        [NSNotificationCenter.defaultCenter postNotificationName:kSocketLinkStateNotification object:nil userInfo:@{kSocketOnLineInfoKey:@(isOnLine)}];
+    }
+}
+
 #pragma mark - SRWebSocketDelegate
 
-/* Socket 已经与服务器连接成功
+/** Socket 已经与服务器连接成功
  * 发送心跳包，获取数据
  */
 - (void)webSocketDidOpen:(SRWebSocket *)webSocket{
@@ -112,6 +129,7 @@ NSString * _Nonnull getSocketLink(void){
         _heartBeatTimer = [NSTimer scheduledTimerWithTimeInterval:kHeartBeatInterval target:self selector:@selector(heartBeatClick) userInfo:nil repeats:YES];
         [NSRunLoop.currentRunLoop addTimer:_heartBeatTimer forMode:NSRunLoopCommonModes];
     }
+    self.isOnLine = YES;
 }
 
 /* 收到后台返回的数据
@@ -119,36 +137,35 @@ NSString * _Nonnull getSocketLink(void){
 - (void)webSocket:(SRWebSocket *)webSocket didReceiveMessage:(id)message{
     NSLog(@"SRWebSocket : didReceiveMessage ------ %@",message);
     _reconnectionCount = 0;
+    NSDictionary *dict;
     if ([message isKindOfClass:[NSString class]]) {
         NSData *jsonData = [message dataUsingEncoding:NSUTF8StringEncoding];
-        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:nil];
-        
+        dict = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:nil];
+    }else if ([message isKindOfClass:NSDictionary.class]){
+        dict = message;
+    }
+    
+    if (dict) {
         [NSNotificationCenter.defaultCenter postNotificationName:kSocketReceiveMessageNotification object:nil userInfo:dict];
-        
-        if(dict && self.receivedMessage) {
+        if(self.receivedMessage) {
             self.receivedMessage(dict);
         }
-    }else if ([message isKindOfClass:NSDictionary.class]){
-        if(self.receivedMessage) {
-            self.receivedMessage(message);
-        }
-        
-        [NSNotificationCenter.defaultCenter postNotificationName:kSocketReceiveMessageNotification object:nil userInfo:message];
     }
 }
 
-/* 连接失败,实现掉线自动重连
+/** 连接失败,实现掉线自动重连
  * @note 判断当前网络环境，如果断网了就不要连了，等待网络到来，在发起重连
  * @note 连接次数限制，如果连接失败了，重试10次就不再重试
  */
 - (void)webSocket:(SRWebSocket *)webSocket didFailWithError:(NSError *)error{
     NSLog(@"SRWebSocket : didFailWithError ------ %@",error);
-    
     [self closeSocket];//关闭连接
     if (_networkManager.reachable) {
         if (_reconnectionCount < 10) {
             _reconnectionCount ++;
-            [self openSocketWithURL:self.urlString heartBeat:self.heartBeatDict];//重新开启
+            [self recoverSocket];//重新开启
+        }else{
+            self.isOnLine = NO;
         }
     }else{
         __weak typeof(self) weakSelf = self;
@@ -158,21 +175,25 @@ NSString * _Nonnull getSocketLink(void){
                 NSLog(@"SRWebSocket : 有网络");
                 if (weakSelf.urlString && weakSelf.heartBeatDict) {
                     NSLog(@"SRWebSocket : 有网络 -> 重新开启");
-                    [weakSelf openSocketWithURL:weakSelf.urlString heartBeat:weakSelf.heartBeatDict];//重新开启
+                    [weakSelf recoverSocket];//重新开启
+                }else{
+                    weakSelf.isOnLine = NO;
                 }
             }else{
+                weakSelf.isOnLine = NO;
                 NSLog(@"SRWebSocket : 网络断开");
             }
         }];
     }
 }
 
-/* 连接断开
+/** 连接断开
  * @note 清空socket对象;关闭心跳
  */
 - (void)webSocket:(SRWebSocket *)webSocket didCloseWithCode:(NSInteger)code reason:(NSString *)reason wasClean:(BOOL)wasClean{
     NSLog(@"SRWebSocket : didCloseWithCode ------ %@",reason);
     [self closeSocket];
+    self.isOnLine = NO;
 }
 
 - (void)webSocket:(SRWebSocket *)webSocket didReceivePong:(NSData *)pongPayload{

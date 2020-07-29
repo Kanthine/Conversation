@@ -14,15 +14,14 @@
 
 + (void)requestTest;
 
-+ (void)requestForGetUrl:(NSString*)url success:(void (^)(id responseObject))success failure:(void (^)(NSError *error))failure;
++ (void)requestForGetUrl:(NSString*)url success:(void (^)(id responseObject))success failure:(void (^)(NSString *error))failure;
 
-+ (void)requestForPostUrl:(NSString*)url Parameters:(NSDictionary *)parameters success:(void (^)(id responseObject))success failure:(void (^)(NSError *error))failure;
++ (void)requestForPostUrl:(NSString*)url Parameters:(NSDictionary *)parameters success:(void (^)(id responseObject))success failure:(void (^)(NSString *error))failure;
 
-
++ (void)uploadImage:(UIImage *)image success:(void(^)(NSString *url))successHandler error:(void(^)(NSString *error))errorHandler;
 
 
 + (void)requestDownData;
 
 @end
 
-#import "HttpManager+UploadFile.h"
