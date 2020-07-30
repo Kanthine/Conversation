@@ -20,6 +20,7 @@ NSString *const kConversationModelMsgId = @"msgId";
 NSString *const kConversationModelGroup = @"group";
 NSString *const kConversationModelFromHeaderPath = @"fromHeaderPath";
 NSString *const kConversationModelToID = @"toID";
+NSString *const kConversationModelTime = @"time";
 
 
 @implementation ConversationModel
@@ -35,6 +36,7 @@ NSString *const kConversationModelToID = @"toID";
 @synthesize group = _group;
 @synthesize fromHeaderPath = _fromHeaderPath;
 @synthesize toID = _toID;
+@synthesize time = _time;
 
 + (instancetype)modelObjectWithDictionary:(NSDictionary *)dict{
     return [[self alloc] initWithDictionary:dict];
@@ -54,6 +56,7 @@ NSString *const kConversationModelToID = @"toID";
         self.group = [[self objectOrNilForKey:kConversationModelGroup fromDictionary:dict] boolValue];
         self.fromHeaderPath = [self objectOrNilForKey:kConversationModelFromHeaderPath fromDictionary:dict];
         self.toID = [self objectOrNilForKey:kConversationModelToID fromDictionary:dict];
+        self.time = [self objectOrNilForKey:kConversationModelTime fromDictionary:dict];
         [self parserExtraInfo];
     }
     return self;
@@ -72,6 +75,7 @@ NSString *const kConversationModelToID = @"toID";
     [mutableDict setValue:[NSNumber numberWithBool:self.group] forKey:kConversationModelGroup];
     [mutableDict setValue:self.fromHeaderPath forKey:kConversationModelFromHeaderPath];
     [mutableDict setValue:self.toID forKey:kConversationModelToID];
+    [mutableDict setValue:self.time forKey:kConversationModelTime];
     [mutableDict setValue:@(self.cellHeight) forKey:@"cellHeight"];
     return [NSString stringWithFormat:@"%@", mutableDict];
 }
@@ -97,6 +101,8 @@ NSString *const kConversationModelToID = @"toID";
     self.group = [aDecoder decodeBoolForKey:kConversationModelGroup];
     self.fromHeaderPath = [aDecoder decodeObjectForKey:kConversationModelFromHeaderPath];
     self.toID = [aDecoder decodeObjectForKey:kConversationModelToID];
+    self.time = [aDecoder decodeObjectForKey:kConversationModelTime];
+
     return self;
 }
 
@@ -112,6 +118,8 @@ NSString *const kConversationModelToID = @"toID";
     [aCoder encodeBool:_group forKey:kConversationModelGroup];
     [aCoder encodeObject:_fromHeaderPath forKey:kConversationModelFromHeaderPath];
     [aCoder encodeObject:_toID forKey:kConversationModelToID];
+    [aCoder encodeObject:_time forKey:kConversationModelTime];
+
 }
 
 - (id)copyWithZone:(NSZone *)zone{
@@ -128,6 +136,7 @@ NSString *const kConversationModelToID = @"toID";
         copy.group = self.group;
         copy.fromHeaderPath = [self.fromHeaderPath copyWithZone:zone];
         copy.toID = [self.toID copyWithZone:zone];
+        copy.time = [self.time copyWithZone:zone];
     }
     return copy;
 }
@@ -227,7 +236,7 @@ extern CGFloat kConversationTableSeatsCellHeight;
 
 + (void)creatTableWithDatabase:(FMDatabase *)database{
     if (![database tableExists:@"ConversationMessage"]){
-        [database executeUpdate:@"CREATE TABLE ConversationMessage (id INTEGER PRIMARY KEY,msgId TEXT UNIQUE NOT NULL,msgType TEXT, content TEXT, sendDate INTEGER, isGroup boolean, fromID TEXT, fromName TEXT, fromHeaderPath TEXT, toID TEXT, toName TEXT, toHeaderPath TEXT)"];
+        [database executeUpdate:@"CREATE TABLE ConversationMessage (id INTEGER PRIMARY KEY,msgId TEXT UNIQUE NOT NULL,msgType TEXT, content TEXT, sendDate INTEGER, isGroup boolean, fromID TEXT, fromName TEXT, fromHeaderPath TEXT, toID TEXT, toName TEXT, toHeaderPath TEXT, time TEXT)"];
     }
 }
 
@@ -239,11 +248,11 @@ extern CGFloat kConversationTableSeatsCellHeight;
     [ConversationDatabaseManager databaseChildThreadInTransaction:^(FMDatabase *database, BOOL *rollback) {
         [ConversationModel creatTableWithDatabase:database];
         [modelArray enumerateObjectsUsingBlock:^(ConversationModel * _Nonnull model, NSUInteger idx, BOOL * _Nonnull stop) {
-            [database executeUpdate:@"INSERT INTO ConversationMessage (msgId,msgType,content,sendDate,isGroup,fromID,fromName,fromHeaderPath,toID,toName,toHeaderPath) VALUES (?,?,?,?,?,?,?,?,?,?,?)",
+            [database executeUpdate:@"INSERT INTO ConversationMessage (msgId,msgType,content,sendDate,isGroup,fromID,fromName,fromHeaderPath,toID,toName,toHeaderPath,time) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)",
              model.msgId,model.msgType,model.content,
              @(model.sendDate),@(model.group),
              model.fromID,model.fromName,model.fromHeaderPath,
-             model.toID,model.toName,model.toHeaderPath];
+             model.toID,model.toName,model.toHeaderPath,model.time];
         }];
     }];
 }
@@ -271,7 +280,8 @@ extern CGFloat kConversationTableSeatsCellHeight;
             model.toName = [resultSet stringForColumn:@"toName"];
             model.toHeaderPath = [resultSet stringForColumn:@"toHeaderPath"];
             model.toID = [resultSet stringForColumn:@"toID"];
-            
+            model.time = [resultSet stringForColumn:@"time"];
+
             [model parserExtraInfo];
             
             [array addObject:model];
@@ -311,7 +321,8 @@ extern CGFloat kConversationTableSeatsCellHeight;
             model.toName = [resultSet stringForColumn:@"toName"];
             model.toHeaderPath = [resultSet stringForColumn:@"toHeaderPath"];
             model.toID = [resultSet stringForColumn:@"toID"];
-            
+            model.time = [resultSet stringForColumn:@"time"];
+
             [model parserExtraInfo];
             
             [array addObject:model];
@@ -322,5 +333,14 @@ extern CGFloat kConversationTableSeatsCellHeight;
         });
     }];
 }
+
++ (void)getLastModelWithTarget:(ConversationUserModel *)target complete:(void(^)(ConversationModel *lastModel))block{
+    [ConversationModel getModelsWithTarget:target complete:^(NSMutableArray<ConversationModel *> * _Nonnull modelsArray) {
+        if (modelsArray.lastObject) {
+            block(modelsArray.lastObject);
+        }
+    }];
+}
+
 
 @end

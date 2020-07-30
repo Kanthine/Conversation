@@ -30,8 +30,12 @@
 
 - (void)setModel:(ConversationModel *)model{
     _model = model;
+    self.nickNameLabel.hidden = !model.group;
+    self.nickNameLabel.text = model.fromName;
+    
     if (model.direction == ConversationDirection_SEND) {
         [self.portraitImageView sd_setImageWithURL:[NSURL URLWithString:UserManager.shareUser.headPath] placeholderImage:[UIImage imageNamed:@"register_Default"]];
+        self.nickNameLabel.hidden = YES;
     }else{
         [self.portraitImageView sd_setImageWithURL:[NSURL URLWithString:model.fromHeaderPath] placeholderImage:[UIImage imageNamed:@"register_Default"]];
     }
@@ -64,6 +68,16 @@
 }
 
 #pragma mark - setter and getters
+
+- (UILabel *)nickNameLabel{
+    if (_nickNameLabel == nil){
+        UILabel *label = [[UILabel alloc] init];
+        label.font = [UIFont systemFontOfSize:15];
+        label.textColor = UIColor.blackColor;
+        _nickNameLabel = label;
+    }
+    return _nickNameLabel;
+}
 
 - (UIImageView *)portraitImageView{
     if (_portraitImageView == nil) {

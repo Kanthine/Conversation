@@ -114,11 +114,11 @@
         [self addSubview:self.contentView];
         
         CGFloat width = CGRectGetWidth(UIScreen.mainScreen.bounds);
-        self.frame = CGRectMake(0, isIPhoneNotchScreen() ? -44 : -20,width, 184 / 375.0 * width + 60);
+        self.frame = CGRectMake(0, isIPhoneNotchScreen() ? -44 : -20,width, 184 / 375.0 * width + 45);
         
         self.backImageView.frame = CGRectMake(0, 0, width, 184 / 375.0 * width);
         
-        self.contentView.frame = CGRectMake(12,CGRectGetMaxY(self.backImageView.frame) - 40,width - 12 * 2.0,95);
+        self.contentView.frame = CGRectMake(12,CGRectGetMaxY(self.backImageView.frame) - 40,width - 12 * 2.0,80);
 
         self.portraitImageView.frame = CGRectMake(14, -30,68, 68);
         CGFloat nick_X = CGRectGetMaxX(self.portraitImageView.frame) + 12;
@@ -137,7 +137,7 @@
 
 - (void)updateLayoutByOffset:(CGFloat)yOffset{
     if (yOffset <= 0.0f){
-        CGFloat newheight = _headerHeight - yOffset - 60;
+        CGFloat newheight = _headerHeight - yOffset - 45;
         CGFloat newWidth = 375.0 / 184.0 * newheight;
         CGFloat x = -(newWidth - CGRectGetWidth(self.frame)) / 2.0;
         CGFloat y = yOffset;

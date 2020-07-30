@@ -52,7 +52,7 @@
         [self addSubview:self.textFiled];
 
         if (viewType == LoginTextViewTypeAccount){
-            self.textFiled.placeholder = @"请输入账号";
+            self.textFiled.placeholder = @"请输入账号（手机号或者邮箱）";
         }else if (viewType == LoginTextViewTypePassword){
             self.textFiled.placeholder = @"请输入密码";
         }else if (viewType == LoginTextViewTypeEmail){

@@ -166,7 +166,6 @@ UITableViewDelegate,UITableViewDataSource>
             [hud hideAnimated:YES];
             [self.view makeToast:error duration:3 position:CSToastPositionCenter];
         }];
-        
     } error:^(NSString * _Nonnull error) {
         [hud hideAnimated:YES];
         [self.view makeToast:error duration:3 position:CSToastPositionCenter];

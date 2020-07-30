@@ -11,6 +11,8 @@
 #import "ConversationStatusDefine.h"
 NS_ASSUME_NONNULL_BEGIN
 
+// {"content":"DVD’s","fromHeaderPath":"/pic/default.jpg","fromID":"1594972271962-364","fromName":"774792381@qq.com","group":true,"msgType":"Text","time":"2020-07-30 11:06:52","toHeaderPath":"/pic/default.jpg","toID":"happy_group","toName":"开心聊天群"}
+
 
 @interface ConversationModel : NSObject <NSCoding, NSCopying>
 
@@ -19,6 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *fromHeaderPath;
 
 @property (nonatomic, strong) NSString *content;
+@property (nonatomic, strong) NSString *time;
 @property (nonatomic, strong) NSString *msgType;
 @property (nonatomic, strong) NSString *msgId;
 @property (nonatomic, assign) NSInteger sendDate;
@@ -65,6 +68,10 @@ NS_ASSUME_NONNULL_BEGIN
 /** 获取某个对象相关的所有消息
  */
 + (void)getModelsWithTarget:(ConversationUserModel *)target complete:(void(^)(NSMutableArray<ConversationModel *> *modelsArray))block;
+
+/** 获取最新消息
+ */
++ (void)getLastModelWithTarget:(ConversationUserModel *)target complete:(void(^)(ConversationModel *lastModel))block;
 
 @end
 

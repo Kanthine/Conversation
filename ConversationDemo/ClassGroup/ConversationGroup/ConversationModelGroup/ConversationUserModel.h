@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import "ConversationModel.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ConversationUserModel : NSObject
@@ -16,9 +16,13 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *userId;//用户ID
 @property (nonatomic, strong) NSString *account;//用户账号
 @property (nonatomic ,assign) BOOL isGroup;//是否是群组
+@property (nonatomic, strong) ConversationModel *lastMessage;
+@property (nonatomic, copy) void(^getLastMessage)(ConversationModel *lastMessage);
 
 + (instancetype)modelObjectWithDictionary:(NSDictionary *)dict;
 - (NSDictionary *)dictionaryRepresentation;
+- (void)asyncGetLastMessage;
+
 @end
 
 

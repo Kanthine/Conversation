@@ -16,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ConversationTableBaseCell : UITableViewCell
 @property (nonatomic ,strong) ConversationModel *model;
+@property (nonatomic ,strong) UILabel *nickNameLabel;
 @property (nonatomic ,strong) UIImageView *portraitImageView;
 @property (nonatomic ,copy) void(^tapPortraitClick)(void);
 

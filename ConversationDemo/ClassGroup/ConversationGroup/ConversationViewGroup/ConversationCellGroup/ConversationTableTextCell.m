@@ -11,7 +11,7 @@
 #import "ConversationContentParserTool.h"
 
 CGFloat getConversationTableTextCellHeight(ConversationModel *model){
-    return 15 + 6 + model.contentSize.height + 6 + 10;;
+    return 5 + 15 + 6 + model.contentSize.height + 6 + 10;;
 }
 
 @interface ConversationTableTextCell()
@@ -25,6 +25,7 @@ CGFloat getConversationTableTextCellHeight(ConversationModel *model){
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self){
         [self.contentView addSubview:self.portraitImageView];
+        [self.contentView addSubview:self.nickNameLabel];
         [self.contentView addSubview:self.messageContentView];
     }
     return self;
@@ -34,10 +35,15 @@ CGFloat getConversationTableTextCellHeight(ConversationModel *model){
     [super layoutSubviews];
 
     self.messageLabel.frame = CGRectMake(10, 6, self.model.contentSize.width + 2, self.model.contentSize.height + 2);
-    
+    CGFloat portrait_center_Y = 15 + 5;
+
     if (self.model.direction == ConversationDirection_SEND) {
-        self.portraitImageView.center = CGPointMake(CGRectGetWidth(self.contentView.frame) - 14 - 15, 15);
-        self.messageContentView.frame = CGRectMake(self.portraitImageView.frame.origin.x - 10 - (self.model.contentSize.width + 20), self.portraitImageView.center.y, self.model.contentSize.width + 20, self.model.contentSize.height + 12);
+        self.portraitImageView.center = CGPointMake(CGRectGetWidth(self.contentView.frame) - 14 - 15, portrait_center_Y);
+        
+        CGFloat x = self.portraitImageView.frame.origin.x - 10 - (self.model.contentSize.width + 20);
+        CGFloat width = self.model.contentSize.width + 20;
+        self.nickNameLabel.frame = CGRectMake(x, 0, width, 16);
+        self.messageContentView.frame = CGRectMake(x, portrait_center_Y, width, self.model.contentSize.height + 12);
         
         UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:self.messageContentView.bounds byRoundingCorners:UIRectCornerTopLeft| UIRectCornerBottomRight | UIRectCornerBottomLeft  cornerRadii:CGSizeMake(15, 15)];
         CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
@@ -45,8 +51,9 @@ CGFloat getConversationTableTextCellHeight(ConversationModel *model){
         maskLayer.path = maskPath.CGPath;
         self.messageContentView.layer.mask = maskLayer;
     }else{
-        self.portraitImageView.center = CGPointMake(14 + 15, 15);
-        self.messageContentView.frame = CGRectMake(CGRectGetMaxX(self.portraitImageView.frame) + 10, self.portraitImageView.center.y, self.model.contentSize.width + 20, self.model.contentSize.height + 12);
+        self.portraitImageView.center = CGPointMake(14 + 15, portrait_center_Y);
+        self.nickNameLabel.frame = CGRectMake(CGRectGetMaxX(self.portraitImageView.frame) + 10, 0, 100, 16);
+        self.messageContentView.frame = CGRectMake(CGRectGetMaxX(self.portraitImageView.frame) + 10, portrait_center_Y, self.model.contentSize.width + 20, self.model.contentSize.height + 12);
         
         UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:self.messageContentView.bounds byRoundingCorners:UIRectCornerTopRight| UIRectCornerBottomRight | UIRectCornerBottomLeft  cornerRadii:CGSizeMake(15, 15)];
         CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];

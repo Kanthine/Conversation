@@ -27,6 +27,13 @@ NSString *const kConversationUserModelAccount = @"account";
     return [[self alloc] initWithDictionary:dict];
 }
 
+- (NSString *)headPath{
+    if (![_headPath hasPrefix:@"http"]) {
+        _headPath = [NSString stringWithFormat:@"%@%@",DOMAINBASE,_headPath];
+    }
+    return _headPath;
+}
+
 - (instancetype)initWithDictionary:(NSDictionary *)dict{
     self = [super init];
     if(self && [dict isKindOfClass:[NSDictionary class]]) {
@@ -35,8 +42,19 @@ NSString *const kConversationUserModelAccount = @"account";
         self.userId = [self objectOrNilForKey:kConversationUserModelUserId fromDictionary:dict];
         self.account = [self objectOrNilForKey:kConversationUserModelAccount fromDictionary:dict];
         self.isGroup = [[self objectOrNilForKey:kConversationUserModelIsGroup fromDictionary:dict] boolValue];
+        [self asyncGetLastMessage];
     }
     return self;
+}
+
+- (void)asyncGetLastMessage{
+
+    [ConversationModel getLastModelWithTarget:self complete:^(ConversationModel * _Nonnull lastModel) {
+        self.lastMessage = lastModel;
+        if (self.getLastMessage) {
+            self.getLastMessage(lastModel);
+        }
+    }];
 }
 
 - (NSDictionary *)dictionaryRepresentation{

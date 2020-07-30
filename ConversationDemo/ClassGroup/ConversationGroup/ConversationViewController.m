@@ -147,7 +147,7 @@
                             @"fromID":UserManager.shareUser.userId,
                             @"toID":self.targetUser.userId};
      [WebSocketClient.shareClient sendData:dict];
-     [self insertConversationMessage:dict];
+    //[self insertConversationMessage:dict];
 }
 
 - (void)insertConversationMessage:(NSDictionary *)dict{
@@ -156,9 +156,7 @@
     NSLog(@"model ==== %@",model);
     [self.dataArray addObject:model];
     [self.tableView reloadData];
-    if (model.direction == ConversationDirection_RECEIVE) {
-        [self tableViewScrollToBottom];
-    }
+    [self tableViewScrollToBottom];
 }
 
 - (void)tableViewScrollToBottom{

@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+//www.ecpss.com.ListeningBook
+//com.beicai.gaoyanzhi
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow * window;

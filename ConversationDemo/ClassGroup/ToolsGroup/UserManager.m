@@ -54,7 +54,6 @@ NSString *const kUserManagerPassword = @"password";
     if (![_headPath hasPrefix:@"http"]) {
         _headPath = [NSString stringWithFormat:@"%@%@",DOMAINBASE,_headPath];
     }
-    
     return _headPath;
 }
 

@@ -111,7 +111,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		1A64DA6B24BD9198009AFB82 /* ConversationDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ConversationDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1A64DA6B24BD9198009AFB82 /* 马帅.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "马帅.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1A64DA7A24BD919A009AFB82 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1A64DA7D24BD919A009AFB82 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1A64DA7F24BD919A009AFB82 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -340,7 +340,7 @@
 		1A64DA6C24BD9198009AFB82 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				1A64DA6B24BD9198009AFB82 /* ConversationDemo.app */,
+				1A64DA6B24BD9198009AFB82 /* 马帅.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -382,11 +382,11 @@
 		1ACA5F9524CE6D3900EC22B0 /* LoginGroup */ = {
 			isa = PBXGroup;
 			children = (
-				1ACA5F9624CE6D3900EC22B0 /* LoginViewController.m */,
-				1ACA5F9724CE6D3900EC22B0 /* RegisterViewController.m */,
-				1ACA5F9824CE6D3900EC22B0 /* LoginViewController.h */,
-				1ACA5F9924CE6D3900EC22B0 /* RegisterViewController.h */,
 				1ACA5F9A24CE6D3900EC22B0 /* LoginView */,
+				1ACA5F9824CE6D3900EC22B0 /* LoginViewController.h */,
+				1ACA5F9624CE6D3900EC22B0 /* LoginViewController.m */,
+				1ACA5F9924CE6D3900EC22B0 /* RegisterViewController.h */,
+				1ACA5F9724CE6D3900EC22B0 /* RegisterViewController.m */,
 			);
 			path = LoginGroup;
 			sourceTree = "<group>";
@@ -395,11 +395,11 @@
 			isa = PBXGroup;
 			children = (
 				1ACA5F9B24CE6D3900EC22B0 /* GravityImageView.h */,
-				1ACA5F9C24CE6D3900EC22B0 /* LoginTextView.m */,
-				1ACA5F9D24CE6D3900EC22B0 /* GravityInduction.h */,
 				1ACA5F9E24CE6D3900EC22B0 /* GravityImageView.m */,
-				1ACA5F9F24CE6D3900EC22B0 /* LoginTextView.h */,
+				1ACA5F9D24CE6D3900EC22B0 /* GravityInduction.h */,
 				1ACA5FA024CE6D3900EC22B0 /* GravityInduction.m */,
+				1ACA5F9F24CE6D3900EC22B0 /* LoginTextView.h */,
+				1ACA5F9C24CE6D3900EC22B0 /* LoginTextView.m */,
 			);
 			path = LoginView;
 			sourceTree = "<group>";
@@ -784,7 +784,7 @@
 			);
 			name = ConversationDemo;
 			productName = ConversationDemo;
-			productReference = 1A64DA6B24BD9198009AFB82 /* ConversationDemo.app */;
+			productReference = 1A64DA6B24BD9198009AFB82 /* 马帅.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -1129,8 +1129,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = www.ecpss.com.ListeningBook;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.beicai.gaoyanzhi;
+				PRODUCT_NAME = "马帅";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -1149,8 +1149,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = www.ecpss.com.ListeningBook;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.beicai.gaoyanzhi;
+				PRODUCT_NAME = "马帅";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

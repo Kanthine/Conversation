@@ -63,6 +63,7 @@ static CGFloat const YYSpringBounciness = 16.0;
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    self.navigationController.navigationBarHidden = YES;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardChangeNotification:) name:UIKeyboardWillChangeFrameNotification object:nil];
 }
 
