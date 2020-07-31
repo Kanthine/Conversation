@@ -220,6 +220,11 @@ extern CGFloat kConversationTableSeatsCellHeight;
         CGFloat text_max_width = CGRectGetWidth(UIScreen.mainScreen.bounds) - (14 + 30 + 10) * 2.0 - 10 * 2.0;
         self.contentSize = CGSizeMake(text_max_width, text_max_width);
         self.cellHeight = getConversationTableTextCellHeight(self);
+        
+        [SDWebImageManager.sharedManager loadImageWithURL:[NSURL URLWithString:self.content] options:SDWebImageQueryDiskDataSync progress:^(NSInteger receivedSize, NSInteger expectedSize, NSURL * _Nullable targetURL) {
+        } completed:^(UIImage * _Nullable image, NSData * _Nullable data, NSError * _Nullable error, SDImageCacheType cacheType, BOOL finished, NSURL * _Nullable imageURL) {
+            NSLog(@"下载结束 ------ %@",imageURL);
+        }];
     }
 }
 
