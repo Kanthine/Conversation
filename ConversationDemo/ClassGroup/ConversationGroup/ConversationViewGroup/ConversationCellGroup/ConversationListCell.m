@@ -36,15 +36,20 @@
 #pragma mark - public method
 
 - (void)setUserModel:(ConversationUserModel *)userModel{
+    _userModel = userModel;
     [self.portraitImageView sd_setImageWithURL:[NSURL URLWithString:userModel.headPath] placeholderImage:[UIImage imageNamed:@"register_Default"]];
     self.nameLable.text = userModel.nickName;
 
     [userModel asyncGetLastMessage:^(ConversationModel * _Nonnull lastMessage) {
-        [self setLastMesage:lastMessage];
+        [self setLastMesage];
     }];
 }
 
-- (void)setLastMesage:(ConversationModel *)lastMessage{
+- (void)setLastMesage{
+    ConversationModel *lastMessage = _userModel.lastMessage;
+    
+    NSLog(@"_userModel ===== %@",_userModel);
+    
     if (lastMessage) {
         if (lastMessage.type == ConversationType_IMAGE) {
             self.contentLable.text = @"图片消息";
@@ -52,7 +57,6 @@
             self.contentLable.attributedText = lastMessage.attributedString;
         }
         self.timeLable.text = lastMessage.showTime;
-
     }else{
         self.timeLable.text = @"";
         self.contentLable.text = @"还没消息？快点找我唠会";
