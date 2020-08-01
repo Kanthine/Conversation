@@ -188,6 +188,13 @@ NSString *const kConversationModelTime = @"time";
     return objc_getAssociatedObject(self, _cmd);
 }
 
+- (void)setShowTime:(NSString *)showTime{
+    objc_setAssociatedObject(self, @selector(showTime), showTime, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (NSString *)showTime{
+    return objc_getAssociatedObject(self, _cmd);
+}
 
 - (ConversationDirection)direction{
     if ([self.fromID isEqualToString:[NSString stringWithFormat:@"%@",UserManager.shareUser.userId]]) {
@@ -206,10 +213,23 @@ NSString *const kConversationModelTime = @"time";
     return 0;
 }
 
+
+CGSize fitImageSize(CGFloat maxWidth ,CGSize imageSize){
+    if (CGSizeEqualToSize(CGSizeZero, imageSize)) {
+        return CGSizeMake(maxWidth, maxWidth);
+    }
+    if (imageSize.width < maxWidth) {
+        return imageSize;
+    }
+    CGFloat imageHeight = maxWidth / imageSize.width * imageSize.height;
+    return CGSizeMake(maxWidth, imageHeight);
+}
+
 extern CGFloat getConversationTableTextCellHeight(ConversationModel *model);
 extern CGFloat kConversationTableSeatsCellHeight;
 - (void)parserExtraInfo{
     self.cellHeight = 0.01;
+    self.showTime = transformChatTime(self.time);
     if (self.type == ConversationType_TEXT) {
         self.attributedString = [ConversationContentParserTool parserContentWithText:self.content showImage:YES font:[UIFont systemFontOfSize:15] color:[UIColor colorWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1.0]];
         CGFloat text_max_width = CGRectGetWidth(UIScreen.mainScreen.bounds) - (14 + 30 + 10) * 2.0 - 10 * 2.0;
@@ -223,6 +243,8 @@ extern CGFloat kConversationTableSeatsCellHeight;
         
         [SDWebImageManager.sharedManager loadImageWithURL:[NSURL URLWithString:self.content] options:SDWebImageQueryDiskDataSync progress:^(NSInteger receivedSize, NSInteger expectedSize, NSURL * _Nullable targetURL) {
         } completed:^(UIImage * _Nullable image, NSData * _Nullable data, NSError * _Nullable error, SDImageCacheType cacheType, BOOL finished, NSURL * _Nullable imageURL) {
+            self.contentSize = fitImageSize(text_max_width, image.size);
+            self.cellHeight = getConversationTableTextCellHeight(self);
             NSLog(@"下载结束 ------ %@",imageURL);
         }];
     }

@@ -100,13 +100,7 @@
     [HttpManager requestForGetUrl:@"/api/user/online" success:^(id responseObject) {
         
         NSMutableArray *array = [NSMutableArray array];
-        ConversationUserModel *group = [[ConversationUserModel alloc] init];
-        group.userId = @"happy_group";
-        group.nickName = @"开心聊天群";
-        group.isGroup = YES;
-        group.headPath = @"https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3526296747,2488805525&fm=26&gp=0.jpg";
-        [group asyncGetLastMessage];
-        [array addObject:group];
+        [array addObject:ConversationUserModel.getGroup];
         
         if ([responseObject[@"success"] boolValue]) {
             NSArray<NSDictionary *> *dataArray = responseObject[@"data"];
@@ -117,10 +111,14 @@
                 }];
             }
         }
+        
         dispatch_async(dispatch_get_main_queue(), ^{
-            self.userArray = array;
+            if (![self.userArray isEqualToArray:array]) {
+                self.userArray = array;
+            }
             [self.tableView reloadData];
         });
+
     } failure:^(NSString *error) {
         NSLog(@"error ===== %@",error);
     }];

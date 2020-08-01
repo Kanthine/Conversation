@@ -108,7 +108,7 @@
     }
     
     if (UserManager.shareUser.token){
-        /*
+        /**
          Authorization：授权信息，通常出现在对服务器发送的WWW-Authenticate头的应答中。
          主要用于证明客户端有权查看某个资源。
          当客户端访问一个页面时，如果收到服务器的响应代码为401（未授权），可以发送一个包含Authorization请求报头域的请求，要求服务器对其进行验证。

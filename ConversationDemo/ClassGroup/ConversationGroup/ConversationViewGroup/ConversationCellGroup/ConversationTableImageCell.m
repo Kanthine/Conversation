@@ -62,6 +62,7 @@
 - (UIImageView *)photoView{
     if (_photoView == nil) {
         _photoView = [[UIImageView alloc] init];
+        _photoView.contentMode = UIViewContentModeScaleAspectFill;
         _photoView.backgroundColor = UIColor.whiteColor;
     }
     return _photoView;

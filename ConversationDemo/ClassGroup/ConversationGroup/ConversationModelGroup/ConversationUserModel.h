@@ -17,12 +17,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *account;//用户账号
 @property (nonatomic ,assign) BOOL isGroup;//是否是群组
 @property (nonatomic, strong) ConversationModel *lastMessage;
-@property (nonatomic, copy) void(^getLastMessage)(ConversationModel *lastMessage);
 
 + (instancetype)modelObjectWithDictionary:(NSDictionary *)dict;
 - (NSDictionary *)dictionaryRepresentation;
-- (void)asyncGetLastMessage;
 
+- (void)asyncGetLastMessage:(void(^)(ConversationModel *lastMessage))handle;
++ (instancetype)getGroup;
 @end
 
 

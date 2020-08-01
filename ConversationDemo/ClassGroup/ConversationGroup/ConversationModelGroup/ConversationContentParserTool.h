@@ -17,7 +17,8 @@ FOUNDATION_EXPORT NSString * const kConversationImageLinkRegula;
 FOUNDATION_EXPORT NSString * const kConversationWebLinkRegula;
 //检索电话号码的正则表达式
 FOUNDATION_EXPORT NSString * const kConversationPhoneNumberRegula;
-
+///转换时间
+FOUNDATION_EXPORT NSString *transformChatTime(NSString *theTime);
 /* 动态内容添加的表情键
  * 键值：@{@"1":@"[发呆]"}
  */

@@ -42,17 +42,16 @@ NSString *const kConversationUserModelAccount = @"account";
         self.userId = [self objectOrNilForKey:kConversationUserModelUserId fromDictionary:dict];
         self.account = [self objectOrNilForKey:kConversationUserModelAccount fromDictionary:dict];
         self.isGroup = [[self objectOrNilForKey:kConversationUserModelIsGroup fromDictionary:dict] boolValue];
-        [self asyncGetLastMessage];
+        [self asyncGetLastMessage:nil];
     }
     return self;
 }
 
-- (void)asyncGetLastMessage{
-
+- (void)asyncGetLastMessage:(void(^)(ConversationModel *lastMessage))handle{
     [ConversationModel getLastModelWithTarget:self complete:^(ConversationModel * _Nonnull lastModel) {
         self.lastMessage = lastModel;
-        if (self.getLastMessage) {
-            self.getLastMessage(lastModel);
+        if (handle) {
+            handle(lastModel);
         }
     }];
 }
@@ -72,6 +71,30 @@ NSString *const kConversationUserModelAccount = @"account";
 }
 
 #pragma mark - Helper Method
+
++ (instancetype)getGroup{
+    ConversationUserModel *group = [[ConversationUserModel alloc] init];
+    group.userId = @"happy_group";
+    group.nickName = @"开心聊天群";
+    group.isGroup = YES;
+    group.headPath = @"https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3526296747,2488805525&fm=26&gp=0.jpg";
+    [group asyncGetLastMessage:nil];
+    return group;
+}
+
+- (BOOL)isEqual:(id)object{
+    return [self isEqualUser:object];
+}
+
+- (BOOL)isEqualUser:(ConversationUserModel *)object{
+    if ([self.userId isEqualToString:object.userId] &&
+        [self.headPath isEqualToString:object.headPath] &&
+        [self.nickName isEqualToString:object.nickName]) {
+        return YES;
+    }
+    return NO;
+}
+
 - (id)objectOrNilForKey:(id)aKey fromDictionary:(NSDictionary *)dict{
     id object = [dict objectForKey:aKey];
     return [object isEqual:[NSNull null]] ? nil : object;

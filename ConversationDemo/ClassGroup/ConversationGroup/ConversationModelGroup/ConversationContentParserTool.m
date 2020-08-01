@@ -24,6 +24,39 @@ NSAttributedStringKey const NSConversationEmojiAttributeName = @"com.Conversatio
 
 CGFloat const kConversationTextLineSapce = 4.0;
 
+
+/** 2020-08-01 10:24:49
+ */
+NSString *transformChatTime(NSString *theTime){
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init] ;
+    [formatter setDateStyle:NSDateFormatterMediumStyle];
+    [formatter setTimeStyle:NSDateFormatterShortStyle];
+    [formatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
+
+    NSDate *theDate = [formatter dateFromString:theTime];
+    NSDate *currentDate = NSDate.date;
+    NSString *currentTime = [formatter stringFromDate:currentDate];
+    NSTimeInterval duration = [currentDate timeIntervalSinceDate:theDate];///时间间隔
+    
+    BOOL isToday = [[theTime componentsSeparatedByString:@" "].firstObject isEqualToString:[currentTime componentsSeparatedByString:@" "].firstObject];
+
+    if (isToday) {
+        if (duration <= 60) {  //// 1分钟以内的
+            return @"刚刚";
+        }else if(duration <= 60 * 60 ){ ///  一个小时以内的
+            int mins = duration / 60;
+            return [NSString stringWithFormat:@"%d分钟前",mins];
+        }
+        [formatter setDateFormat:@"HH:mm"];
+        return [formatter stringFromDate:currentDate];
+    }else{
+        [formatter setDateFormat:@"YYYY/MM/dd"];
+        return [formatter stringFromDate:currentDate];
+    }
+}
+
+
 @interface ConversationContentLinkValueModel ()
 @property (nonatomic ,readwrite ,assign) ConversationContentLinkType linkType;
 @property (nonatomic ,readwrite ,strong) NSString *url;

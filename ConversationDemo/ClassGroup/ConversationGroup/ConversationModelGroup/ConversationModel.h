@@ -40,8 +40,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 @interface ConversationModel (Extend)
+
 @property (nonatomic ,assign) CGSize contentSize;
 @property (nonatomic ,assign) CGFloat cellHeight;
+@property (nonatomic, strong) NSString *showTime;
 @property (nonatomic, strong) NSAttributedString *attributedString;
 
 - (ConversationDirection)direction;

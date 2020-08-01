@@ -38,26 +38,24 @@
 - (void)setUserModel:(ConversationUserModel *)userModel{
     [self.portraitImageView sd_setImageWithURL:[NSURL URLWithString:userModel.headPath] placeholderImage:[UIImage imageNamed:@"register_Default"]];
     self.nameLable.text = userModel.nickName;
-    
-    if (userModel.lastMessage) {
-        if (userModel.lastMessage.type == ConversationType_IMAGE) {
+
+    [userModel asyncGetLastMessage:^(ConversationModel * _Nonnull lastMessage) {
+        [self setLastMesage:lastMessage];
+    }];
+}
+
+- (void)setLastMesage:(ConversationModel *)lastMessage{
+    if (lastMessage) {
+        if (lastMessage.type == ConversationType_IMAGE) {
             self.contentLable.text = @"图片消息";
         }else{
-            self.contentLable.attributedText = userModel.lastMessage.attributedString;
+            self.contentLable.attributedText = lastMessage.attributedString;
         }
-        self.timeLable.text = userModel.lastMessage.time;
+        self.timeLable.text = lastMessage.showTime;
 
     }else{
         self.timeLable.text = @"";
         self.contentLable.text = @"还没消息？快点找我唠会";
-        userModel.getLastMessage = ^(ConversationModel * _Nonnull lastMessage) {
-            if (lastMessage.type == ConversationType_IMAGE) {
-                self.contentLable.text = @"图片消息";
-            }else{
-                self.contentLable.attributedText = lastMessage.attributedString;
-            }
-            self.timeLable.text = lastMessage.time;
-        };
     }
 }
 
